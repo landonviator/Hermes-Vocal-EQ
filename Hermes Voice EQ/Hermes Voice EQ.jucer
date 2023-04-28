@@ -6,6 +6,10 @@
               companyEmail="viatordsp@gmail.com">
   <MAINGROUP id="YIAh7N" name="Hermes Voice EQ">
     <GROUP id="{9A19A349-C637-CD36-BE1E-C69303CDF660}" name="Source">
+      <GROUP id="{D81D9201-7431-442D-6A1D-6C65CA8F5508}" name="Components">
+        <FILE id="ChranI" name="Header.cpp" compile="1" resource="0" file="Source/Components/Header.cpp"/>
+        <FILE id="DeXdsY" name="Header.h" compile="0" resource="0" file="Source/Components/Header.h"/>
+      </GROUP>
       <GROUP id="{CD43482E-118F-FA87-3647-BF4A4C2237DF}" name="Globals">
         <FILE id="Rd16Em" name="Globals.cpp" compile="1" resource="0" file="Source/Globals/Globals.cpp"/>
         <FILE id="cerm3a" name="Globals.h" compile="0" resource="0" file="Source/Globals/Globals.h"/>
