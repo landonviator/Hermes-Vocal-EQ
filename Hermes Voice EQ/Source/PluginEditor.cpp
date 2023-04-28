@@ -13,6 +13,12 @@ HermesVoiceEQAudioProcessorEditor::HermesVoiceEQAudioProcessorEditor (HermesVoic
         initDialProps(*dial);
     }
     
+    // Init Labels
+    for (auto i = 0; i < _dialLabels.size(); i++)
+    {
+        initLabelProps(*_dialLabels[i], i);
+    }
+    
     addAndMakeVisible(_headerComp);
 }
 
@@ -33,7 +39,7 @@ void HermesVoiceEQAudioProcessorEditor::resized()
     auto dialHeight = getHeight() * 0.7;
     auto leftMargin = getWidth() * 0.05;
     
-    _headerComp.setBounds(0, 0, getWidth(), getHeight() * 0.1);
+    _headerComp.setBounds(0, 0, getWidth(), getHeight() * 0.12);
     
     for (int i = 0; i < _dials.size(); i++)
     {
@@ -46,6 +52,12 @@ void HermesVoiceEQAudioProcessorEditor::resized()
         {
             _dials[i]->setBounds(_dials[i - 1]->getRight(), topMargin, dialWidth, dialHeight);
         }
+    }
+    
+    // Label font
+    for (auto i = 0; i < _dialLabels.size(); i++)
+    {
+        _dialLabels[i]->setFont(juce::Font("Helvetica", dialWidth * 0.1, juce::Font::FontStyleFlags::bold));
     }
 }
 
@@ -86,11 +98,16 @@ void HermesVoiceEQAudioProcessorEditor::setWindowSizeLogic()
     setResizeLimits(width * 0.5, height * 0.5, width * 1.25, height * 1.25);
 }
 
-void HermesVoiceEQAudioProcessorEditor::initDialProps(juce::Slider &dial)
+void HermesVoiceEQAudioProcessorEditor::initDialProps(Fader &dial)
 {
-    dial.setColour(juce::Slider::ColourIds::trackColourId, _widgetFillColor);
-    dial.setRange(-15.0, 15.0, 0.1);
-    dial.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 64, 32);
-    dial.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
     addAndMakeVisible(dial);
+}
+
+void HermesVoiceEQAudioProcessorEditor::initLabelProps(juce::Label &label, int index)
+{
+    label.setColour(juce::Label::ColourIds::textColourId, _auxTextColor);
+    label.setText(*_labelNames[index], juce::dontSendNotification);
+    label.setJustificationType(juce::Justification::centred);
+    label.attachToComponent(_dials[index], false);
+    addAndMakeVisible(label);
 }
