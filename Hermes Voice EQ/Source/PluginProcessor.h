@@ -1,10 +1,9 @@
 #pragma once
 #include <JuceHeader.h>
+#include "DSP/FilterBank.h"
+#include "Globals/Globals.h"
 
-class HermesVoiceEQAudioProcessor  : public juce::AudioProcessor
-                            #if JucePlugin_Enable_ARA
-                             , public juce::AudioProcessorARAExtension
-                            #endif
+class HermesVoiceEQAudioProcessor  : public juce::AudioProcessor, public juce::AudioProcessorValueTreeState::Listener
 {
 public:
     //==============================================================================
@@ -43,8 +42,20 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    juce::AudioProcessorValueTreeState _treeState;
 
 private:
+    juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+    void parameterChanged (const juce::String& parameterID, float newValue) override;
+    
+    // DSP
+    juce::dsp::ProcessSpec spec;
+    FilterBank<float> _filterBank;
+    void updateFilters();
+    ViatorParameters::Params _paramList;
+    
+    std::string remove_non_digits(const std::string& input);
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HermesVoiceEQAudioProcessor)
 };

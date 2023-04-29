@@ -11,12 +11,25 @@ HermesVoiceEQAudioProcessor::HermesVoiceEQAudioProcessor()
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
                        )
+, _treeState(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
+    _treeState.addParameterListener(ViatorParameters::band1ID, this);
+    _treeState.addParameterListener(ViatorParameters::band2ID, this);
+    _treeState.addParameterListener(ViatorParameters::band3ID, this);
+    _treeState.addParameterListener(ViatorParameters::band4ID, this);
+    _treeState.addParameterListener(ViatorParameters::band5ID, this);
+    _treeState.addParameterListener(ViatorParameters::band6ID, this);
 }
 
 HermesVoiceEQAudioProcessor::~HermesVoiceEQAudioProcessor()
 {
+    _treeState.removeParameterListener(ViatorParameters::band1ID, this);
+    _treeState.removeParameterListener(ViatorParameters::band2ID, this);
+    _treeState.removeParameterListener(ViatorParameters::band3ID, this);
+    _treeState.removeParameterListener(ViatorParameters::band4ID, this);
+    _treeState.removeParameterListener(ViatorParameters::band5ID, this);
+    _treeState.removeParameterListener(ViatorParameters::band6ID, this);
 }
 
 //==============================================================================
@@ -81,11 +94,61 @@ void HermesVoiceEQAudioProcessor::changeProgramName (int index, const juce::Stri
 {
 }
 
+juce::AudioProcessorValueTreeState::ParameterLayout HermesVoiceEQAudioProcessor::createParameterLayout()
+{
+    std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
+    
+    params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { ViatorParameters::band1ID, 1 }, ViatorParameters::band1Name, -15.0f, 15.0f, 0.0f));
+    params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { ViatorParameters::band2ID, 1 }, ViatorParameters::band2Name, -15.0f, 15.0f, 0.0f));
+    params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { ViatorParameters::band3ID, 1 }, ViatorParameters::band3Name, -15.0f, 15.0f, 0.0f));
+    params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { ViatorParameters::band4ID, 1 }, ViatorParameters::band4Name, -15.0f, 15.0f, 0.0f));
+    params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { ViatorParameters::band5ID, 1 }, ViatorParameters::band5Name, -15.0f, 15.0f, 0.0f));
+    params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { ViatorParameters::band6ID, 1 }, ViatorParameters::band6Name, -15.0f, 15.0f, 0.0f));
+        
+    return { params.begin(), params.end() };
+}
+
+void HermesVoiceEQAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
+
+{
+    for (int i = 0; i < _paramList.getIDs().size(); ++i)
+    {
+        if (parameterID == _paramList.getIDs()[i])
+        {
+            // Calculate proportional q based on gain
+            auto newQ = 0.1;
+            newQ = std::pow(10.0, std::abs(newValue) * 0.05);
+            
+            // Update filter based on which gain moved
+            std::string bandToUpdate = remove_non_digits(_paramList.getIDs()[i].toStdString());
+            _filterBank.updateFilter(std::stoi(bandToUpdate) - 1, newQ, newValue);
+        }
+    }
+}
+
+inline bool not_digit(char ch)
+{
+    return '0' <= ch && ch <= '9';
+}
+
+std::string HermesVoiceEQAudioProcessor::remove_non_digits(const std::string& input) {
+    std::string result;
+    std::copy_if(input.begin(), input.end(),
+        std::back_inserter(result),
+        not_digit);
+    return result;
+}
+
+
 //==============================================================================
 void HermesVoiceEQAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    spec.sampleRate = sampleRate;
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.numChannels = getTotalNumInputChannels();
+    
+    _filterBank.prepare(spec);
+    updateFilters();
 }
 
 void HermesVoiceEQAudioProcessor::releaseResources()
@@ -122,6 +185,22 @@ bool HermesVoiceEQAudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
 
 void HermesVoiceEQAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
+    if (spec.maximumBlockSize != buffer.getNumSamples())
+    {
+        spec.maximumBlockSize = buffer.getNumSamples();
+        _filterBank.prepare(spec);
+    }
+    
+    juce::dsp::AudioBlock<float> mainBlock {buffer};
+    _filterBank.process(juce::dsp::ProcessContextReplacing<float>(mainBlock));
+}
+
+void HermesVoiceEQAudioProcessor::updateFilters()
+{
+    for (int i = 0; i < 6; i++)
+    {
+        _filterBank.updateFilter(i, 0.3, _treeState.getRawParameterValue(_paramList.getIDs()[i])->load());
+    }
 }
 
 //==============================================================================
@@ -132,7 +211,8 @@ bool HermesVoiceEQAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* HermesVoiceEQAudioProcessor::createEditor()
 {
-    return new HermesVoiceEQAudioProcessorEditor (*this);
+    //return new HermesVoiceEQAudioProcessorEditor (*this);
+    return new juce::GenericAudioProcessorEditor (*this);
 }
 
 //==============================================================================

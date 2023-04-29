@@ -6,6 +6,10 @@
               companyEmail="viatordsp@gmail.com">
   <MAINGROUP id="YIAh7N" name="Hermes Voice EQ">
     <GROUP id="{9A19A349-C637-CD36-BE1E-C69303CDF660}" name="Source">
+      <GROUP id="{7B55D088-3F55-895C-DB1C-A3B98213D5A4}" name="DSP">
+        <FILE id="EQheMO" name="FilterBank.cpp" compile="1" resource="0" file="Source/DSP/FilterBank.cpp"/>
+        <FILE id="G1QAx4" name="FilterBank.h" compile="0" resource="0" file="Source/DSP/FilterBank.h"/>
+      </GROUP>
       <GROUP id="{030E4461-5E98-D7F9-9E2A-CD1566B719F4}" name="LAF">
         <FILE id="fotNYl" name="FaderLAF.cpp" compile="1" resource="0" file="Source/LAF/FaderLAF.cpp"/>
         <FILE id="YBXKAs" name="FaderLAF.h" compile="0" resource="0" file="Source/LAF/FaderLAF.h"/>
