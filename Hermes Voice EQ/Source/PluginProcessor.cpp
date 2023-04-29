@@ -139,8 +139,6 @@ std::string HermesVoiceEQAudioProcessor::remove_non_digits(const std::string& in
     return result;
 }
 
-
-//==============================================================================
 void HermesVoiceEQAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     spec.sampleRate = sampleRate;
@@ -191,13 +189,19 @@ void HermesVoiceEQAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
         _filterBank.prepare(spec);
     }
     
+    if (spec.sampleRate != getSampleRate())
+    {
+        spec.sampleRate = getSampleRate();
+        _filterBank.prepare(spec);
+    }
+    
     juce::dsp::AudioBlock<float> mainBlock {buffer};
     _filterBank.process(juce::dsp::ProcessContextReplacing<float>(mainBlock));
 }
 
 void HermesVoiceEQAudioProcessor::updateFilters()
 {
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < _paramList.getIDs().size(); i++)
     {
         _filterBank.updateFilter(i, 0.3, _treeState.getRawParameterValue(_paramList.getIDs()[i])->load());
     }
@@ -211,8 +215,8 @@ bool HermesVoiceEQAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* HermesVoiceEQAudioProcessor::createEditor()
 {
-    //return new HermesVoiceEQAudioProcessorEditor (*this);
-    return new juce::GenericAudioProcessorEditor (*this);
+    return new HermesVoiceEQAudioProcessorEditor (*this);
+    //return new juce::GenericAudioProcessorEditor (*this);
 }
 
 //==============================================================================

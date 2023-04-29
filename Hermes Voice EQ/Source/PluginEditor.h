@@ -4,6 +4,7 @@
 #include "PluginProcessor.h"
 #include "Globals/Globals.h"
 #include "Components/Header.h"
+#include "Components/SettingsPage.h"
 #include "Widgets/Fader.h"
 
 class HermesVoiceEQAudioProcessorEditor  : public juce::AudioProcessorEditor
@@ -62,6 +63,12 @@ private:
         &_band1DialLabelText, &_band2DialLabelText, &_band3DialLabelText,
         &_band4DialLabelText, &_band5DialLabelText, &_band6DialLabelText
     };
+    
+    // Settings
+    SettingsPage _settingsPage;
+    void setSettingsState(bool isActive);
+    juce::Label _settingsOverlay;
+    void initOverlayProps();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HermesVoiceEQAudioProcessorEditor)
 };

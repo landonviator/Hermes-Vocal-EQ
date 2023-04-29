@@ -21,6 +21,9 @@
       <GROUP id="{D81D9201-7431-442D-6A1D-6C65CA8F5508}" name="Components">
         <FILE id="ChranI" name="Header.cpp" compile="1" resource="0" file="Source/Components/Header.cpp"/>
         <FILE id="DeXdsY" name="Header.h" compile="0" resource="0" file="Source/Components/Header.h"/>
+        <FILE id="QAuzl4" name="SettingsPage.cpp" compile="1" resource="0"
+              file="Source/Components/SettingsPage.cpp"/>
+        <FILE id="tzTh16" name="SettingsPage.h" compile="0" resource="0" file="Source/Components/SettingsPage.h"/>
       </GROUP>
       <GROUP id="{CD43482E-118F-FA87-3647-BF4A4C2237DF}" name="Globals">
         <FILE id="Rd16Em" name="Globals.cpp" compile="1" resource="0" file="Source/Globals/Globals.cpp"/>

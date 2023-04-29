@@ -19,7 +19,12 @@ HermesVoiceEQAudioProcessorEditor::HermesVoiceEQAudioProcessorEditor (HermesVoic
         initLabelProps(*_dialLabels[i], i);
     }
     
+    // Header
     addAndMakeVisible(_headerComp);
+    
+    // Settings
+    addAndMakeVisible(_settingsPage);
+    setSettingsState(_headerComp.isSettingsActive());
 }
 
 HermesVoiceEQAudioProcessorEditor::~HermesVoiceEQAudioProcessorEditor()
@@ -39,8 +44,14 @@ void HermesVoiceEQAudioProcessorEditor::resized()
     auto dialHeight = getHeight() * 0.7;
     auto leftMargin = getWidth() * 0.05;
     
+    // Header
     _headerComp.setBounds(0, 0, getWidth(), getHeight() * 0.12);
     
+    // Settings
+    setSettingsState(_headerComp.isSettingsActive());
+    _settingsPage.setBounds(getWidth() * 0.66, _headerComp.getBottom(), getWidth() * 0.34, getHeight() - _headerComp.getHeight());
+    
+    // Sliders
     for (int i = 0; i < _dials.size(); i++)
     {
         if (i == 0)
@@ -61,6 +72,7 @@ void HermesVoiceEQAudioProcessorEditor::resized()
     }
 }
 
+#pragma mark Window
 void HermesVoiceEQAudioProcessorEditor::setWindowSizeLogic()
 {
     // Grab the window instance and create a rectangle
@@ -98,11 +110,13 @@ void HermesVoiceEQAudioProcessorEditor::setWindowSizeLogic()
     setResizeLimits(width * 0.5, height * 0.5, width * 1.25, height * 1.25);
 }
 
+#pragma mark Dials
 void HermesVoiceEQAudioProcessorEditor::initDialProps(Fader &dial)
 {
     addAndMakeVisible(dial);
 }
 
+#pragma mark Labels
 void HermesVoiceEQAudioProcessorEditor::initLabelProps(juce::Label &label, int index)
 {
     label.setColour(juce::Label::ColourIds::textColourId, _auxTextColor);
@@ -110,4 +124,17 @@ void HermesVoiceEQAudioProcessorEditor::initLabelProps(juce::Label &label, int i
     label.setJustificationType(juce::Justification::centred);
     label.attachToComponent(_dials[index], false);
     addAndMakeVisible(label);
+}
+
+void HermesVoiceEQAudioProcessorEditor::initOverlayProps()
+{
+    _settingsOverlay.setColour(juce::Label::ColourIds::backgroundColourId, juce::Colours::black.withAlpha(0.25f));
+    addAndMakeVisible(_settingsOverlay);
+}
+
+#pragma mark Settings
+void HermesVoiceEQAudioProcessorEditor::setSettingsState(bool isActive)
+{
+    _settingsPage.setVisible(isActive);
+    _settingsPage.setEnabled(isActive);
 }

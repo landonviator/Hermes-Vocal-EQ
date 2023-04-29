@@ -6,6 +6,7 @@ extern juce::Colour _mainTextColor;
 extern juce::Colour _auxTextColor;
 extern juce::Colour _widgetFillColor;
 extern juce::Colour _auxBackgroundColor;
+extern juce::Colour _blackBackgroundColor;
 
 namespace ViatorParameters
 {
