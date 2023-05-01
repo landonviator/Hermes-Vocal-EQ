@@ -94,14 +94,11 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesVoiceEQAudioProcessor:
 {
     std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
     
-    
-    
-    params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { ViatorParameters::band1ID, 1 }, ViatorParameters::band1Name, -15.0f, 15.0f, 0.0f));
-    params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { ViatorParameters::band2ID, 1 }, ViatorParameters::band2Name, -15.0f, 15.0f, 0.0f));
-    params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { ViatorParameters::band3ID, 1 }, ViatorParameters::band3Name, -15.0f, 15.0f, 0.0f));
-    params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { ViatorParameters::band4ID, 1 }, ViatorParameters::band4Name, -15.0f, 15.0f, 0.0f));
-    params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { ViatorParameters::band5ID, 1 }, ViatorParameters::band5Name, -15.0f, 15.0f, 0.0f));
-    params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { ViatorParameters::band6ID, 1 }, ViatorParameters::band6Name, -15.0f, 15.0f, 0.0f));
+    for (int i = 0; i < _paramList.getParams().size(); i++)
+    {
+        auto param = _paramList.getParams()[i];
+        params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { param._id, 1 }, param._name, param._min, param._max, param._initial));
+    }
         
     return { params.begin(), params.end() };
 }

@@ -45,6 +45,7 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
+    ViatorParameters::Params _paramList;
     juce::AudioProcessorValueTreeState _treeState;
 
 private:
@@ -55,7 +56,6 @@ private:
     juce::dsp::ProcessSpec spec;
     FilterBank<float> _filterBank;
     void updateFilters();
-    ViatorParameters::Params _paramList;
     
     std::string remove_non_digits(const std::string& input);
     //==============================================================================

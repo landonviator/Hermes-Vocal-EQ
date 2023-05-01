@@ -42,8 +42,7 @@
       allowLocationSimulation = "YES">
       <PathRunnable
          runnableDebuggingMode = "0"
-         BundleIdentifier = "com.apple.logic10"
-         FilePath = "/Applications/Logic Pro X.app">
+         FilePath = "/Applications/pluginval.app">
       </PathRunnable>
    </LaunchAction>
    <ProfileAction

@@ -27,7 +27,7 @@ namespace ViatorParameters
             _params.push_back({ViatorParameters::band6ID, ViatorParameters::band6Name, -15.0, 15.0, 0.0f});
         }
         
-        std::vector<ViatorParameters::Parameter> getParams() { return _params;};
+        std::vector<ViatorParameters::Parameter>& getParams() { return _params;};
     private:
         std::vector<ViatorParameters::Parameter> _params;
     };
