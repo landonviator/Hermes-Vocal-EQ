@@ -100,9 +100,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesVoiceEQAudioProcessor:
         
         if (i == _paramList.getParams().size() - 1)
         {
-            auto highCutRange = juce::NormalisableRange<int>(static_cast<int>(param._min), static_cast<int>(param._max));
-            highCutRange.setSkewForCentre(10000);
-            params.push_back (std::make_unique<juce::AudioParameterInt>(juce::ParameterID { param._id, 1 }, param._name, highCutRange.start, highCutRange.end, param._initial));
+            auto highCutRange = juce::NormalisableRange<float>(param._min, param._max);
+            highCutRange.setSkewForCentre(10000.0f);
+            params.push_back (std::make_unique<Parameter>(juce::ParameterID { param._id, 1 }, param._name, param._name, highCutRange, param._initial, valueToTextFunction, textToValueFunction));
         }
         
         else
@@ -212,8 +212,8 @@ bool HermesVoiceEQAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* HermesVoiceEQAudioProcessor::createEditor()
 {
-    //return new HermesVoiceEQAudioProcessorEditor (*this);
-    return new juce::GenericAudioProcessorEditor (*this);
+    return new HermesVoiceEQAudioProcessorEditor (*this);
+    //return new juce::GenericAudioProcessorEditor (*this);
 }
 
 //==============================================================================

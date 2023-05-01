@@ -7,10 +7,13 @@ HermesVoiceEQAudioProcessorEditor::HermesVoiceEQAudioProcessorEditor (HermesVoic
     // Window sizing
     setWindowSizeLogic();
     
+    auto dialIndex = 0;
+    
     // Init Dials
     for (auto& dial : _dials)
     {
-        initDialProps(*dial);
+        initDialProps(*dial, dialIndex);
+        dialIndex++;
     }
     
     // Init Labels
@@ -111,8 +114,9 @@ void HermesVoiceEQAudioProcessorEditor::setWindowSizeLogic()
 }
 
 #pragma mark Dials
-void HermesVoiceEQAudioProcessorEditor::initDialProps(Fader &dial)
+void HermesVoiceEQAudioProcessorEditor::initDialProps(Fader &dial, int index)
 {
+    _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, audioProcessor._paramList.getParams()[index]._id, dial));
     addAndMakeVisible(dial);
 }
 

@@ -56,6 +56,10 @@ private:
     juce::dsp::ProcessSpec spec;
     FilterBank<float> _filterBank;
     void updateFilters();
+    
+    using Parameter = juce::AudioProcessorValueTreeState::Parameter;
+    static juce::String valueToTextFunction(float x) { return juce::String(static_cast<int>(x)); }
+    static float textToValueFunction(const juce::String& str) { return str.getFloatValue(); }
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HermesVoiceEQAudioProcessor)
 };

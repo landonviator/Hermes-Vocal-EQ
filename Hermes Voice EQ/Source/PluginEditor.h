@@ -35,7 +35,7 @@ private:
         &_band1Dial, &_band2Dial, &_band3Dial,
         &_band4Dial, &_band5Dial, &_band6Dial
     };
-    void initDialProps(Fader& dial);
+    void initDialProps(Fader& dial, int index);
     
     Header _headerComp;
     
@@ -69,6 +69,15 @@ private:
     void setSettingsState(bool isActive);
     juce::Label _settingsOverlay;
     void initOverlayProps();
+    
+    using sliderAttachment = juce::AudioProcessorValueTreeState::SliderAttachment;
+    juce::OwnedArray<sliderAttachment> _sliderAttachments;
+    std::unique_ptr<sliderAttachment> _band1Attach;
+    std::unique_ptr<sliderAttachment> _band2Attach;
+    std::unique_ptr<sliderAttachment> _band3Attach;
+    std::unique_ptr<sliderAttachment> _band4Attach;
+    std::unique_ptr<sliderAttachment> _band5Attach;
+    std::unique_ptr<sliderAttachment> _band6Attach;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HermesVoiceEQAudioProcessorEditor)
 };
