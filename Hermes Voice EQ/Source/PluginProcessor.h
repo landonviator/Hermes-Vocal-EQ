@@ -56,8 +56,6 @@ private:
     juce::dsp::ProcessSpec spec;
     FilterBank<float> _filterBank;
     void updateFilters();
-    
-    std::string remove_non_digits(const std::string& input);
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HermesVoiceEQAudioProcessor)
 };

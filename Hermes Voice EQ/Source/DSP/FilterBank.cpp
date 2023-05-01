@@ -26,7 +26,26 @@ void FilterBank<SampleType>::prepare(const juce::dsp::ProcessSpec& spec) noexcep
     
     for (int i = 0; i < _filterBank.size(); ++i)
     {
-        _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, _cutoffs[i], 0.1f, 1.0f);
+        if (i == 0)
+        {
+            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makeHighPass(_sampleRate, _cutoffs[i]);
+        }
+        
+        else if (i == 4)
+        {
+            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makeHighShelf(_sampleRate, _cutoffs[i], 0.3f, 1.0f);
+        }
+        
+        else if (i == 5)
+        {
+            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, _cutoffs[i]);
+        }
+        
+        else
+        {
+            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, _cutoffs[i], 0.6f, 1.0f);
+        }
+        
         _filterBank[i].reset (new juce::dsp::IIR::Filter<juce::dsp::SIMDRegister<float>> (_coefficients[i]));
     }
 
@@ -61,10 +80,30 @@ void FilterBank<SampleType>::reset() noexcept
 }
 
 template <typename SampleType>
-void FilterBank<SampleType>::updateFilter(int bandToUpdate, float newQ, float newGain)
+void FilterBank<SampleType>::updateFilter(int bandToUpdate, float newQ, float newGain, float newCutoff)
 {
     auto gain = juce::Decibels::decibelsToGain(newGain);
-    *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, _cutoffs[bandToUpdate], newQ, gain);
+    
+    if (bandToUpdate == 0)
+    {
+        *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makeHighPass(_sampleRate, newCutoff);
+    }
+    
+    else if (bandToUpdate == 4)
+    {
+        *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makeHighShelf(_sampleRate, _cutoffs[bandToUpdate], newQ, gain);
+    }
+    
+    else if (bandToUpdate == 5)
+    {
+        *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, newCutoff);
+    }
+    
+    else
+    {
+        *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, _cutoffs[bandToUpdate], newQ, gain);
+    }
+    
 }
 
 template class FilterBank<float>;

@@ -97,7 +97,18 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesVoiceEQAudioProcessor:
     for (int i = 0; i < _paramList.getParams().size(); i++)
     {
         auto param = _paramList.getParams()[i];
-        params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { param._id, 1 }, param._name, param._min, param._max, param._initial));
+        
+        if (i == _paramList.getParams().size() - 1)
+        {
+            auto highCutRange = juce::NormalisableRange<int>(static_cast<int>(param._min), static_cast<int>(param._max));
+            highCutRange.setSkewForCentre(10000);
+            params.push_back (std::make_unique<juce::AudioParameterInt>(juce::ParameterID { param._id, 1 }, param._name, highCutRange.start, highCutRange.end, param._initial));
+        }
+        
+        else
+        {
+            params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { param._id, 1 }, param._name, param._min, param._max, param._initial));
+        }
     }
         
     return { params.begin(), params.end() };
@@ -106,32 +117,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesVoiceEQAudioProcessor:
 void HermesVoiceEQAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
 
 {
-    for (int i = 0; i < _paramList.getParams().size(); ++i)
-    {
-        if (parameterID == _paramList.getParams()[i]._id)
-        {
-            // Calculate proportional q based on gain
-            auto newQ = 0.1;
-            newQ = std::pow(10.0, std::abs(newValue) * 0.05);
-            
-            // Update filter based on which gain moved
-            std::string bandToUpdate = remove_non_digits(_paramList.getParams()[i]._id.toStdString());
-            _filterBank.updateFilter(std::stoi(bandToUpdate) - 1, newQ, newValue);
-        }
-    }
-}
-
-inline bool not_digit(char ch)
-{
-    return '0' <= ch && ch <= '9';
-}
-
-std::string HermesVoiceEQAudioProcessor::remove_non_digits(const std::string& input) {
-    std::string result;
-    std::copy_if(input.begin(), input.end(),
-        std::back_inserter(result),
-        not_digit);
-    return result;
+    updateFilters();
 }
 
 void HermesVoiceEQAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
@@ -178,18 +164,21 @@ bool HermesVoiceEQAudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
 
 void HermesVoiceEQAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
+    // Update block size
     if (spec.maximumBlockSize != buffer.getNumSamples())
     {
         spec.maximumBlockSize = buffer.getNumSamples();
         _filterBank.prepare(spec);
     }
     
+    // Update samplerate
     if (spec.sampleRate != getSampleRate())
     {
         spec.sampleRate = getSampleRate();
         _filterBank.prepare(spec);
     }
     
+    // Process the filters
     juce::dsp::AudioBlock<float> mainBlock {buffer};
     _filterBank.process(juce::dsp::ProcessContextReplacing<float>(mainBlock));
 }
@@ -198,7 +187,20 @@ void HermesVoiceEQAudioProcessor::updateFilters()
 {
     for (int i = 0; i < _paramList.getParams().size(); i++)
     {
-        _filterBank.updateFilter(i, 0.3, _treeState.getRawParameterValue(_paramList.getParams()[i]._id)->load());
+        auto param = _paramList.getParams()[i];
+        
+        if (i == 0 || i == _paramList.getParams().size() - 1)
+        {
+            // For the pass filters, you pass the raw tree value
+            // twice because the parameter data has the correct info
+            _filterBank.updateFilter(i, param._q, _treeState.getRawParameterValue(param._id)->load(), _treeState.getRawParameterValue(param._id)->load());
+        }
+        
+        else
+        {
+            // For non pass filters, the last arg isnt used, so pass anything
+            _filterBank.updateFilter(i, param._q, _treeState.getRawParameterValue(param._id)->load(), -1.0);
+        }
     }
 }
 
