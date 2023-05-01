@@ -14,22 +14,18 @@ HermesVoiceEQAudioProcessor::HermesVoiceEQAudioProcessor()
 , _treeState(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
-    _treeState.addParameterListener(ViatorParameters::band1ID, this);
-    _treeState.addParameterListener(ViatorParameters::band2ID, this);
-    _treeState.addParameterListener(ViatorParameters::band3ID, this);
-    _treeState.addParameterListener(ViatorParameters::band4ID, this);
-    _treeState.addParameterListener(ViatorParameters::band5ID, this);
-    _treeState.addParameterListener(ViatorParameters::band6ID, this);
+    for (int i = 0; i < _paramList.getParams().size(); i++)
+    {
+        _treeState.addParameterListener(_paramList.getParams()[i]._id, this);
+    }
 }
 
 HermesVoiceEQAudioProcessor::~HermesVoiceEQAudioProcessor()
 {
-    _treeState.removeParameterListener(ViatorParameters::band1ID, this);
-    _treeState.removeParameterListener(ViatorParameters::band2ID, this);
-    _treeState.removeParameterListener(ViatorParameters::band3ID, this);
-    _treeState.removeParameterListener(ViatorParameters::band4ID, this);
-    _treeState.removeParameterListener(ViatorParameters::band5ID, this);
-    _treeState.removeParameterListener(ViatorParameters::band6ID, this);
+    for (int i = 0; i < _paramList.getParams().size(); i++)
+    {
+        _treeState.removeParameterListener(_paramList.getParams()[i]._id, this);
+    }
 }
 
 //==============================================================================
@@ -98,6 +94,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesVoiceEQAudioProcessor:
 {
     std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
     
+    
+    
     params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { ViatorParameters::band1ID, 1 }, ViatorParameters::band1Name, -15.0f, 15.0f, 0.0f));
     params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { ViatorParameters::band2ID, 1 }, ViatorParameters::band2Name, -15.0f, 15.0f, 0.0f));
     params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { ViatorParameters::band3ID, 1 }, ViatorParameters::band3Name, -15.0f, 15.0f, 0.0f));
@@ -111,16 +109,16 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesVoiceEQAudioProcessor:
 void HermesVoiceEQAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
 
 {
-    for (int i = 0; i < _paramList.getIDs().size(); ++i)
+    for (int i = 0; i < _paramList.getParams().size(); ++i)
     {
-        if (parameterID == _paramList.getIDs()[i])
+        if (parameterID == _paramList.getParams()[i]._id)
         {
             // Calculate proportional q based on gain
             auto newQ = 0.1;
             newQ = std::pow(10.0, std::abs(newValue) * 0.05);
             
             // Update filter based on which gain moved
-            std::string bandToUpdate = remove_non_digits(_paramList.getIDs()[i].toStdString());
+            std::string bandToUpdate = remove_non_digits(_paramList.getParams()[i]._id.toStdString());
             _filterBank.updateFilter(std::stoi(bandToUpdate) - 1, newQ, newValue);
         }
     }
@@ -201,9 +199,9 @@ void HermesVoiceEQAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
 
 void HermesVoiceEQAudioProcessor::updateFilters()
 {
-    for (int i = 0; i < _paramList.getIDs().size(); i++)
+    for (int i = 0; i < _paramList.getParams().size(); i++)
     {
-        _filterBank.updateFilter(i, 0.3, _treeState.getRawParameterValue(_paramList.getIDs()[i])->load());
+        _filterBank.updateFilter(i, 0.3, _treeState.getRawParameterValue(_paramList.getParams()[i]._id)->load());
     }
 }
 
@@ -215,8 +213,8 @@ bool HermesVoiceEQAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* HermesVoiceEQAudioProcessor::createEditor()
 {
-    return new HermesVoiceEQAudioProcessorEditor (*this);
-    //return new juce::GenericAudioProcessorEditor (*this);
+    //return new HermesVoiceEQAudioProcessorEditor (*this);
+    return new juce::GenericAudioProcessorEditor (*this);
 }
 
 //==============================================================================

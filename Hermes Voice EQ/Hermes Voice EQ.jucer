@@ -28,6 +28,8 @@
       <GROUP id="{CD43482E-118F-FA87-3647-BF4A4C2237DF}" name="Globals">
         <FILE id="Rd16Em" name="Globals.cpp" compile="1" resource="0" file="Source/Globals/Globals.cpp"/>
         <FILE id="cerm3a" name="Globals.h" compile="0" resource="0" file="Source/Globals/Globals.h"/>
+        <FILE id="jvIcCY" name="Parameters.cpp" compile="1" resource="0" file="Source/Globals/Parameters.cpp"/>
+        <FILE id="cJS1zg" name="Parameters.h" compile="0" resource="0" file="Source/Globals/Parameters.h"/>
       </GROUP>
       <FILE id="wkNsJu" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>

@@ -2,6 +2,8 @@
 #include <JuceHeader.h>
 #include "DSP/FilterBank.h"
 #include "Globals/Globals.h"
+#include "Globals/Parameters.h"
+
 
 class HermesVoiceEQAudioProcessor  : public juce::AudioProcessor, public juce::AudioProcessorValueTreeState::Listener
 {
