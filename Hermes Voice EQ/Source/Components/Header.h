@@ -2,6 +2,7 @@
 #include <JuceHeader.h>
 #include "../Globals/Globals.h"
 
+class HermesVoiceEQAudioProcessorEditor;
 class Header  : public juce::Component
 {
 public:
@@ -13,7 +14,7 @@ public:
     
     // Settings
     bool isSettingsActive();
-
+    
 private:
     
     // Shadow
@@ -23,6 +24,8 @@ private:
     // Settings
     juce::TextButton _settingsButton;
     void setSettingsButtonProps();
+    
+private:
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Header)
 };

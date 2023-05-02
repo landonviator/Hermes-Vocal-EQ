@@ -1,5 +1,6 @@
 #include <JuceHeader.h>
 #include "Header.h"
+#include "../PluginEditor.h"
 
 Header::Header()
 {
@@ -17,7 +18,12 @@ Header::~Header()
 
 void Header::paint (juce::Graphics& g)
 {
-    g.setColour(_auxBackgroundColor);
+    auto* parent = dynamic_cast<HermesVoiceEQAudioProcessorEditor*>(getParentComponent());
+    
+    if (parent == nullptr)
+        return;
+    
+    g.setColour(parent->getThemeData().getAuxBackgroundColor());
     g.fillAll();
 }
 

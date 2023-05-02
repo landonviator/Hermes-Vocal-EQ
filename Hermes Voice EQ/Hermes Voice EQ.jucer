@@ -11,6 +11,8 @@
         <FILE id="G1QAx4" name="FilterBank.h" compile="0" resource="0" file="Source/DSP/FilterBank.h"/>
       </GROUP>
       <GROUP id="{030E4461-5E98-D7F9-9E2A-CD1566B719F4}" name="LAF">
+        <FILE id="WIOB5f" name="Colors.cpp" compile="1" resource="0" file="Source/LAF/Colors.cpp"/>
+        <FILE id="zucyfc" name="Colors.h" compile="0" resource="0" file="Source/LAF/Colors.h"/>
         <FILE id="fotNYl" name="FaderLAF.cpp" compile="1" resource="0" file="Source/LAF/FaderLAF.cpp"/>
         <FILE id="YBXKAs" name="FaderLAF.h" compile="0" resource="0" file="Source/LAF/FaderLAF.h"/>
       </GROUP>

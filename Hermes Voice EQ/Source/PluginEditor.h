@@ -6,6 +6,7 @@
 #include "Components/Header.h"
 #include "Components/SettingsPage.h"
 #include "Widgets/Fader.h"
+#include "LAF/Colors.h"
 
 class HermesVoiceEQAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
@@ -16,11 +17,18 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
+    
+    ViatorThemes::ViatorThemeData& getThemeData()
+    {
+            return _theme;
+    }
 
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     HermesVoiceEQAudioProcessor& audioProcessor;
+    
+    ViatorThemes::ViatorThemeData _theme;
     
     void setWindowSizeLogic();
     
@@ -78,6 +86,7 @@ private:
     std::unique_ptr<sliderAttachment> _band4Attach;
     std::unique_ptr<sliderAttachment> _band5Attach;
     std::unique_ptr<sliderAttachment> _band6Attach;
+    
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HermesVoiceEQAudioProcessorEditor)
 };

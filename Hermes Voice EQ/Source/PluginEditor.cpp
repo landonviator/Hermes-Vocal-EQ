@@ -8,7 +8,7 @@ HermesVoiceEQAudioProcessorEditor::HermesVoiceEQAudioProcessorEditor (HermesVoic
     setWindowSizeLogic();
     
     auto dialIndex = 0;
-    
+
     // Init Dials
     for (auto& dial : _dials)
     {
@@ -22,7 +22,7 @@ HermesVoiceEQAudioProcessorEditor::HermesVoiceEQAudioProcessorEditor (HermesVoic
         initLabelProps(*_dialLabels[i], i);
     }
     
-    // Header
+   //  Header
     addAndMakeVisible(_headerComp);
     
     // Settings
@@ -36,7 +36,7 @@ HermesVoiceEQAudioProcessorEditor::~HermesVoiceEQAudioProcessorEditor()
 
 void HermesVoiceEQAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    g.setColour(_mainBackgroundColor);
+    g.setColour(_theme.getMainBackgroundColor());
     g.fillAll ();
 }
 
@@ -123,7 +123,7 @@ void HermesVoiceEQAudioProcessorEditor::initDialProps(Fader &dial, int index)
 #pragma mark Labels
 void HermesVoiceEQAudioProcessorEditor::initLabelProps(juce::Label &label, int index)
 {
-    label.setColour(juce::Label::ColourIds::textColourId, _auxTextColor);
+    label.setColour(juce::Label::ColourIds::textColourId, _theme.getAuxTextColor());
     label.setText(*_labelNames[index], juce::dontSendNotification);
     label.setJustificationType(juce::Justification::centred);
     label.attachToComponent(_dials[index], false);

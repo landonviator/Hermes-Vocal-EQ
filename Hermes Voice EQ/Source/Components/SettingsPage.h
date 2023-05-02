@@ -1,8 +1,9 @@
 #pragma once
 #include <JuceHeader.h>
-#include "../Globals/Globals.h"
+#include "../LAF/Colors.h"
 
-class SettingsPage  : public juce::Component
+class HermesVoiceEQAudioProcessorEditor;
+class SettingsPage  : public juce::Component, public juce::ChangeBroadcaster
 {
 public:
     SettingsPage();
@@ -12,5 +13,11 @@ public:
     void resized() override;
 
 private:
+    juce::Label _themeLabel;
+    juce::ComboBox _themeMenu;
+    
+private:
+    void initThemeLabelProps();
+    void initThemeMenuProps();
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SettingsPage)
 };
