@@ -11,7 +11,7 @@ namespace ViatorThemes
         {
             case Theme::kPrimeDark:
             {
-                _mainBackgroundColor = juce::Colour::fromRGB(40, 44, 52);
+                _mainBackgroundColor = juce::Colour::fromRGB(33, 37, 43);
                 _mainTextColor = juce::Colour::fromRGB(87, 154, 208);
                 _widgetFillColor = juce::Colour::fromRGB(161, 168, 181).darker(0.3f);
                 _auxBackgroundColor = _mainBackgroundColor.darker(0.25f);

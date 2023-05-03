@@ -17,7 +17,7 @@ SettingsPage::~SettingsPage()
 
 void SettingsPage::paint (juce::Graphics& g)
 {
-    g.setColour(juce::Colours::black.brighter(0.1));
+    g.setColour(juce::Colour::fromRGB(23, 24, 25));
     g.fillAll();
 }
 
