@@ -28,6 +28,8 @@ HermesVoiceEQAudioProcessorEditor::HermesVoiceEQAudioProcessorEditor (HermesVoic
     // Settings
     addAndMakeVisible(_settingsPage);
     setSettingsState(_headerComp.isSettingsActive());
+    updateSliderColors();
+    updateLabelColors();
 }
 
 HermesVoiceEQAudioProcessorEditor::~HermesVoiceEQAudioProcessorEditor()
@@ -38,6 +40,8 @@ void HermesVoiceEQAudioProcessorEditor::paint (juce::Graphics& g)
 {
     g.setColour(_theme.getMainBackgroundColor());
     g.fillAll ();
+    updateSliderColors();
+    updateLabelColors();
 }
 
 void HermesVoiceEQAudioProcessorEditor::resized()
@@ -120,6 +124,18 @@ void HermesVoiceEQAudioProcessorEditor::initDialProps(Fader &dial, int index)
     addAndMakeVisible(dial);
 }
 
+void HermesVoiceEQAudioProcessorEditor::updateSliderColors()
+{
+    for (auto& dial : _dials)
+    {
+        dial->setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::transparentBlack);
+        dial->setColour(juce::Slider::ColourIds::backgroundColourId, _theme.getAuxBackgroundColor());
+        dial->setColour(juce::Slider::ColourIds::textBoxTextColourId, _theme.getWidgetFillColor());
+        dial->setColour(juce::Slider::ColourIds::trackColourId, _theme.getWidgetFillColor());
+        dial->setColour(juce::Slider::ColourIds::thumbColourId, _theme.getAuxTextColor());
+    }
+}
+
 #pragma mark Labels
 void HermesVoiceEQAudioProcessorEditor::initLabelProps(juce::Label &label, int index)
 {
@@ -134,6 +150,14 @@ void HermesVoiceEQAudioProcessorEditor::initOverlayProps()
 {
     _settingsOverlay.setColour(juce::Label::ColourIds::backgroundColourId, juce::Colours::black.withAlpha(0.25f));
     addAndMakeVisible(_settingsOverlay);
+}
+
+void HermesVoiceEQAudioProcessorEditor::updateLabelColors()
+{
+    for (auto& label : _dialLabels)
+    {
+        label->setColour(juce::Label::ColourIds::textColourId, _theme.getMainTextColor());
+    }
 }
 
 #pragma mark Settings

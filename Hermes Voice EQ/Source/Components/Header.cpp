@@ -4,10 +4,6 @@
 
 Header::Header()
 {
-    // Shadow
-    _dropShadow = std::make_unique<juce::DropShadower>(juce::DropShadow(juce::Colours::black.withAlpha(_shadowAlpha), 5, {}));
-    _dropShadow->setOwner(this);
-    
     // Settings
     setSettingsButtonProps();
 }
@@ -18,29 +14,37 @@ Header::~Header()
 
 void Header::paint (juce::Graphics& g)
 {
+    auto headerLogo = juce::ImageCache::getFromMemory(BinaryData::landon_png, BinaryData::landon_pngSize);
+    g.drawImageWithin(headerLogo,
+                      getWidth() * 0.02,
+                      0,
+                      getWidth() * 0.17,
+                      getHeight(),
+                      juce::RectanglePlacement::centred);
+    
     auto* parent = dynamic_cast<HermesVoiceEQAudioProcessorEditor*>(getParentComponent());
     
     if (parent == nullptr)
         return;
     
-    g.setColour(parent->getThemeData().getAuxBackgroundColor());
+    g.setColour(juce::Colours::transparentBlack);
     g.fillAll();
+    
+    g.setColour(parent->getThemeData().getAuxTextColor());
+    g.drawLine(0, getHeight(), getWidth(), getHeight(), 2.0f);
 }
 
 void Header::resized()
 {
-    auto buttonWidth = getHeight();
-    auto buttonHeight = buttonWidth * 0.5;
-    auto padding = getHeight() * 0.25;
+    auto buttonWidth = getHeight() * 0.75;
+    auto padding = getHeight() * 0.125;
     
-    _settingsButton.setBounds(getWidth() - buttonWidth - padding, padding, buttonWidth, buttonHeight);
+    _settingsButton.setBounds(getWidth() - buttonWidth - padding, padding, buttonWidth, buttonWidth);
 }
 
 #pragma mark Buttons
 void Header::setSettingsButtonProps()
 {
-    _settingsButton.setClickingTogglesState(true);
-    _settingsButton.setButtonText("Sets");
     addAndMakeVisible(_settingsButton);
     
     _settingsButton.onClick = [this]()

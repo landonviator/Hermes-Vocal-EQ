@@ -44,6 +44,7 @@ private:
         &_band4Dial, &_band5Dial, &_band6Dial
     };
     void initDialProps(Fader& dial, int index);
+    void updateSliderColors();
     
     Header _headerComp;
     
@@ -59,6 +60,7 @@ private:
         &_band4DialLabel, &_band5DialLabel, &_band6DialLabel
     };
     void initLabelProps(juce::Label& label, int index);
+    void updateLabelColors();
     
     juce::String _band1DialLabelText = "Rumble";
     juce::String _band2DialLabelText = "Mud";

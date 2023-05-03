@@ -48,7 +48,8 @@ namespace juce
         g.strokePath (valueTrack, { trackWidth, PathStrokeType::curved, PathStrokeType::rounded });
 
         g.setColour (slider.findColour (Slider::thumbColourId));
-        g.fillEllipse (Rectangle<float> (static_cast<float> (thumbWidth), static_cast<float> (thumbWidth)).withCentre (isThreeVal ? thumbPoint : maxPoint));
+        g.fillRoundedRectangle(Rectangle<float> (static_cast<float> (thumbWidth * 3.0), static_cast<float> (thumbWidth * 1.25)).withCentre(maxPoint), 3.0f);
+        //g.fillEllipse (Rectangle<float> (static_cast<float> (thumbWidth), static_cast<float> (thumbWidth)).withCentre (isThreeVal ? thumbPoint : maxPoint));
     }
 
     void CustomFader::drawLabel (juce::Graphics& g, juce::Label& label)

@@ -6,6 +6,9 @@
               companyEmail="viatordsp@gmail.com">
   <MAINGROUP id="YIAh7N" name="Hermes Voice EQ">
     <GROUP id="{9A19A349-C637-CD36-BE1E-C69303CDF660}" name="Source">
+      <GROUP id="{217812C5-CC46-7283-02EC-F676987D4CED}" name="Assets">
+        <FILE id="a4qRvO" name="landon.png" compile="0" resource="1" file="Source/Assets/landon.png"/>
+      </GROUP>
       <GROUP id="{7B55D088-3F55-895C-DB1C-A3B98213D5A4}" name="DSP">
         <FILE id="EQheMO" name="FilterBank.cpp" compile="1" resource="0" file="Source/DSP/FilterBank.cpp"/>
         <FILE id="G1QAx4" name="FilterBank.h" compile="0" resource="0" file="Source/DSP/FilterBank.h"/>
@@ -15,10 +18,15 @@
         <FILE id="zucyfc" name="Colors.h" compile="0" resource="0" file="Source/LAF/Colors.h"/>
         <FILE id="fotNYl" name="FaderLAF.cpp" compile="1" resource="0" file="Source/LAF/FaderLAF.cpp"/>
         <FILE id="YBXKAs" name="FaderLAF.h" compile="0" resource="0" file="Source/LAF/FaderLAF.h"/>
+        <FILE id="a5bDgT" name="TextButtonLAF.cpp" compile="1" resource="0"
+              file="Source/LAF/TextButtonLAF.cpp"/>
+        <FILE id="qTGgQi" name="TextButtonLAF.h" compile="0" resource="0" file="Source/LAF/TextButtonLAF.h"/>
       </GROUP>
       <GROUP id="{0B30AB23-7395-AFCE-BE85-1C2F2F3A82E0}" name="Widgets">
         <FILE id="R7cD1l" name="Fader.cpp" compile="1" resource="0" file="Source/Widgets/Fader.cpp"/>
         <FILE id="Pa6pC3" name="Fader.h" compile="0" resource="0" file="Source/Widgets/Fader.h"/>
+        <FILE id="EkskKW" name="TextButton.cpp" compile="1" resource="0" file="Source/Widgets/TextButton.cpp"/>
+        <FILE id="ZEWOct" name="TextButton.h" compile="0" resource="0" file="Source/Widgets/TextButton.h"/>
       </GROUP>
       <GROUP id="{D81D9201-7431-442D-6A1D-6C65CA8F5508}" name="Components">
         <FILE id="ChranI" name="Header.cpp" compile="1" resource="0" file="Source/Components/Header.cpp"/>

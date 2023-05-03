@@ -11,12 +11,12 @@ namespace ViatorThemes
         {
             case Theme::kPrimeDark:
             {
-                _mainBackgroundColor = juce::Colour::fromRGB(40, 42, 54);
-                _mainTextColor = juce::Colour::fromRGB(255, 255, 255);
-                _widgetFillColor = juce::Colour::fromRGB(190, 147, 251).withAlpha(0.8f);
-                _auxBackgroundColor = juce::Colour::fromRGB(24, 25, 26);
-                _auxTextColor = juce::Colour::fromRGB(84, 96, 146);
-                _blackBackgroundColor = juce::Colour::fromRGB(18, 19, 20);
+                _mainBackgroundColor = juce::Colour::fromRGB(40, 44, 52);
+                _mainTextColor = juce::Colour::fromRGB(87, 154, 208);
+                _widgetFillColor = juce::Colour::fromRGB(161, 168, 181).darker(0.3f);
+                _auxBackgroundColor = _mainBackgroundColor.darker(0.25f);
+                _auxTextColor = juce::Colour::fromRGB(74, 81, 98);
+                _blackBackgroundColor = juce::Colour::fromRGB(33, 35, 37);
                 break;
             }
                 

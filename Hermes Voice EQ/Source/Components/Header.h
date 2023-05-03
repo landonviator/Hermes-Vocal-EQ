@@ -1,6 +1,7 @@
 #pragma once
 #include <JuceHeader.h>
 #include "../Globals/Globals.h"
+#include "../Widgets/TextButton.h"
 
 class HermesVoiceEQAudioProcessorEditor;
 class Header  : public juce::Component
@@ -17,12 +18,8 @@ public:
     
 private:
     
-    // Shadow
-    std::unique_ptr<juce::DropShadower> _dropShadow;
-    float _shadowAlpha = 0.5f;
-    
     // Settings
-    juce::TextButton _settingsButton;
+    viator_gui::TextButton _settingsButton;
     void setSettingsButtonProps();
     
 private:

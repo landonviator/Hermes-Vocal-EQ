@@ -55,7 +55,6 @@ void SettingsPage::initThemeMenuProps()
     _themeMenu.addItem("Lofi", 3);
     _themeMenu.addItem("Retro", 4);
     _themeMenu.addItem("Vapor Wave", 5);
-    _themeMenu.setSelectedId(1);
     addAndMakeVisible(_themeMenu);
     
     _themeMenu.onChange = [this]()
@@ -100,4 +99,6 @@ void SettingsPage::initThemeMenuProps()
         
         getParentComponent()->repaint();
     };
+    
+    _themeMenu.setSelectedId(1);
 }
