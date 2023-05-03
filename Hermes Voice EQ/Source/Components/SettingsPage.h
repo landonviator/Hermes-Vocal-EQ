@@ -1,6 +1,7 @@
 #pragma once
 #include <JuceHeader.h>
 #include "../LAF/Colors.h"
+#include "../Widgets/Menu.h"
 
 class HermesVoiceEQAudioProcessorEditor;
 class SettingsPage  : public juce::Component, public juce::ChangeBroadcaster
@@ -14,7 +15,7 @@ public:
 
 private:
     juce::Label _themeLabel;
-    juce::ComboBox _themeMenu;
+    viator_gui::Menu _themeMenu;
     
 private:
     void initThemeLabelProps();

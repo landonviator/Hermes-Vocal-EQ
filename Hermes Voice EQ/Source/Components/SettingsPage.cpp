@@ -17,12 +17,7 @@ SettingsPage::~SettingsPage()
 
 void SettingsPage::paint (juce::Graphics& g)
 {
-    auto* parent = dynamic_cast<HermesVoiceEQAudioProcessorEditor*>(getParentComponent());
-    
-    if (parent == nullptr)
-        return;
-    
-    g.setColour(parent->getThemeData().getBlackBackgroundColor());
+    g.setColour(juce::Colours::black.brighter(0.1));
     g.fillAll();
 }
 
@@ -44,7 +39,8 @@ void SettingsPage::initThemeLabelProps()
     _themeLabel.setText("Color Theme", juce::dontSendNotification);
     _themeLabel.setJustificationType(juce::Justification::centred);
     _themeLabel.setFont(juce::Font("Helvetica", 12.0f, juce::Font::FontStyleFlags::bold));
-    _themeLabel.setColour(juce::Label::ColourIds::outlineColourId, juce::Colours::whitesmoke);
+    _themeLabel.setColour(juce::Label::ColourIds::outlineColourId, juce::Colours::transparentBlack);
+    _themeLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colour::fromRGB(155, 165, 175));
     addAndMakeVisible(_themeLabel);
 }
 

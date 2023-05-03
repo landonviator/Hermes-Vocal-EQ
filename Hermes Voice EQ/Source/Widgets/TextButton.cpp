@@ -16,6 +16,7 @@ namespace viator_gui
 
     TextButton::~TextButton()
     {
+        setLookAndFeel(nullptr);
     }
 
     void TextButton::paint (juce::Graphics& g)

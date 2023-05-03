@@ -22,6 +22,7 @@ Fader::Fader()
 
 Fader::~Fader()
 {
+    setLookAndFeel(nullptr);
 }
 
 void Fader::paint (juce::Graphics& g)

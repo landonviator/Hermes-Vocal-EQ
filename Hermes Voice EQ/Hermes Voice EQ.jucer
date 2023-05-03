@@ -18,6 +18,8 @@
         <FILE id="zucyfc" name="Colors.h" compile="0" resource="0" file="Source/LAF/Colors.h"/>
         <FILE id="fotNYl" name="FaderLAF.cpp" compile="1" resource="0" file="Source/LAF/FaderLAF.cpp"/>
         <FILE id="YBXKAs" name="FaderLAF.h" compile="0" resource="0" file="Source/LAF/FaderLAF.h"/>
+        <FILE id="zzZS7j" name="MenuLAF.cpp" compile="1" resource="0" file="Source/LAF/MenuLAF.cpp"/>
+        <FILE id="iOLIGA" name="MenuLAF.h" compile="0" resource="0" file="Source/LAF/MenuLAF.h"/>
         <FILE id="a5bDgT" name="TextButtonLAF.cpp" compile="1" resource="0"
               file="Source/LAF/TextButtonLAF.cpp"/>
         <FILE id="qTGgQi" name="TextButtonLAF.h" compile="0" resource="0" file="Source/LAF/TextButtonLAF.h"/>
@@ -25,6 +27,8 @@
       <GROUP id="{0B30AB23-7395-AFCE-BE85-1C2F2F3A82E0}" name="Widgets">
         <FILE id="R7cD1l" name="Fader.cpp" compile="1" resource="0" file="Source/Widgets/Fader.cpp"/>
         <FILE id="Pa6pC3" name="Fader.h" compile="0" resource="0" file="Source/Widgets/Fader.h"/>
+        <FILE id="V7oQ0V" name="Menu.cpp" compile="1" resource="0" file="Source/Widgets/Menu.cpp"/>
+        <FILE id="NRcWmG" name="Menu.h" compile="0" resource="0" file="Source/Widgets/Menu.h"/>
         <FILE id="EkskKW" name="TextButton.cpp" compile="1" resource="0" file="Source/Widgets/TextButton.cpp"/>
         <FILE id="ZEWOct" name="TextButton.h" compile="0" resource="0" file="Source/Widgets/TextButton.h"/>
       </GROUP>
