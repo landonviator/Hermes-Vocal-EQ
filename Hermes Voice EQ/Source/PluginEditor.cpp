@@ -4,6 +4,8 @@
 HermesVoiceEQAudioProcessorEditor::HermesVoiceEQAudioProcessorEditor (HermesVoiceEQAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
+    setName("Editor");
+    
     // Window sizing
     setWindowSizeLogic();
     
@@ -38,10 +40,20 @@ HermesVoiceEQAudioProcessorEditor::~HermesVoiceEQAudioProcessorEditor()
 
 void HermesVoiceEQAudioProcessorEditor::paint (juce::Graphics& g)
 {
-    g.setColour(_theme.getMainBackgroundColor());
-    g.fillAll ();
     updateSliderColors();
     updateLabelColors();
+    juce::Colour bgColor = _theme.getMainBackgroundColor();
+//    g.setGradientFill(juce::ColourGradient::vertical(bgColor.brighter(0.05),
+//                                                     getHeight() * 0.1,
+//                                                     bgColor.darker(0.25),
+//                                                     getHeight() * 0.9));
+//    g.fillRect(getLocalBounds());
+    juce::Rectangle<int> rect = getLocalBounds();
+    juce::Point<float> center = rect.getCentre().toFloat();
+    juce::ColourGradient gradient(bgColor.brighter(0.05), center.x, center.y, bgColor.darker(0.25), rect.getRight(), rect.getBottom(), true);
+
+    g.setGradientFill(gradient);
+    g.fillRect(rect);
 }
 
 void HermesVoiceEQAudioProcessorEditor::resized()
@@ -56,7 +68,7 @@ void HermesVoiceEQAudioProcessorEditor::resized()
     
     // Settings
     setSettingsState(_headerComp.isSettingsActive());
-    _settingsPage.setBounds(getWidth() * 0.66, _headerComp.getBottom(), getWidth() * 0.34, getHeight() - _headerComp.getHeight());
+    _settingsPage.setBounds(getWidth() * 0.66, _headerComp.getBottom() + 10, getWidth() * 0.34 - 10, getHeight() - _headerComp.getHeight() - 20);
     
     // Sliders
     for (int i = 0; i < _dials.size(); i++)
@@ -118,7 +130,7 @@ void HermesVoiceEQAudioProcessorEditor::setWindowSizeLogic()
 }
 
 #pragma mark Dials
-void HermesVoiceEQAudioProcessorEditor::initDialProps(Fader &dial, int index)
+void HermesVoiceEQAudioProcessorEditor::initDialProps(viator_gui::Fader &dial, int index)
 {
     _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, audioProcessor._paramList.getParams()[index]._id, dial));
     addAndMakeVisible(dial);
@@ -129,9 +141,11 @@ void HermesVoiceEQAudioProcessorEditor::updateSliderColors()
     for (auto& dial : _dials)
     {
         dial->setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::transparentBlack);
-        dial->setColour(juce::Slider::ColourIds::backgroundColourId, _theme.getAuxBackgroundColor());
-        dial->setColour(juce::Slider::ColourIds::textBoxTextColourId, _theme.getWidgetFillColor());
-        dial->setColour(juce::Slider::ColourIds::trackColourId, _theme.getWidgetFillColor());
+        dial->setColour(juce::Slider::ColourIds::backgroundColourId, _theme.getAuxBackgroundColor().withAlpha(0.35f));
+        dial->setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, _theme.getAuxBackgroundColor().withAlpha(0.35f));
+        dial->setColour(juce::Slider::ColourIds::textBoxTextColourId, _theme.getMainTextColor());
+        dial->setColour(juce::Slider::ColourIds::trackColourId, _theme.getWidgetFillColor().withAlpha(0.75f));
+        dial->setColour(juce::Slider::ColourIds::rotarySliderFillColourId, _theme.getWidgetFillColor().withAlpha(0.75f));
         dial->setColour(juce::Slider::ColourIds::thumbColourId, _theme.getAuxTextColor());
     }
 }
@@ -139,7 +153,7 @@ void HermesVoiceEQAudioProcessorEditor::updateSliderColors()
 #pragma mark Labels
 void HermesVoiceEQAudioProcessorEditor::initLabelProps(juce::Label &label, int index)
 {
-    label.setColour(juce::Label::ColourIds::textColourId, _theme.getAuxTextColor());
+    label.setColour(juce::Label::ColourIds::textColourId, _theme.getMainTextColor());
     label.setText(*_labelNames[index], juce::dontSendNotification);
     label.setJustificationType(juce::Justification::centred);
     label.attachToComponent(_dials[index], false);

@@ -5,7 +5,6 @@
 #include "Globals/Globals.h"
 #include "Components/Header.h"
 #include "Components/SettingsPage.h"
-#include "Widgets/Fader.h"
 #include "LAF/Colors.h"
 
 class HermesVoiceEQAudioProcessorEditor  : public juce::AudioProcessorEditor
@@ -32,18 +31,18 @@ private:
     
     void setWindowSizeLogic();
     
-    Fader _band1Dial;
-    Fader _band2Dial;
-    Fader _band3Dial;
-    Fader _band4Dial;
-    Fader _band5Dial;
-    Fader _band6Dial;
-    std::vector<Fader*> _dials =
+    viator_gui::Fader _band1Dial;
+    viator_gui::Fader _band2Dial;
+    viator_gui::Fader _band3Dial;
+    viator_gui::Fader _band4Dial;
+    viator_gui::Fader _band5Dial;
+    viator_gui::Fader _band6Dial;
+    std::vector<viator_gui::Fader*> _dials =
     {
         &_band1Dial, &_band2Dial, &_band3Dial,
         &_band4Dial, &_band5Dial, &_band6Dial
     };
-    void initDialProps(Fader& dial, int index);
+    void initDialProps(viator_gui::Fader& dial, int index);
     void updateSliderColors();
     
     Header _headerComp;

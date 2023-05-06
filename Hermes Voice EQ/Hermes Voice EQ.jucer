@@ -16,22 +16,8 @@
       <GROUP id="{030E4461-5E98-D7F9-9E2A-CD1566B719F4}" name="LAF">
         <FILE id="WIOB5f" name="Colors.cpp" compile="1" resource="0" file="Source/LAF/Colors.cpp"/>
         <FILE id="zucyfc" name="Colors.h" compile="0" resource="0" file="Source/LAF/Colors.h"/>
-        <FILE id="fotNYl" name="FaderLAF.cpp" compile="1" resource="0" file="Source/LAF/FaderLAF.cpp"/>
-        <FILE id="YBXKAs" name="FaderLAF.h" compile="0" resource="0" file="Source/LAF/FaderLAF.h"/>
-        <FILE id="zzZS7j" name="MenuLAF.cpp" compile="1" resource="0" file="Source/LAF/MenuLAF.cpp"/>
-        <FILE id="iOLIGA" name="MenuLAF.h" compile="0" resource="0" file="Source/LAF/MenuLAF.h"/>
-        <FILE id="a5bDgT" name="TextButtonLAF.cpp" compile="1" resource="0"
-              file="Source/LAF/TextButtonLAF.cpp"/>
-        <FILE id="qTGgQi" name="TextButtonLAF.h" compile="0" resource="0" file="Source/LAF/TextButtonLAF.h"/>
       </GROUP>
-      <GROUP id="{0B30AB23-7395-AFCE-BE85-1C2F2F3A82E0}" name="Widgets">
-        <FILE id="R7cD1l" name="Fader.cpp" compile="1" resource="0" file="Source/Widgets/Fader.cpp"/>
-        <FILE id="Pa6pC3" name="Fader.h" compile="0" resource="0" file="Source/Widgets/Fader.h"/>
-        <FILE id="V7oQ0V" name="Menu.cpp" compile="1" resource="0" file="Source/Widgets/Menu.cpp"/>
-        <FILE id="NRcWmG" name="Menu.h" compile="0" resource="0" file="Source/Widgets/Menu.h"/>
-        <FILE id="EkskKW" name="TextButton.cpp" compile="1" resource="0" file="Source/Widgets/TextButton.cpp"/>
-        <FILE id="ZEWOct" name="TextButton.h" compile="0" resource="0" file="Source/Widgets/TextButton.h"/>
-      </GROUP>
+      <GROUP id="{0B30AB23-7395-AFCE-BE85-1C2F2F3A82E0}" name="Widgets"/>
       <GROUP id="{D81D9201-7431-442D-6A1D-6C65CA8F5508}" name="Components">
         <FILE id="ChranI" name="Header.cpp" compile="1" resource="0" file="Source/Components/Header.cpp"/>
         <FILE id="DeXdsY" name="Header.h" compile="0" resource="0" file="Source/Components/Header.h"/>
@@ -75,6 +61,7 @@
         <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
+        <MODULEPATH id="viator_modules" path="../modules/viatordsp"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
@@ -93,5 +80,6 @@
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="viator_modules" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
 </JUCERPROJECT>

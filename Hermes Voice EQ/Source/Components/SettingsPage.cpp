@@ -9,6 +9,15 @@ SettingsPage::SettingsPage()
     
     // Menus
     initThemeMenuProps();
+    
+    // Buttons
+    for (auto& button : _buttons)
+    {
+        initButtonProps(*button);
+    }
+    
+    _dropShadow = std::make_unique<juce::DropShadower>(juce::DropShadow(juce::Colours::black.withAlpha(0.5f), 5, {}));
+    _dropShadow->setOwner(this);
 }
 
 SettingsPage::~SettingsPage()
@@ -17,8 +26,11 @@ SettingsPage::~SettingsPage()
 
 void SettingsPage::paint (juce::Graphics& g)
 {
-    g.setColour(juce::Colour::fromRGB(23, 24, 25));
-    g.fillAll();
+    g.setColour(_innerBgColor);
+    g.fillRect(getLocalBounds());
+    
+    g.setColour(juce::Colours::black.withAlpha(0.4f));
+    g.fillRect(getLocalBounds());
 }
 
 void SettingsPage::resized()
@@ -32,6 +44,22 @@ void SettingsPage::resized()
     auto menuWidth = labelWidth * 2.0;
     auto padding = labelHeight * 0.5;
     _themeMenu.setBounds(_themeLabel.getRight() + padding, topMargin, menuWidth, labelHeight);
+    
+    auto buttonWidth = getWidth() * 0.185;
+    auto buttonHeight = buttonWidth * 0.5;
+    auto spaceBetween = buttonWidth * 0.1;
+    for (int i = 0; i <_buttons.size(); i++)
+    {
+        if (i == 0)
+        {
+            _buttons[i]->setBounds(leftMargin, _themeLabel.getBottom() + labelHeight, buttonWidth, buttonHeight);
+        }
+        
+        else
+        {
+            _buttons[i]->setBounds(_buttons[i - 1]->getRight() + spaceBetween, _themeLabel.getBottom() + labelHeight, buttonWidth, buttonHeight);
+        }
+    }
 }
 
 void SettingsPage::initThemeLabelProps()
@@ -47,10 +75,9 @@ void SettingsPage::initThemeLabelProps()
 void SettingsPage::initThemeMenuProps()
 {
     _themeMenu.addItem("Prime Dark", 1);
-    _themeMenu.addItem("Prime Light", 2);
-    _themeMenu.addItem("Lofi", 3);
-    _themeMenu.addItem("Retro", 4);
-    _themeMenu.addItem("Vapor Wave", 5);
+    _themeMenu.addItem("Lofi", 2);
+    _themeMenu.addItem("Retro", 3);
+    _themeMenu.addItem("Vapor Wave", 4);
     addAndMakeVisible(_themeMenu);
     
     _themeMenu.onChange = [this]()
@@ -70,23 +97,17 @@ void SettingsPage::initThemeMenuProps()
                 
             case 2:
             {
-                parent->getThemeData().setCurrentTheme(ViatorThemes::ViatorThemeData::Theme::kPrimeLight);
+                parent->getThemeData().setCurrentTheme(ViatorThemes::ViatorThemeData::Theme::kLofi);
                 break;
             }
                 
             case 3:
             {
-                parent->getThemeData().setCurrentTheme(ViatorThemes::ViatorThemeData::Theme::kLofi);
-                break;
-            }
-                
-            case 4:
-            {
                 parent->getThemeData().setCurrentTheme(ViatorThemes::ViatorThemeData::Theme::kRetro);
                 break;
             }
                 
-            case 5:
+            case 4:
             {
                 parent->getThemeData().setCurrentTheme(ViatorThemes::ViatorThemeData::Theme::kVaporWave);
                 break;
@@ -97,4 +118,66 @@ void SettingsPage::initThemeMenuProps()
     };
     
     _themeMenu.setSelectedId(1);
+}
+
+void SettingsPage::initButtonProps(viator_gui::TextButton& button)
+{
+    if (&button == &_emailButton)
+    {
+        button.setButtonText("Email");
+        _emailButton.onClick = [this]()
+        {
+            sendEmail("viatordsp@gmail.com", "bruh", "BRUH");
+        };
+    }
+    
+    if (&button == &_patreonButton)
+    {
+        button.setButtonText("P");
+        _patreonButton.onClick = [this]()
+        {
+            auto patreon = juce::URL("https://www.patreon.com/ViatorDSP");
+            patreon.launchInDefaultBrowser();
+        };
+    }
+    
+    if (&button == &_youtubeButton)
+    {
+        button.setButtonText("YT");
+        _youtubeButton.onClick = [this]()
+        {
+            auto youtube = juce::URL("https://www.youtube.com/@drbruisin");
+            youtube.launchInDefaultBrowser();
+        };
+    }
+    
+    if (&button == &_instaButton)
+    {
+        button.setButtonText("Insta");
+        _instaButton.onClick = [this]()
+        {
+            auto insta = juce::URL("https://www.instagram.com/viatordsp/");
+            insta.launchInDefaultBrowser();
+        };
+    }
+    
+    button.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colours::dimgrey.withAlpha(0.1f));
+    button.setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colours::dimgrey.withAlpha(0.1f));
+    button.setColour(juce::ComboBox::outlineColourId, juce::Colours::transparentBlack);
+    button.setColour(juce::TextButton::ColourIds::textColourOnId, _textColor);
+    button.setColour(juce::TextButton::ColourIds::textColourOffId, _textColor);
+    button.setLookAndFeel(&_customButton);
+    addAndMakeVisible(button);
+}
+
+void SettingsPage::sendEmail(const juce::String& recipient, const juce::String& subject, const juce::String& body)
+{
+    // Build the mailto URL
+    juce::URL mailtoURL("mailto:" + recipient + "?subject=" + subject + "&body=" + body);
+
+    // Open the mailto URL in the user's default email client
+    if (!mailtoURL.launchInDefaultBrowser())
+    {
+        DBG("Failed to open email client.");
+    }
 }

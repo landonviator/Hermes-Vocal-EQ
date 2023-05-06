@@ -18,7 +18,6 @@ namespace ViatorThemes
         enum class Theme
         {
             kPrimeDark,
-            kPrimeLight,
             kRetro,
             kLofi,
             kVaporWave
