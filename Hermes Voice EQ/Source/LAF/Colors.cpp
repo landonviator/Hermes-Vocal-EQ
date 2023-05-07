@@ -50,6 +50,17 @@ namespace ViatorThemes
                 _auxBackgroundColor = juce::Colour::fromRGB(24, 25, 26);
                 _auxTextColor = juce::Colour::fromRGB(31, 101, 181);
                 _blackBackgroundColor = juce::Colour::fromRGB(18, 19, 20);
+                break;
+            }
+                
+            case Theme::kHighContrast:
+            {
+                _mainBackgroundColor = juce::Colour::fromRGB(221, 221, 221);
+                _mainTextColor = juce::Colour::fromRGB(0, 0, 0);
+                _widgetFillColor = juce::Colour::fromRGB(0, 0, 0);
+                _auxBackgroundColor = juce::Colour::fromRGB(0, 0, 0);
+                _auxTextColor = juce::Colour::fromRGB(0, 0, 0);
+                _blackBackgroundColor = juce::Colour::fromRGB(0, 0, 0);
             }
         }
     }

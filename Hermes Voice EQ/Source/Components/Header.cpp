@@ -17,14 +17,36 @@ Header::~Header()
 
 void Header::paint (juce::Graphics& g)
 {
-    g.setColour(_innerBgColor);
+    // init color info from parent
+    auto* parent = dynamic_cast<HermesVoiceEQAudioProcessorEditor*>(getParentComponent());
+    if (parent != nullptr)
+    {
+        auto currentBGColor = parent->getThemeData().getAuxBackgroundColor();
+        auto nonContrastColor = parent->getThemeData().getWidgetFillColor();
+        auto contrastColor = parent->getThemeData().getMainBackgroundColor();
+        
+        _settingsButton.setColour(juce::TextButton::ColourIds::textColourOnId, nonContrastColor);
+        _settingsButton.setColour(juce::TextButton::ColourIds::textColourOffId, nonContrastColor);
+        
+        auto black = juce::Colour::fromRGB(0, 0, 0);
+        bool isHighContrast = currentBGColor == black;
+        
+        g.setColour(black.withAlpha(isHighContrast ? 1.0f : 0.2f));
+        _settingsButton.setColour(juce::TextButton::ColourIds::textColourOnId, isHighContrast ? contrastColor : nonContrastColor);
+        _settingsButton.setColour(juce::TextButton::ColourIds::textColourOffId, isHighContrast ? contrastColor : nonContrastColor);
+    }
+
+    
+    // set background color
     g.fillRect(getLocalBounds());
     
-    g.setColour(juce::Colours::black.withAlpha(0.4f));
-    g.fillRect(getLocalBounds());
+    // update wrench color
+    setSettingsButtonProps();
     
+    // force image to color correctly
     g.setColour(juce::Colours::white);
     
+    // add logo image
     auto headerLogo = juce::ImageCache::getFromMemory(BinaryData::landon_png, BinaryData::landon_pngSize);
     g.drawImageWithin(headerLogo,
                       getWidth() * 0.02,
@@ -45,8 +67,6 @@ void Header::resized()
 #pragma mark Buttons
 void Header::setSettingsButtonProps()
 {
-    _settingsButton.setColour(juce::TextButton::ColourIds::textColourOnId, juce::Colours::dimgrey.brighter(0.5));
-    _settingsButton.setColour(juce::TextButton::ColourIds::textColourOffId, juce::Colours::dimgrey.brighter(0.5));
     addAndMakeVisible(_settingsButton);
     
     _settingsButton.onClick = [this]()

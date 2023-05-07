@@ -28,7 +28,6 @@ private:
     
 private:
     const juce::Colour _textColor = juce::Colour::fromRGB(161, 168, 181).darker(0.3f);
-    const juce::Colour _innerBgColor = juce::Colour::fromRGB(40, 44, 52);
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Header)
 };

@@ -98,17 +98,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesVoiceEQAudioProcessor:
     {
         auto param = _paramList.getParams()[i];
         
-        if (i == _paramList.getParams().size() - 1)
-        {
-            auto highCutRange = juce::NormalisableRange<float>(param._min, param._max);
-            highCutRange.setSkewForCentre(10000.0f);
-            params.push_back (std::make_unique<Parameter>(juce::ParameterID { param._id, 1 }, param._name, param._name, highCutRange, param._initial, valueToTextFunction, textToValueFunction));
-        }
-        
-        else
-        {
-            params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { param._id, 1 }, param._name, param._min, param._max, param._initial));
-        }
+        params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { param._id, 1 }, param._name, param._min, param._max, param._initial));
     }
         
     return { params.begin(), params.end() };
@@ -164,6 +154,8 @@ bool HermesVoiceEQAudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
 
 void HermesVoiceEQAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
+    updateFilters();
+    
     // Update block size
     if (spec.maximumBlockSize != buffer.getNumSamples())
     {
@@ -189,11 +181,21 @@ void HermesVoiceEQAudioProcessor::updateFilters()
     {
         auto param = _paramList.getParams()[i];
         
-        if (i == 0 || i == _paramList.getParams().size() - 1)
+        if (i == 0)
         {
-            // For the pass filters, you pass the raw tree value
-            // twice because the parameter data has the correct info
-            _filterBank.updateFilter(i, param._q, _treeState.getRawParameterValue(param._id)->load(), _treeState.getRawParameterValue(param._id)->load());
+            auto cutoff = _treeState.getRawParameterValue(param._id)->load();
+            
+            // highpass
+            _filterBank.updateFilter(i, param._q, _treeState.getRawParameterValue(param._id)->load(), juce::jmap(cutoff, 0.0f, 100.0f, 20.0f, 80.0f));
+        }
+        
+        else if (i == _paramList.getParams().size() - 1)
+        {
+            auto cutoffFreq = _treeState.getRawParameterValue(param._id)->load();
+            cutoffFreq = juce::jmap(cutoffFreq, param._min, param._max, 1000.0f, 20000.0f);
+            
+            // lowpass
+            _filterBank.updateFilter(i, param._q, cutoffFreq, cutoffFreq);
         }
         
         else

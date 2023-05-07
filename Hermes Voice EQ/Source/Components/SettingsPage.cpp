@@ -55,9 +55,17 @@ void SettingsPage::resized()
             _buttons[i]->setBounds(leftMargin, _themeLabel.getBottom() + labelHeight, buttonWidth, buttonHeight);
         }
         
-        else
+        else if (i < _buttons.size() - 1)
         {
             _buttons[i]->setBounds(_buttons[i - 1]->getRight() + spaceBetween, _themeLabel.getBottom() + labelHeight, buttonWidth, buttonHeight);
+        }
+        
+        else
+        {
+            auto button1 = _buttons[0];
+            auto button4 = _buttons[3];
+            auto width = button4->getRight() - button1->getX();
+            _buttons[i]->setBounds(button1->getX(), button1->getBottom() + spaceBetween, width, buttonHeight);
         }
     }
 }
@@ -78,6 +86,7 @@ void SettingsPage::initThemeMenuProps()
     _themeMenu.addItem("Lofi", 2);
     _themeMenu.addItem("Retro", 3);
     _themeMenu.addItem("Vapor Wave", 4);
+    _themeMenu.setSelectedId(1);
     addAndMakeVisible(_themeMenu);
     
     _themeMenu.onChange = [this]()
@@ -116,8 +125,6 @@ void SettingsPage::initThemeMenuProps()
         
         getParentComponent()->repaint();
     };
-    
-    _themeMenu.setSelectedId(1);
 }
 
 void SettingsPage::initButtonProps(viator_gui::TextButton& button)
@@ -161,8 +168,17 @@ void SettingsPage::initButtonProps(viator_gui::TextButton& button)
         };
     }
     
-    button.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colours::dimgrey.withAlpha(0.1f));
-    button.setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colours::dimgrey.withAlpha(0.1f));
+    if (&button == &_contrastButton)
+    {
+        button.setButtonText("High Contrast");
+        button.onClick = [this]()
+        {
+            sendChangeMessage();
+        };
+    }
+    
+    button.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colour::fromRGB(74, 81, 98).darker(0.5).withAlpha(0.3f));
+    button.setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colour::fromRGB(74, 81, 98).darker(0.5).withAlpha(0.6f));
     button.setColour(juce::ComboBox::outlineColourId, juce::Colours::transparentBlack);
     button.setColour(juce::TextButton::ColourIds::textColourOnId, _textColor);
     button.setColour(juce::TextButton::ColourIds::textColourOffId, _textColor);
@@ -180,4 +196,14 @@ void SettingsPage::sendEmail(const juce::String& recipient, const juce::String& 
     {
         DBG("Failed to open email client.");
     }
+}
+
+bool SettingsPage::getIsHighContrast()
+{
+    return _contrastButton.getToggleState();
+}
+
+void SettingsPage::resetToNonContrast()
+{
+    _themeMenu.onChange();
 }

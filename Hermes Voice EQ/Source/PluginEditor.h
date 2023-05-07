@@ -8,12 +8,12 @@
 #include "LAF/Colors.h"
 
 class HermesVoiceEQAudioProcessorEditor  : public juce::AudioProcessorEditor
+, public juce::ChangeListener
 {
 public:
     HermesVoiceEQAudioProcessorEditor (HermesVoiceEQAudioProcessor&);
     ~HermesVoiceEQAudioProcessorEditor() override;
 
-    //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
     
@@ -21,16 +21,17 @@ public:
     {
             return _theme;
     }
-
+    
+#pragma mark Objects
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     HermesVoiceEQAudioProcessor& audioProcessor;
     
+    // theme
     ViatorThemes::ViatorThemeData _theme;
     
-    void setWindowSizeLogic();
-    
+    // dials
     viator_gui::Fader _band1Dial;
     viator_gui::Fader _band2Dial;
     viator_gui::Fader _band3Dial;
@@ -42,11 +43,11 @@ private:
         &_band1Dial, &_band2Dial, &_band3Dial,
         &_band4Dial, &_band5Dial, &_band6Dial
     };
-    void initDialProps(viator_gui::Fader& dial, int index);
-    void updateSliderColors();
     
+    // header
     Header _headerComp;
     
+    // labels
     juce::Label _band1DialLabel;
     juce::Label _band2DialLabel;
     juce::Label _band3DialLabel;
@@ -58,9 +59,10 @@ private:
         &_band1DialLabel, &_band2DialLabel, &_band3DialLabel,
         &_band4DialLabel, &_band5DialLabel, &_band6DialLabel
     };
-    void initLabelProps(juce::Label& label, int index);
-    void updateLabelColors();
     
+    juce::Label _tooltipLabel;
+    
+    // label texts
     juce::String _band1DialLabelText = "Rumble";
     juce::String _band2DialLabelText = "Mud";
     juce::String _band3DialLabelText = "Muffle";
@@ -75,10 +77,9 @@ private:
     
     // Settings
     SettingsPage _settingsPage;
-    void setSettingsState(bool isActive);
     juce::Label _settingsOverlay;
-    void initOverlayProps();
     
+    // dial attachments
     using sliderAttachment = juce::AudioProcessorValueTreeState::SliderAttachment;
     juce::OwnedArray<sliderAttachment> _sliderAttachments;
     std::unique_ptr<sliderAttachment> _band1Attach;
@@ -88,6 +89,69 @@ private:
     std::unique_ptr<sliderAttachment> _band5Attach;
     std::unique_ptr<sliderAttachment> _band6Attach;
     
+#pragma mark Methods
+private:
+    // window
+    void setWindowSizeLogic();
+    
+    // dials
+    void initDialProps(viator_gui::Fader& dial, int index);
+    void updateSliderColors();
+    
+    // labels
+    void initLabelProps(juce::Label& label, int index);
+    void updateLabelColors();
+    void initTooltipLabel();
+    
+    // settings
+    void setSettingsState(bool isActive);
+    void initOverlayProps();
+    
+    // mouse events
+    void mouseEnter(const juce::MouseEvent &event) override;
+    void mouseExit(const juce::MouseEvent &event) override;
+    
+    // change listener
+    void changeListenerCallback(juce::ChangeBroadcaster *source) override;
+
+    
+#pragma mark Vars
+private:
+    juce::String driveToolTip =
+    {
+        "This knob drives the input harder into the exciter circuit, which makes mid and upper range harmonic distortion. \nIncreasing the drive also boosts a hard-coded low-shelf EQ to compensate for perceived low-end loss."
+    };
+    
+    juce::String rangeToolTip =
+    {
+        "This knob sets the cutoff of frequencies affected by the harmonic distortion. Any frequencies above this cutoff are affected by harmonic distortion."
+    };
+    
+    juce::String lowpassToolTip =
+    {
+        "This dial sets the cutoff for a lowpass (high cut) filter."
+    };
+    
+    juce::String trimToolTip =
+    {
+        "A volume control for the wet signal only."
+    };
+    
+    juce::String outToolTip =
+    {
+        "A master output volume control for the entire plugin's output."
+    };
+    
+    juce::String mixToolTip =
+    {
+        "The Mix fader mixes the uneffected input from the DAW with the effected processing from the plugin."
+    };
+    
+    std::vector<juce::String> _sliderTooltips =
+    {
+        driveToolTip, rangeToolTip, lowpassToolTip, trimToolTip, outToolTip, mixToolTip
+    };
+
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HermesVoiceEQAudioProcessorEditor)
 };

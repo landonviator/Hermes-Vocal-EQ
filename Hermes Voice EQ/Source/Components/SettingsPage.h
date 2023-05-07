@@ -11,6 +11,9 @@ public:
 
     void paint (juce::Graphics&) override;
     void resized() override;
+    
+    bool getIsHighContrast();
+    void resetToNonContrast();
 
 private:
     juce::Label _themeLabel;
@@ -19,6 +22,7 @@ private:
     viator_gui::TextButton _patreonButton;
     viator_gui::TextButton _youtubeButton;
     viator_gui::TextButton _instaButton;
+    viator_gui::TextButton _contrastButton;
     viator_gui::CustomTextButton _customButton;
     
 private:
@@ -30,7 +34,8 @@ private:
 private:
     std::vector<viator_gui::TextButton*> _buttons =
     {
-        &_emailButton, &_patreonButton, &_youtubeButton, &_instaButton
+        &_emailButton, &_patreonButton, &_youtubeButton,
+        &_instaButton, &_contrastButton
     };
     
     const juce::Colour _textColor = juce::Colour::fromRGB(161, 168, 181).darker(0.3f);

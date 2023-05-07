@@ -23,15 +23,18 @@ HermesVoiceEQAudioProcessorEditor::HermesVoiceEQAudioProcessorEditor (HermesVoic
     {
         initLabelProps(*_dialLabels[i], i);
     }
+    initTooltipLabel();
     
-   //  Header
-    addAndMakeVisible(_headerComp);
     
     // Settings
     addAndMakeVisible(_settingsPage);
+    _settingsPage.addChangeListener(this);
     setSettingsState(_headerComp.isSettingsActive());
     updateSliderColors();
     updateLabelColors();
+    
+    //  Header
+    addAndMakeVisible(_headerComp);
 }
 
 HermesVoiceEQAudioProcessorEditor::~HermesVoiceEQAudioProcessorEditor()
@@ -43,14 +46,14 @@ void HermesVoiceEQAudioProcessorEditor::paint (juce::Graphics& g)
     updateSliderColors();
     updateLabelColors();
     juce::Colour bgColor = _theme.getMainBackgroundColor();
-//    g.setGradientFill(juce::ColourGradient::vertical(bgColor.brighter(0.05),
-//                                                     getHeight() * 0.1,
-//                                                     bgColor.darker(0.25),
-//                                                     getHeight() * 0.9));
-//    g.fillRect(getLocalBounds());
+////    g.setGradientFill(juce::ColourGradient::vertical(bgColor.brighter(0.05),
+////                                                     getHeight() * 0.1,
+////                                                     bgColor.darker(0.25),
+////                                                     getHeight() * 0.9));
+////    g.fillRect(getLocalBounds());
     juce::Rectangle<int> rect = getLocalBounds();
     juce::Point<float> center = rect.getCentre().toFloat();
-    juce::ColourGradient gradient(bgColor.brighter(0.05), center.x, center.y, bgColor.darker(0.25), rect.getRight(), rect.getBottom(), true);
+    juce::ColourGradient gradient(bgColor.brighter(0.02f), center.x, center.y, bgColor.darker(0.5f), rect.getRight(), rect.getBottom(), true);
 
     g.setGradientFill(gradient);
     g.fillRect(rect);
@@ -83,6 +86,11 @@ void HermesVoiceEQAudioProcessorEditor::resized()
             _dials[i]->setBounds(_dials[i - 1]->getRight(), topMargin, dialWidth, dialHeight);
         }
     }
+    
+    // tooltip label
+    auto labelHeight = getHeight() - _band1Dial.getBottom();
+    _tooltipLabel.setBounds(0, _band1Dial.getBottom(), getWidth(), labelHeight);
+    _tooltipLabel.setFont(juce::Font("Helvetica", labelHeight * 0.6, juce::Font::FontStyleFlags::bold));
     
     // Label font
     for (auto i = 0; i < _dialLabels.size(); i++)
@@ -132,7 +140,10 @@ void HermesVoiceEQAudioProcessorEditor::setWindowSizeLogic()
 #pragma mark Dials
 void HermesVoiceEQAudioProcessorEditor::initDialProps(viator_gui::Fader &dial, int index)
 {
+    _band1Dial.setTextValueSuffix(" %");
+    _band6Dial.setTextValueSuffix(" %");
     _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, audioProcessor._paramList.getParams()[index]._id, dial));
+    _band1Dial.setTooltip("Rumble filter. This is a highpass filter with a range of 20Hz to 100Hz. The slider at the lowest position allows all low (rumble-y) to pass through and vice versa. Push the slider up if you have a lot of low frequency noise.");
     addAndMakeVisible(dial);
 }
 
@@ -147,6 +158,7 @@ void HermesVoiceEQAudioProcessorEditor::updateSliderColors()
         dial->setColour(juce::Slider::ColourIds::trackColourId, _theme.getWidgetFillColor().withAlpha(0.75f));
         dial->setColour(juce::Slider::ColourIds::rotarySliderFillColourId, _theme.getWidgetFillColor().withAlpha(0.75f));
         dial->setColour(juce::Slider::ColourIds::thumbColourId, _theme.getAuxTextColor());
+        dial->addMouseListener(this, false);
     }
 }
 
@@ -174,9 +186,58 @@ void HermesVoiceEQAudioProcessorEditor::updateLabelColors()
     }
 }
 
+void HermesVoiceEQAudioProcessorEditor::initTooltipLabel()
+{
+    _tooltipLabel.setText("", juce::dontSendNotification);
+    _tooltipLabel.setJustificationType(juce::Justification::centred);
+    _tooltipLabel.setColour(juce::Label::ColourIds::backgroundColourId, juce::Colours::transparentBlack);
+    _tooltipLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.25f));
+    addAndMakeVisible(_tooltipLabel);
+}
+
 #pragma mark Settings
 void HermesVoiceEQAudioProcessorEditor::setSettingsState(bool isActive)
 {
     _settingsPage.setVisible(isActive);
     _settingsPage.setEnabled(isActive);
+}
+
+#pragma mark Tooltips
+void HermesVoiceEQAudioProcessorEditor::mouseEnter(const juce::MouseEvent &event)
+{
+    //sliders
+    for (int i = 0; i < _dials.size(); ++i)
+    {
+        if (event.eventComponent == _dials[i])
+        {
+            _tooltipLabel.setText(_sliderTooltips[i], juce::dontSendNotification);
+        }
+    }
+}
+
+void HermesVoiceEQAudioProcessorEditor::mouseExit(const juce::MouseEvent &event)
+{
+    //sliders
+    for (int i = 0; i < _dials.size(); ++i)
+    {
+        if (event.eventComponent == _dials[i])
+        {
+            _tooltipLabel.setText("", juce::dontSendNotification);
+        }
+    }
+}
+
+void HermesVoiceEQAudioProcessorEditor::changeListenerCallback(juce::ChangeBroadcaster *source)
+{
+    if (_settingsPage.getIsHighContrast())
+    {
+        _theme.setCurrentTheme(ViatorThemes::ViatorThemeData::Theme::kHighContrast);
+    }
+    
+    else
+    {
+        _settingsPage.resetToNonContrast();
+    }
+    
+    repaint();
 }

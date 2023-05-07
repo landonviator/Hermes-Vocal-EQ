@@ -20,8 +20,10 @@ namespace ViatorThemes
             kPrimeDark,
             kRetro,
             kLofi,
-            kVaporWave
+            kVaporWave,
+            kHighContrast
         };
+        
         void setCurrentTheme(Theme newTheme);
         
     private:
@@ -31,11 +33,11 @@ namespace ViatorThemes
         Theme _currentTheme = Theme::kPrimeDark;
         
         // Colors
-        juce::Colour _mainBackgroundColor = juce::Colour::fromRGB(40, 42, 54);
-        juce::Colour _mainTextColor = juce::Colour::fromRGB(255, 255, 255);
-        juce::Colour _widgetFillColor = juce::Colour::fromRGB(190, 147, 251).withAlpha(0.8f);
-        juce::Colour _auxBackgroundColor = juce::Colour::fromRGB(24, 25, 26);
-        juce::Colour _auxTextColor = juce::Colour::fromRGB(84, 96, 146);
-        juce::Colour _blackBackgroundColor = juce::Colour::fromRGB(18, 19, 20);
+        juce::Colour _mainBackgroundColor = juce::Colour::fromRGB(33, 37, 43);
+        juce::Colour _mainTextColor = juce::Colour::fromRGB(87, 154, 208).withAlpha(0.75f);
+        juce::Colour _widgetFillColor = juce::Colour::fromRGB(161, 168, 181).darker(0.3f);
+        juce::Colour _auxBackgroundColor = _mainBackgroundColor.darker(1.0);
+        juce::Colour _auxTextColor = juce::Colour::fromRGB(74, 81, 98).darker(0.5);
+        juce::Colour _blackBackgroundColor = juce::Colour::fromRGB(33, 35, 37);
     };
 }
