@@ -123,6 +123,11 @@ void SettingsPage::initThemeMenuProps()
             }
         }
         
+        if (_contrastButton.getToggleState())
+        {
+            _contrastButton.triggerClick();
+        }
+        
         getParentComponent()->repaint();
     };
 }

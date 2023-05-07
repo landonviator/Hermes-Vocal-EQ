@@ -22,7 +22,7 @@ private:
     viator_gui::SettingsButton _wrenchButton;
     
     // shadow
-    std::unique_ptr<juce::DropShadower> _dropShado
+    std::unique_ptr<juce::DropShadower> _dropShadow;
     
 // methods
 private:

@@ -116,39 +116,39 @@ private:
 
 // vars
 private:
-    juce::String driveToolTip =
+    juce::String _band1ToolTip =
     {
-        "This knob drives the input harder into the exciter circuit, which makes mid and upper range harmonic distortion. \nIncreasing the drive also boosts a hard-coded low-shelf EQ to compensate for perceived low-end loss."
+        "Highpass filter slider. Controls 20-100 Hz. Raise to cut out low rumbling."
     };
     
-    juce::String rangeToolTip =
+    juce::String _band2ToolTip =
     {
-        "This knob sets the cutoff of frequencies affected by the harmonic distortion. Any frequencies above this cutoff are affected by harmonic distortion."
+        "EQ band centered for low to mid frequencies. Lower to reduce muddieness or raise to increase body."
     };
     
-    juce::String lowpassToolTip =
+    juce::String _band3ToolTip =
     {
-        "This dial sets the cutoff for a lowpass (high cut) filter."
+        "EQ band centered for low-mid to mid frequencies. Lower to reduce boxiness or raise to increase warmth."
     };
     
-    juce::String trimToolTip =
+    juce::String _band4ToolTip =
     {
-        "A volume control for the wet signal only."
+        "EQ band centered for mid to high-mid frequencies. Lower to reduce harshness or raise to increase clarity."
     };
     
-    juce::String outToolTip =
+    juce::String _band5ToolTip =
     {
-        "A master output volume control for the entire plugin's output."
+        "EQ band centered for high frequencies. Lower to reduce sibilance or raise to increase crispness."
     };
     
-    juce::String mixToolTip =
+    juce::String _band6ToolTip =
     {
-        "The Mix fader mixes the uneffected input from the DAW with the effected processing from the plugin."
+        "Lowpass filter. Controls 1000-20000 Hz. Lower to reduce noise."
     };
     
     std::vector<juce::String> _sliderTooltips =
     {
-        driveToolTip, rangeToolTip, lowpassToolTip, trimToolTip, outToolTip, mixToolTip
+        _band1ToolTip, _band2ToolTip, _band3ToolTip, _band4ToolTip, _band5ToolTip, _band6ToolTip
     };
 
 
