@@ -12,20 +12,23 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
     
-    // settings
+    // settings stuff
     bool isSettingsActive();
     
-private:
-    void setSettingsButtonProps();
-    
+// objects
 private:
     // settings
     viator_gui::TextButton _settingsButton;
     viator_gui::SettingsButton _wrenchButton;
     
     // shadow
-    std::unique_ptr<juce::DropShadower> _dropShadow;
+    std::unique_ptr<juce::DropShadower> _dropShado
     
+// methods
+private:
+    void setSettingsButtonProps();
+    
+// vars
 private:
     const juce::Colour _textColor = juce::Colour::fromRGB(161, 168, 181).darker(0.3f);
 

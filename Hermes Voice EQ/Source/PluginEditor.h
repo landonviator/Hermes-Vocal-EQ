@@ -22,7 +22,7 @@ public:
             return _theme;
     }
     
-#pragma mark Objects
+// objects
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
@@ -89,7 +89,7 @@ private:
     std::unique_ptr<sliderAttachment> _band5Attach;
     std::unique_ptr<sliderAttachment> _band6Attach;
     
-#pragma mark Methods
+// methods
 private:
     // window
     void setWindowSizeLogic();
@@ -114,8 +114,7 @@ private:
     // change listener
     void changeListenerCallback(juce::ChangeBroadcaster *source) override;
 
-    
-#pragma mark Vars
+// vars
 private:
     juce::String driveToolTip =
     {
