@@ -38,7 +38,7 @@ void FilterBank<SampleType>::prepare(const juce::dsp::ProcessSpec& spec) noexcep
         
         else if (i == 5)
         {
-            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, _cutoffs[i], 0.6f);
+            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, _cutoffs[i], 0.1f);
         }
         
         else

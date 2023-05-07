@@ -186,7 +186,7 @@ void HermesVoiceEQAudioProcessor::updateFilters()
             auto cutoff = _treeState.getRawParameterValue(param._id)->load();
             
             // highpass
-            _filterBank.updateFilter(i, param._q, _treeState.getRawParameterValue(param._id)->load(), juce::jmap(cutoff, 0.0f, 100.0f, 20.0f, 80.0f));
+            _filterBank.updateFilter(i, param._q, _treeState.getRawParameterValue(param._id)->load(), juce::jmap(cutoff, 0.0f, 100.0f, 100.0f, 20.0f));
         }
         
         else if (i == _paramList.getParams().size() - 1)

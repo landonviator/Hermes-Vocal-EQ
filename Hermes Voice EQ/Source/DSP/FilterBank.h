@@ -91,7 +91,7 @@ private:
     
     std::vector<float> _cutoffs
     {
-        20.0f, 200.0f, 800.0f, 5000.0f, 16000.0f, 20000.0f
+        20.0f, 200.0f, 800.0f, 2000.0f, 15000.0f, 20000.0f
     };
 };
 #endif /* FilterBank_h */
