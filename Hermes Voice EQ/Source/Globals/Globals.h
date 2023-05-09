@@ -20,4 +20,10 @@ namespace ViatorParameters
 
     extern const juce::String band6ID;
     extern const juce::String band6Name;
+
+    extern const juce::String voiceMaleID;
+    extern const juce::String voiceMaleName;
+
+    extern const juce::String voiceFemaleID;
+    extern const juce::String voiceFemaleName;
 }

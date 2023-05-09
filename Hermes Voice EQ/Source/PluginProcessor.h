@@ -45,7 +45,7 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
     
-    ViatorParameters::Params _paramList;
+    ViatorParameters::Params _parameterMap;
     juce::AudioProcessorValueTreeState _treeState;
 
 private:

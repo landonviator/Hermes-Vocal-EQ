@@ -28,7 +28,7 @@ void FilterBank<SampleType>::prepare(const juce::dsp::ProcessSpec& spec) noexcep
     {
         if (i == 0)
         {
-            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makeHighPass(_sampleRate, _cutoffs[i]);
+            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makeHighPass(_sampleRate, _cutoffs[i], 0.1f);
         }
         
         else if (i == 4)
@@ -86,7 +86,7 @@ void FilterBank<SampleType>::updateFilter(int bandToUpdate, float newQ, float ne
     
     if (bandToUpdate == 0)
     {
-        *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makeHighPass(_sampleRate, newCutoff);
+        *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makeHighPass(_sampleRate, newCutoff, newQ);
     }
     
     else if (bandToUpdate == 4)

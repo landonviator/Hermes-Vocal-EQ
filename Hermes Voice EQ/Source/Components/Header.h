@@ -1,12 +1,13 @@
 #pragma once
 #include <JuceHeader.h>
 #include "../Globals/Globals.h"
+#include "../PluginProcessor.h"
 
 class HermesVoiceEQAudioProcessorEditor;
 class Header  : public juce::Component
 {
 public:
-    Header();
+    Header(HermesVoiceEQAudioProcessor&);
     ~Header() override;
 
     void paint (juce::Graphics&) override;
@@ -17,6 +18,8 @@ public:
     
 // objects
 private:
+    HermesVoiceEQAudioProcessor& _audioProcessor;
+    
     // settings
     viator_gui::TextButton _settingsButton;
     viator_gui::SettingsButton _wrenchButton;
@@ -28,6 +31,12 @@ private:
     viator_gui::TextButton _maleButton;
     viator_gui::TextButton _femaleButton;
     viator_gui::CustomTextButton _customButton;
+    
+    // dial attachments
+    using buttonAttachment = juce::AudioProcessorValueTreeState::ButtonAttachment;
+    juce::OwnedArray<buttonAttachment> _buttonAttachments;
+    std::unique_ptr<buttonAttachment> _maleAttach;
+    std::unique_ptr<buttonAttachment> _femaleAttach;
     
 // methods
 private:

@@ -2,7 +2,7 @@
 #include "PluginEditor.h"
 
 HermesVoiceEQAudioProcessorEditor::HermesVoiceEQAudioProcessorEditor (HermesVoiceEQAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p)
+    : AudioProcessorEditor (&p), audioProcessor (p), _headerComp(audioProcessor)
 {
     setName("Editor");
     
@@ -140,7 +140,7 @@ void HermesVoiceEQAudioProcessorEditor::initDialProps(viator_gui::Fader &dial, i
 {
     _band1Dial.setTextValueSuffix(" %");
     _band6Dial.setTextValueSuffix(" %");
-    _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, audioProcessor._paramList.getParams()[index]._id, dial));
+    _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, audioProcessor._parameterMap.getSliderParams()[index]._id, dial));
     _band1Dial.setTooltip("Rumble filter. This is a highpass filter with a range of 20Hz to 100Hz. The slider at the lowest position allows all low (rumble-y) to pass through and vice versa. Push the slider up if you have a lot of low frequency noise.");
     dial.setComponentID("slider" + juce::String(index));
     dial.addMouseListener(this, false);

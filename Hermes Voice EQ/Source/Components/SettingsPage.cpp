@@ -22,6 +22,10 @@ SettingsPage::SettingsPage()
 
 SettingsPage::~SettingsPage()
 {
+    for (auto& button : _buttons)
+    {
+        button->setLookAndFeel(nullptr);
+    }
 }
 
 void SettingsPage::paint (juce::Graphics& g)

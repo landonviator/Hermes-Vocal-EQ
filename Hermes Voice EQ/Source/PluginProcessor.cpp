@@ -14,17 +14,31 @@ HermesVoiceEQAudioProcessor::HermesVoiceEQAudioProcessor()
 , _treeState(*this, nullptr, "PARAMETERS", createParameterLayout())
 #endif
 {
-    for (int i = 0; i < _paramList.getParams().size(); i++)
+    // sliders
+    for (int i = 0; i < _parameterMap.getSliderParams().size(); i++)
     {
-        _treeState.addParameterListener(_paramList.getParams()[i]._id, this);
+        _treeState.addParameterListener(_parameterMap.getSliderParams()[i]._id, this);
+    }
+    
+    // buttons
+    for (int i = 0; i < _parameterMap.getButtonParams().size(); i++)
+    {
+        _treeState.addParameterListener(_parameterMap.getButtonParams()[i]._id, this);
     }
 }
 
 HermesVoiceEQAudioProcessor::~HermesVoiceEQAudioProcessor()
 {
-    for (int i = 0; i < _paramList.getParams().size(); i++)
+    // sliders
+    for (int i = 0; i < _parameterMap.getSliderParams().size(); i++)
     {
-        _treeState.removeParameterListener(_paramList.getParams()[i]._id, this);
+        _treeState.removeParameterListener(_parameterMap.getSliderParams()[i]._id, this);
+    }
+    
+    // buttons
+    for (int i = 0; i < _parameterMap.getButtonParams().size(); i++)
+    {
+        _treeState.removeParameterListener(_parameterMap.getButtonParams()[i]._id, this);
     }
 }
 
@@ -94,11 +108,19 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesVoiceEQAudioProcessor:
 {
     std::vector <std::unique_ptr<juce::RangedAudioParameter>> params;
     
-    for (int i = 0; i < _paramList.getParams().size(); i++)
+    // sliders
+    for (int i = 0; i < _parameterMap.getSliderParams().size(); i++)
     {
-        auto param = _paramList.getParams()[i];
-        
+        auto param = _parameterMap.getSliderParams()[i];
         params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { param._id, 1 }, param._name, param._min, param._max, param._initial));
+    }
+    
+    // buttons
+    for (int i = 0; i < _parameterMap.getButtonParams().size(); i++)
+    {
+        auto param = _parameterMap.getButtonParams()[i];
+        auto male = ViatorParameters::voiceMaleID;
+        params.push_back (std::make_unique<juce::AudioParameterBool>(juce::ParameterID { param._id, 1 }, param._name, param._id == male ? true : false));
     }
         
     return { params.begin(), params.end() };
@@ -107,7 +129,6 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesVoiceEQAudioProcessor:
 void HermesVoiceEQAudioProcessor::parameterChanged(const juce::String &parameterID, float newValue)
 
 {
-    updateFilters();
 }
 
 void HermesVoiceEQAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
@@ -177,9 +198,10 @@ void HermesVoiceEQAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
 
 void HermesVoiceEQAudioProcessor::updateFilters()
 {
-    for (int i = 0; i < _paramList.getParams().size(); i++)
+    for (int i = 0; i < _parameterMap.getSliderParams().size(); i++)
     {
-        auto param = _paramList.getParams()[i];
+        auto param = _parameterMap.getSliderParams()[i];
+        auto name = param._id;
         
         if (i == 0)
         {
@@ -189,7 +211,7 @@ void HermesVoiceEQAudioProcessor::updateFilters()
             _filterBank.updateFilter(i, param._q, _treeState.getRawParameterValue(param._id)->load(), juce::jmap(cutoff, 0.0f, 100.0f, 100.0f, 20.0f));
         }
         
-        else if (i == _paramList.getParams().size() - 1)
+        else if (i == 5)
         {
             auto cutoffFreq = _treeState.getRawParameterValue(param._id)->load();
             cutoffFreq = juce::jmap(cutoffFreq, param._min, param._max, 1000.0f, 20000.0f);
@@ -200,7 +222,6 @@ void HermesVoiceEQAudioProcessor::updateFilters()
         
         else
         {
-            // For non pass filters, the last arg isnt used, so pass anything
             _filterBank.updateFilter(i, param._q, _treeState.getRawParameterValue(param._id)->load(), -1.0);
         }
     }
@@ -221,15 +242,18 @@ juce::AudioProcessorEditor* HermesVoiceEQAudioProcessor::createEditor()
 //==============================================================================
 void HermesVoiceEQAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    juce::MemoryOutputStream stream(destData, false);
+    _treeState.state.writeToStream (stream);
 }
 
 void HermesVoiceEQAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    auto tree = juce::ValueTree::readFromData (data, size_t(sizeInBytes));
+        
+    if (tree.isValid())
+    {
+        _treeState.state = tree;
+    }
 }
 
 //==============================================================================

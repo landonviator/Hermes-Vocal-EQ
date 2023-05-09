@@ -19,4 +19,10 @@ namespace ViatorParameters
 
     const juce::String band6ID = "band6";
     const juce::String band6Name = "Noise";
+
+    const juce::String voiceMaleID = "voiceMale";
+    const juce::String voiceMaleName = "Voice Male";
+
+    const juce::String voiceFemaleID = "voiceFemale";
+    const juce::String voiceFemaleName = "Voice Female";
 }

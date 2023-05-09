@@ -2,7 +2,7 @@
 #include "Header.h"
 #include "../PluginEditor.h"
 
-Header::Header()
+Header::Header(HermesVoiceEQAudioProcessor& p) : _audioProcessor(p)
 {
     // Settings
     setSettingsButtonProps();
@@ -15,10 +15,19 @@ Header::Header()
     {
         initButtons(*button);
     }
+    
+    _buttonAttachments.add(std::make_unique<buttonAttachment>(_audioProcessor._treeState, ViatorParameters::voiceMaleID, _maleButton));
+    _buttonAttachments.add(std::make_unique<buttonAttachment>(_audioProcessor._treeState, ViatorParameters::voiceFemaleID, _femaleButton));
 }
 
 Header::~Header()
 {
+    for (auto& button : _buttons)
+    {
+        button->setLookAndFeel(nullptr);
+    }
+    
+    _settingsButton.setLookAndFeel(nullptr);
 }
 
 void Header::paint (juce::Graphics& g)
