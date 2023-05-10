@@ -62,7 +62,7 @@ private:
     juce::Label _band4DialLabel;
     juce::Label _band5DialLabel;
     juce::Label _band6DialLabel;
-    std::vector<juce::Label*> _dialLabels =
+    std::vector<juce::Label*> _faderLabels =
     {
         &_band1DialLabel, &_band2DialLabel, &_band3DialLabel,
         &_band4DialLabel, &_band5DialLabel, &_band6DialLabel
@@ -77,10 +77,24 @@ private:
     juce::String _band4DialLabelText = "Clarity";
     juce::String _band5DialLabelText = "Air";
     juce::String _band6DialLabelText = "Noise";
-    std::vector<juce::String*> _labelNames =
+    std::vector<juce::String*> _faderLabelNames =
     {
         &_band1DialLabelText, &_band2DialLabelText, &_band3DialLabelText,
         &_band4DialLabelText, &_band5DialLabelText, &_band6DialLabelText
+    };
+    
+    juce::Label _inputDialLabel;
+    juce::Label _outputDialLabel;
+    std::vector<juce::Label*> _dialLabels =
+    {
+        &_inputDialLabel, &_outputDialLabel
+    };
+    
+    juce::String _inputDialLabelText = "Input";
+    juce::String _outputDialLabelText = "Output";
+    std::vector<juce::String*> _dialLabelNames =
+    {
+        &_inputDialLabelText, &_outputDialLabelText
     };
     
     // Settings
@@ -108,7 +122,8 @@ private:
     void updateSliderColors();
     
     // labels
-    void initLabelProps(juce::Label& label, int index);
+    void initFaderLabelProps(juce::Label& label, int index);
+    void initDialLabelProps(juce::Label& label, int index);
     void updateLabelColors();
     void initTooltipLabel();
     

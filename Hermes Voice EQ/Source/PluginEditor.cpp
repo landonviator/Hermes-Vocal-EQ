@@ -27,10 +27,16 @@ HermesVoiceEQAudioProcessorEditor::HermesVoiceEQAudioProcessorEditor (HermesVoic
     }
     
     // Init Labels
+    for (auto i = 0; i < _faderLabels.size(); i++)
+    {
+        initFaderLabelProps(*_faderLabels[i], i);
+    }
+    
     for (auto i = 0; i < _dialLabels.size(); i++)
     {
-        initLabelProps(*_dialLabels[i], i);
+        initDialLabelProps(*_dialLabels[i], i);
     }
+    
     initTooltipLabel();
     
     
@@ -107,6 +113,11 @@ void HermesVoiceEQAudioProcessorEditor::resized()
     _tooltipLabel.setFont(juce::Font("Helvetica", labelHeight * 0.6, juce::Font::FontStyleFlags::bold));
     
     // Label font
+    for (auto i = 0; i < _faderLabels.size(); i++)
+    {
+        _faderLabels[i]->setFont(juce::Font("Helvetica", faderWidth * 0.1, juce::Font::FontStyleFlags::bold));
+    }
+    
     for (auto i = 0; i < _dialLabels.size(); i++)
     {
         _dialLabels[i]->setFont(juce::Font("Helvetica", faderWidth * 0.1, juce::Font::FontStyleFlags::bold));
@@ -196,12 +207,21 @@ void HermesVoiceEQAudioProcessorEditor::updateSliderColors()
 }
 
 #pragma mark Labels
-void HermesVoiceEQAudioProcessorEditor::initLabelProps(juce::Label &label, int index)
+void HermesVoiceEQAudioProcessorEditor::initFaderLabelProps(juce::Label &label, int index)
 {
     label.setColour(juce::Label::ColourIds::textColourId, _theme.getMainTextColor());
-    label.setText(*_labelNames[index], juce::dontSendNotification);
+    label.setText(*_faderLabelNames[index], juce::dontSendNotification);
     label.setJustificationType(juce::Justification::centred);
     label.attachToComponent(_faders[index], false);
+    addAndMakeVisible(label);
+}
+
+void HermesVoiceEQAudioProcessorEditor::initDialLabelProps(juce::Label &label, int index)
+{
+    label.setColour(juce::Label::ColourIds::textColourId, _theme.getMainTextColor());
+    label.setText(*_dialLabelNames[index], juce::dontSendNotification);
+    label.setJustificationType(juce::Justification::centred);
+    label.attachToComponent(_dials[index], false);
     addAndMakeVisible(label);
 }
 
@@ -213,7 +233,7 @@ void HermesVoiceEQAudioProcessorEditor::initOverlayProps()
 
 void HermesVoiceEQAudioProcessorEditor::updateLabelColors()
 {
-    for (auto& label : _dialLabels)
+    for (auto& label : _faderLabels)
     {
         label->setColour(juce::Label::ColourIds::textColourId, _theme.getMainTextColor());
     }
