@@ -69,6 +69,14 @@ public:
     
     void updateFilter(int bandToUpdate, float newQ, float newGain, float newCutoff);
     
+    enum class Voice
+    {
+        kMale,
+        kFemale
+    };
+    
+    void setVoice(Voice newVoice);
+    
 private:
     float _sampleRate {44100.0f};
     float _blockSize;
@@ -89,10 +97,18 @@ private:
  
     juce::HeapBlock<char> _interleavedBlockData, _zeroData;
     
-    std::vector<float> _cutoffs
+    std::vector<float> _maleCutoffs
     {
-        20.0f, 200.0f, 800.0f, 2000.0f, 15000.0f, 20000.0f
+        20.0f, 200.0f, 900.0f, 2000.0f, 8000.0f, 20000.0f
     };
+    
+    std::vector<float> _femaleCutoffs
+    {
+        20.0f, 300.0f, 1200.0f, 3000.0f, 12000.0f, 20000.0f
+    };
+    
+    Voice _currentVoice = Voice::kMale;
+    std::vector<float> getCurrentCutoffs();
 };
 #endif /* FilterBank_h */
 #endif

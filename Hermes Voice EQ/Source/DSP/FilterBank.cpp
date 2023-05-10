@@ -28,22 +28,22 @@ void FilterBank<SampleType>::prepare(const juce::dsp::ProcessSpec& spec) noexcep
     {
         if (i == 0)
         {
-            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makeHighPass(_sampleRate, _cutoffs[i], 0.1f);
+            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makeHighPass(_sampleRate, _maleCutoffs[i], 0.1f);
         }
         
         else if (i == 4)
         {
-            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makeHighShelf(_sampleRate, _cutoffs[i], 0.3f, 1.0f);
+            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makeHighShelf(_sampleRate, _maleCutoffs[i], 0.3f, 1.0f);
         }
         
         else if (i == 5)
         {
-            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, _cutoffs[i], 0.1f);
+            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, _maleCutoffs[i], 0.1f);
         }
         
         else
         {
-            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, _cutoffs[i], 0.6f, 1.0f);
+            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, _maleCutoffs[i], 0.6f, 1.0f);
         }
         
         _filterBank[i].reset (new juce::dsp::IIR::Filter<juce::dsp::SIMDRegister<float>> (_coefficients[i]));
@@ -66,17 +66,7 @@ void FilterBank<SampleType>::prepare(const juce::dsp::ProcessSpec& spec) noexcep
 template <typename SampleType>
 void FilterBank<SampleType>::reset() noexcept
 {
-//    if (_currentSampleRate > 0)
-//    {
-//        _drive.reset(_currentSampleRate, 0.02);
-//        _drive.setTargetValue(1.0);
-//        _resample.reset(_currentSampleRate, 0.02);
-//        _resample.setTargetValue(50.0);
-//        _mix.reset(_currentSampleRate, 0.02);
-//        _mix.setTargetValue(1.0);
-//        _output.reset(_currentSampleRate, 0.02);
-//        _output.setTargetValue(0.0);
-//    }
+    
 }
 
 template <typename SampleType>
@@ -91,7 +81,7 @@ void FilterBank<SampleType>::updateFilter(int bandToUpdate, float newQ, float ne
     
     else if (bandToUpdate == 4)
     {
-        *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makeHighShelf(_sampleRate, _cutoffs[bandToUpdate], newQ, gain);
+        *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makeHighShelf(_sampleRate, getCurrentCutoffs()[bandToUpdate], newQ, gain);
     }
     
     else if (bandToUpdate == 5)
@@ -101,9 +91,37 @@ void FilterBank<SampleType>::updateFilter(int bandToUpdate, float newQ, float ne
     
     else
     {
-        *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, _cutoffs[bandToUpdate], newQ, gain);
+        *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, getCurrentCutoffs()[bandToUpdate], newQ, gain);
+    }
+}
+
+template <typename SampleType>
+void FilterBank<SampleType>::setVoice(Voice newVoice)
+{
+    jassert(newVoice == Voice::kMale || newVoice == Voice::kFemale);
+    _currentVoice = newVoice;
+}
+
+template <typename SampleType>
+std::vector<float> FilterBank<SampleType>::getCurrentCutoffs()
+{
+    std::vector<float> _cutoffs;
+    _cutoffs.clear();
+    
+    for (int i = 0; i < _maleCutoffs.size(); i++)
+    {
+        if (_currentVoice == Voice::kMale)
+        {
+            _cutoffs.push_back(_maleCutoffs[i]);
+        }
+        
+        else
+        {
+            _cutoffs.push_back(_femaleCutoffs[i]);
+        }
     }
     
+    return _cutoffs;
 }
 
 template class FilterBank<float>;

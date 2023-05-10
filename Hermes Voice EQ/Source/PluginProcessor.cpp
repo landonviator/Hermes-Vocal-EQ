@@ -212,41 +212,49 @@ void HermesVoiceEQAudioProcessor::prepareModules(juce::dsp::ProcessSpec &spec)
 
 void HermesVoiceEQAudioProcessor::updateFilters()
 {
-    for (int i = 0; i < _parameterMap.getSliderParams().size(); i++)
+    // update filter voice
+    const auto voiceID = _treeState.getRawParameterValue(ViatorParameters::voiceMaleID)->load();
+    _filterBankModule.setVoice(voiceID ? FilterBank<float>::Voice::kMale : FilterBank<float>::Voice::kFemale);
+    
+    // update filter gains and Q's
+    const auto& sliderParams = _parameterMap.getSliderParams();
+    for (int i = 0; i < sliderParams.size(); i++)
     {
-        auto param = _parameterMap.getSliderParams()[i];
-        auto name = param._id;
-        
+        const auto& param = sliderParams[i];
+        const auto& name = param._id;
+
         if (name == ViatorParameters::inputID || name == ViatorParameters::outputID)
             continue;
-        
+
         if (i == 0)
         {
-            auto cutoff = _treeState.getRawParameterValue(param._id)->load();
-            
+            const auto cutoff = _treeState.getRawParameterValue(param._id)->load();
+
             // highpass
-            _filterBankModule.updateFilter(i, param._q, _treeState.getRawParameterValue(param._id)->load(), juce::jmap(cutoff, 0.0f, 100.0f, 100.0f, 20.0f));
+            _filterBankModule.updateFilter(i, param._q, cutoff, juce::jmap(cutoff, 0.0f, 100.0f, 100.0f, 20.0f));
         }
-        
         else if (i == 5)
         {
             auto cutoffFreq = _treeState.getRawParameterValue(param._id)->load();
             cutoffFreq = juce::jmap(cutoffFreq, param._min, param._max, 1000.0f, 20000.0f);
-            
+
             // lowpass
             _filterBankModule.updateFilter(i, param._q, cutoffFreq, cutoffFreq);
         }
-        
         else
         {
             _filterBankModule.updateFilter(i, param._q, _treeState.getRawParameterValue(param._id)->load(), -1.0);
         }
     }
+
 }
 
 void HermesVoiceEQAudioProcessor::updateParameters()
 {
+    // update input gain
     _inputGainModule.setGainDecibels(_treeState.getRawParameterValue(ViatorParameters::inputID)->load());
+    
+    // update output gain
     _outputGainModule.setGainDecibels(_treeState.getRawParameterValue(ViatorParameters::outputID)->load());
 }
 
