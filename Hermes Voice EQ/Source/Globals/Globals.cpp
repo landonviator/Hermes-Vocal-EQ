@@ -25,4 +25,10 @@ namespace ViatorParameters
 
     const juce::String voiceFemaleID = "voiceFemale";
     const juce::String voiceFemaleName = "Voice Female";
+
+    const juce::String inputID = "input";
+    const juce::String inputName = "Input";
+
+    const juce::String outputID = "output";
+    const juce::String outputName = "Output";
 }

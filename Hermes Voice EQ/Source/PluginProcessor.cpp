@@ -133,12 +133,16 @@ void HermesVoiceEQAudioProcessor::parameterChanged(const juce::String &parameter
 
 void HermesVoiceEQAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    spec.sampleRate = sampleRate;
-    spec.maximumBlockSize = samplesPerBlock;
-    spec.numChannels = getTotalNumInputChannels();
+    _spec.sampleRate = sampleRate;
+    _spec.maximumBlockSize = samplesPerBlock;
+    _spec.numChannels = getTotalNumInputChannels();
     
-    _filterBank.prepare(spec);
+    prepareModules(_spec);
     updateFilters();
+    _inputGainModule.setRampDurationSeconds(0.02);
+    _outputGainModule.setRampDurationSeconds(0.02);
+    updateParameters();
+    
 }
 
 void HermesVoiceEQAudioProcessor::releaseResources()
@@ -176,24 +180,34 @@ bool HermesVoiceEQAudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
 void HermesVoiceEQAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     updateFilters();
+    updateParameters();
     
     // Update block size
-    if (spec.maximumBlockSize != buffer.getNumSamples())
+    if (_spec.maximumBlockSize != buffer.getNumSamples())
     {
-        spec.maximumBlockSize = buffer.getNumSamples();
-        _filterBank.prepare(spec);
+        _spec.maximumBlockSize = buffer.getNumSamples();
+        prepareModules(_spec);
     }
     
     // Update samplerate
-    if (spec.sampleRate != getSampleRate())
+    if (_spec.sampleRate != getSampleRate())
     {
-        spec.sampleRate = getSampleRate();
-        _filterBank.prepare(spec);
+        _spec.sampleRate = getSampleRate();
+        prepareModules(_spec);
     }
     
     // Process the filters
     juce::dsp::AudioBlock<float> mainBlock {buffer};
-    _filterBank.process(juce::dsp::ProcessContextReplacing<float>(mainBlock));
+    _inputGainModule.process(juce::dsp::ProcessContextReplacing<float>(mainBlock));
+    _filterBankModule.process(juce::dsp::ProcessContextReplacing<float>(mainBlock));
+    _outputGainModule.process(juce::dsp::ProcessContextReplacing<float>(mainBlock));
+}
+
+void HermesVoiceEQAudioProcessor::prepareModules(juce::dsp::ProcessSpec &spec)
+{
+    _inputGainModule.prepare(spec);
+    _filterBankModule.prepare(spec);
+    _outputGainModule.prepare(spec);
 }
 
 void HermesVoiceEQAudioProcessor::updateFilters()
@@ -203,12 +217,15 @@ void HermesVoiceEQAudioProcessor::updateFilters()
         auto param = _parameterMap.getSliderParams()[i];
         auto name = param._id;
         
+        if (name == ViatorParameters::inputID || name == ViatorParameters::outputID)
+            continue;
+        
         if (i == 0)
         {
             auto cutoff = _treeState.getRawParameterValue(param._id)->load();
             
             // highpass
-            _filterBank.updateFilter(i, param._q, _treeState.getRawParameterValue(param._id)->load(), juce::jmap(cutoff, 0.0f, 100.0f, 100.0f, 20.0f));
+            _filterBankModule.updateFilter(i, param._q, _treeState.getRawParameterValue(param._id)->load(), juce::jmap(cutoff, 0.0f, 100.0f, 100.0f, 20.0f));
         }
         
         else if (i == 5)
@@ -217,14 +234,20 @@ void HermesVoiceEQAudioProcessor::updateFilters()
             cutoffFreq = juce::jmap(cutoffFreq, param._min, param._max, 1000.0f, 20000.0f);
             
             // lowpass
-            _filterBank.updateFilter(i, param._q, cutoffFreq, cutoffFreq);
+            _filterBankModule.updateFilter(i, param._q, cutoffFreq, cutoffFreq);
         }
         
         else
         {
-            _filterBank.updateFilter(i, param._q, _treeState.getRawParameterValue(param._id)->load(), -1.0);
+            _filterBankModule.updateFilter(i, param._q, _treeState.getRawParameterValue(param._id)->load(), -1.0);
         }
     }
+}
+
+void HermesVoiceEQAudioProcessor::updateParameters()
+{
+    _inputGainModule.setGainDecibels(_treeState.getRawParameterValue(ViatorParameters::inputID)->load());
+    _outputGainModule.setGainDecibels(_treeState.getRawParameterValue(ViatorParameters::outputID)->load());
 }
 
 //==============================================================================

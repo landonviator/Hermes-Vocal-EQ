@@ -19,6 +19,8 @@ void ViatorParameters::Params::initSliderParams()
     _sliderParams.push_back({ViatorParameters::band4ID, ViatorParameters::band4Name, -15.0, 15.0f, 0.0f, 0.6f});
     _sliderParams.push_back({ViatorParameters::band5ID, ViatorParameters::band5Name, -15.0f, 15.0f, 0.0f, 0.1f});
     _sliderParams.push_back({ViatorParameters::band6ID, ViatorParameters::band6Name, 0, 100, 100, 0.6f});
+    _sliderParams.push_back({ViatorParameters::inputID, ViatorParameters::inputName, -30.0f, 30.0f, 0.0f, 0.0f});
+    _sliderParams.push_back({ViatorParameters::outputID, ViatorParameters::outputName, -30.0f, 30.0f, 0.0f, 0.0f});
 }
 
 std::vector<ViatorParameters::ButtonParameterData>& ViatorParameters::Params::getButtonParams()

@@ -26,6 +26,9 @@ HermesVoiceEQAudioProcessorEditor::HermesVoiceEQAudioProcessorEditor (HermesVoic
         dialIndex++;
     }
     
+    _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, ViatorParameters::inputID, _inputDial));
+    _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, ViatorParameters::outputID, _outputDial));
+    
     // Init Labels
     for (auto i = 0; i < _faderLabels.size(); i++)
     {
@@ -159,7 +162,7 @@ void HermesVoiceEQAudioProcessorEditor::setWindowSizeLogic()
     setSize (width, height);
     setResizable(true, true);
     getConstrainer()->setFixedAspectRatio(2.0);
-    setResizeLimits(width * 0.5, height * 0.5, width * 1.25, height * 1.25);
+    setResizeLimits(width * 0.75, height * 0.75, width * 1.25, height * 1.25);
 }
 
 #pragma mark Sliders

@@ -110,6 +110,8 @@ private:
     std::unique_ptr<sliderAttachment> _band4Attach;
     std::unique_ptr<sliderAttachment> _band5Attach;
     std::unique_ptr<sliderAttachment> _band6Attach;
+    std::unique_ptr<sliderAttachment> _inputAttach;
+    std::unique_ptr<sliderAttachment> _outputAttach;
     
 // methods
 private:
