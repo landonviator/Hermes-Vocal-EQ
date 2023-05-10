@@ -31,17 +31,25 @@ private:
     // theme
     ViatorThemes::ViatorThemeData _theme;
     
-    // dials
+    // faders
     viator_gui::Fader _band1Dial;
     viator_gui::Fader _band2Dial;
     viator_gui::Fader _band3Dial;
     viator_gui::Fader _band4Dial;
     viator_gui::Fader _band5Dial;
     viator_gui::Fader _band6Dial;
-    std::vector<viator_gui::Fader*> _dials =
+    std::vector<viator_gui::Fader*> _faders =
     {
         &_band1Dial, &_band2Dial, &_band3Dial,
         &_band4Dial, &_band5Dial, &_band6Dial
+    };
+    
+    // dials
+    viator_gui::Dial _inputDial;
+    viator_gui::Dial _outputDial;
+    std::vector<viator_gui::Dial*> _dials =
+    {
+        &_inputDial, &_outputDial
     };
     
     // header
@@ -94,8 +102,9 @@ private:
     // window
     void setWindowSizeLogic();
     
-    // dials
-    void initDialProps(viator_gui::Fader& dial, int index);
+    // sliders
+    void initFaderProps(viator_gui::Fader& fader, int index);
+    void initDialProps(viator_gui::Dial& dial, int index);
     void updateSliderColors();
     
     // labels
@@ -146,9 +155,24 @@ private:
         "Lowpass filter. Controls 1000-20000 Hz. Lower to reduce noise."
     };
     
-    std::vector<juce::String> _sliderTooltips =
+    std::vector<juce::String> _faderTooltips =
     {
         _band1ToolTip, _band2ToolTip, _band3ToolTip, _band4ToolTip, _band5ToolTip, _band6ToolTip
+    };
+    
+    juce::String _inputToolTip =
+    {
+        "The volume of the signal going into the plugin."
+    };
+    
+    juce::String _outputToolTip =
+    {
+        "The volume of the signal coming out of the plugin."
+    };
+    
+    std::vector<juce::String> _dialTooltips =
+    {
+        _inputToolTip, _outputToolTip
     };
 
 

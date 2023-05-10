@@ -9,9 +9,17 @@ HermesVoiceEQAudioProcessorEditor::HermesVoiceEQAudioProcessorEditor (HermesVoic
     // Window sizing
     setWindowSizeLogic();
     
-    auto dialIndex = 0;
+    auto faderIndex = 0;
 
-    // Init Dials
+    // Init sliders
+    for (auto& fader : _faders)
+    {
+        initFaderProps(*fader, faderIndex);
+        faderIndex++;
+    }
+    
+    auto dialIndex = 0;
+    
     for (auto& dial : _dials)
     {
         initDialProps(*dial, dialIndex);
@@ -55,14 +63,17 @@ void HermesVoiceEQAudioProcessorEditor::paint (juce::Graphics& g)
     
     auto isContrast = _settingsPage.getIsHighContrast();
     _tooltipLabel.setColour(juce::Label::ColourIds::textColourId,  isContrast ? _theme.getWidgetFillColor() : juce::Colours::whitesmoke.withAlpha(0.25f));
+    
+    g.setColour(juce::Colours::whitesmoke.withAlpha(0.05f));
+    g.drawLine(_band6Dial.getRight(), _headerComp.getBottom() * 2.0, _band6Dial.getRight(), getHeight() - _headerComp.getBottom(), 1.0f);
 }
 
 void HermesVoiceEQAudioProcessorEditor::resized()
 {
     auto topMargin = getHeight() * 0.25;
-    auto dialWidth = getWidth() * 0.14;
-    auto dialHeight = getHeight() * 0.7;
-    auto leftMargin = getWidth() * 0.05;
+    auto faderWidth = getWidth() * 0.13;
+    auto faderHeight = getHeight() * 0.7;
+    auto leftMargin = juce::jmax(5.0f, getWidth() * 0.01f);
     
     // Header
     _headerComp.setBounds(0, 0, getWidth(), getHeight() * 0.12);
@@ -72,18 +83,23 @@ void HermesVoiceEQAudioProcessorEditor::resized()
     _settingsPage.setBounds(getWidth() * 0.66, _headerComp.getBottom() + 10, getWidth() * 0.34 - 10, getHeight() - _headerComp.getHeight() - 20);
     
     // Sliders
-    for (int i = 0; i < _dials.size(); i++)
+    for (int i = 0; i < _faders.size(); i++)
     {
         if (i == 0)
         {
-            _dials[i]->setBounds(leftMargin, topMargin, dialWidth, dialHeight);
+            _faders[i]->setBounds(leftMargin, topMargin, faderWidth, faderHeight);
         }
         
         else
         {
-            _dials[i]->setBounds(_dials[i - 1]->getRight(), topMargin, dialWidth, dialHeight);
+            _faders[i]->setBounds(_faders[i - 1]->getRight(), topMargin, faderWidth, faderHeight);
         }
     }
+    
+    auto spaceBetween = faderWidth * 0.4;
+    auto dialWidth = (getWidth() - _band6Dial.getRight()) * 0.75;
+    _inputDial.setBounds(getWidth() - dialWidth * 1.125, _band6Dial.getY(), dialWidth, dialWidth);
+    _outputDial.setBounds(_inputDial.getX(), _inputDial.getBottom() + spaceBetween, dialWidth, dialWidth);
     
     // tooltip label
     auto labelHeight = getHeight() - _band1Dial.getBottom();
@@ -93,7 +109,7 @@ void HermesVoiceEQAudioProcessorEditor::resized()
     // Label font
     for (auto i = 0; i < _dialLabels.size(); i++)
     {
-        _dialLabels[i]->setFont(juce::Font("Helvetica", dialWidth * 0.1, juce::Font::FontStyleFlags::bold));
+        _dialLabels[i]->setFont(juce::Font("Helvetica", faderWidth * 0.1, juce::Font::FontStyleFlags::bold));
     }
 }
 
@@ -135,20 +151,38 @@ void HermesVoiceEQAudioProcessorEditor::setWindowSizeLogic()
     setResizeLimits(width * 0.5, height * 0.5, width * 1.25, height * 1.25);
 }
 
-#pragma mark Dials
-void HermesVoiceEQAudioProcessorEditor::initDialProps(viator_gui::Fader &dial, int index)
+#pragma mark Sliders
+void HermesVoiceEQAudioProcessorEditor::initFaderProps(viator_gui::Fader &fader, int index)
 {
     _band1Dial.setTextValueSuffix(" %");
     _band6Dial.setTextValueSuffix(" %");
-    _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, audioProcessor._parameterMap.getSliderParams()[index]._id, dial));
+    _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, audioProcessor._parameterMap.getSliderParams()[index]._id, fader));
     _band1Dial.setTooltip("Rumble filter. This is a highpass filter with a range of 20Hz to 100Hz. The slider at the lowest position allows all low (rumble-y) to pass through and vice versa. Push the slider up if you have a lot of low frequency noise.");
-    dial.setComponentID("slider" + juce::String(index));
+    fader.setComponentID("fader" + juce::String(index));
+    fader.addMouseListener(this, false);
+    addAndMakeVisible(fader);
+}
+
+void HermesVoiceEQAudioProcessorEditor::initDialProps(viator_gui::Dial &dial, int index)
+{
+    dial.setComponentID("fader" + juce::String(index));
     dial.addMouseListener(this, false);
     addAndMakeVisible(dial);
 }
 
 void HermesVoiceEQAudioProcessorEditor::updateSliderColors()
 {
+    for (auto& fader : _faders)
+    {
+        fader->setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::transparentBlack);
+        fader->setColour(juce::Slider::ColourIds::backgroundColourId, _theme.getAuxBackgroundColor().withAlpha(0.35f));
+        fader->setColour(juce::Slider::ColourIds::rotarySliderOutlineColourId, _theme.getAuxBackgroundColor().withAlpha(0.35f));
+        fader->setColour(juce::Slider::ColourIds::textBoxTextColourId, _theme.getMainTextColor());
+        fader->setColour(juce::Slider::ColourIds::trackColourId, _theme.getWidgetFillColor().withAlpha(0.75f));
+        fader->setColour(juce::Slider::ColourIds::rotarySliderFillColourId, _theme.getWidgetFillColor().withAlpha(0.75f));
+        fader->setColour(juce::Slider::ColourIds::thumbColourId, _theme.getAuxTextColor());
+    }
+    
     for (auto& dial : _dials)
     {
         dial->setColour(juce::Slider::ColourIds::textBoxOutlineColourId, juce::Colours::transparentBlack);
@@ -167,7 +201,7 @@ void HermesVoiceEQAudioProcessorEditor::initLabelProps(juce::Label &label, int i
     label.setColour(juce::Label::ColourIds::textColourId, _theme.getMainTextColor());
     label.setText(*_labelNames[index], juce::dontSendNotification);
     label.setJustificationType(juce::Justification::centred);
-    label.attachToComponent(_dials[index], false);
+    label.attachToComponent(_faders[index], false);
     addAndMakeVisible(label);
 }
 
@@ -203,19 +237,36 @@ void HermesVoiceEQAudioProcessorEditor::setSettingsState(bool isActive)
 #pragma mark Tooltips
 void HermesVoiceEQAudioProcessorEditor::mouseEnter(const juce::MouseEvent &event)
 {
-    //sliders
+    // faders
+    for (int i = 0; i < _faders.size(); ++i)
+    {
+        if (event.eventComponent == _faders[i])
+        {
+            _tooltipLabel.setText(_faderTooltips[i], juce::dontSendNotification);
+        }
+    }
+    
+    // dials
     for (int i = 0; i < _dials.size(); ++i)
     {
         if (event.eventComponent == _dials[i])
         {
-            _tooltipLabel.setText(_sliderTooltips[i], juce::dontSendNotification);
+            _tooltipLabel.setText(_dialTooltips[i], juce::dontSendNotification);
         }
     }
 }
 
 void HermesVoiceEQAudioProcessorEditor::mouseExit(const juce::MouseEvent &event)
 {
-    //sliders
+    // faders
+    for (int i = 0; i < _faders.size(); ++i)
+    {
+        if (event.eventComponent == _faders[i])
+        {
+            _tooltipLabel.setText("", juce::dontSendNotification);
+        }
+    }
+    
     for (int i = 0; i < _dials.size(); ++i)
     {
         if (event.eventComponent == _dials[i])
