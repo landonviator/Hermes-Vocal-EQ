@@ -2,11 +2,12 @@
 #include "Header.h"
 #include "../PluginEditor.h"
 
-Header::Header(HermesVoiceEQAudioProcessor& p) : _audioProcessor(p)
+Header::Header(HermesVoiceEQAudioProcessor& p) : _audioProcessor(p), _tooltipWindow(this, 1000)
 {
     // Settings
     setSettingsButtonProps();
     
+    // shadow
     _dropShadow = std::make_unique<juce::DropShadower>(juce::DropShadow(juce::Colours::black.withAlpha(0.5f), 5, {}));
     _dropShadow->setOwner(this);
     
@@ -16,8 +17,14 @@ Header::Header(HermesVoiceEQAudioProcessor& p) : _audioProcessor(p)
         initButtons(*button);
     }
     
+    // button attachments
     _buttonAttachments.add(std::make_unique<buttonAttachment>(_audioProcessor._treeState, ViatorParameters::voiceMaleID, _maleButton));
     _buttonAttachments.add(std::make_unique<buttonAttachment>(_audioProcessor._treeState, ViatorParameters::voiceFemaleID, _femaleButton));
+    
+    // tooltip
+    initTooltips();
+    
+    enableToolTips(false);
 }
 
 Header::~Header()
@@ -91,6 +98,9 @@ void Header::initButtons(viator_gui::TextButton &button)
     _maleButton.setRadioGroupId(1);
     _femaleButton.setButtonText("Female");
     _femaleButton.setRadioGroupId(1);
+    _settingsButton.setTooltip("Settings");
+    _maleButton.setTooltip("Male voice preset");
+    _femaleButton.setTooltip("Female voice preset");
     button.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colour::fromRGB(74, 81, 98).darker(0.5).withAlpha(0.3f));
     button.setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colour::fromRGB(74, 81, 98));
     button.setColour(juce::ComboBox::outlineColourId, juce::Colours::transparentBlack);
@@ -128,4 +138,16 @@ void Header::updateButtonColors(juce::Graphics& g)
         _femaleButton.setColour(juce::TextButton::ColourIds::textColourOnId, isHighContrast ? contrastColor : nonContrastColor);
         _femaleButton.setColour(juce::TextButton::ColourIds::textColourOffId, isHighContrast ? contrastColor : nonContrastColor);
     }
+}
+
+void Header::initTooltips()
+{
+    _tooltipWindow.getLookAndFeel().setColour(juce::TooltipWindow::ColourIds::backgroundColourId, juce::Colour::fromRGB(33, 37, 43));
+    _tooltipWindow.getLookAndFeel().setColour(juce::TooltipWindow::ColourIds::textColourId, juce::Colours::whitesmoke.withAlpha(0.25f));
+    addAndMakeVisible(_tooltipWindow);
+}
+
+void Header::enableToolTips(const bool shouldEnable)
+{
+    _tooltipWindow.setVisible(shouldEnable);
 }

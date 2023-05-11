@@ -16,6 +16,9 @@ public:
     // settings stuff
     bool isSettingsActive();
     
+    // tooltip stuff
+    void enableToolTips(const bool shouldEnable);
+    
 // objects
 private:
     HermesVoiceEQAudioProcessor& _audioProcessor;
@@ -38,11 +41,15 @@ private:
     std::unique_ptr<buttonAttachment> _maleAttach;
     std::unique_ptr<buttonAttachment> _femaleAttach;
     
+    // tooltip
+    juce::TooltipWindow _tooltipWindow;
+    
 // methods
 private:
     void setSettingsButtonProps();
     void initButtons(viator_gui::TextButton& button);
     void updateButtonColors(juce::Graphics& g);
+    void initTooltips();
     
 // vars
 private:
