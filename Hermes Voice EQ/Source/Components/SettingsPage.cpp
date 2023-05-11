@@ -39,16 +39,19 @@ void SettingsPage::paint (juce::Graphics& g)
 
 void SettingsPage::resized()
 {
+    // theme label
     auto leftMargin = getWidth() * 0.1;
     auto topMargin = getHeight() * 0.1;
     auto labelWidth = getWidth() * 0.25;
     auto labelHeight = labelWidth * 0.5;
     _themeLabel.setBounds(leftMargin, topMargin, labelWidth, labelHeight);
     
+    // theme menu
     auto menuWidth = labelWidth * 2.0;
     auto padding = labelHeight * 0.5;
     _themeMenu.setBounds(_themeLabel.getRight() + padding, topMargin, menuWidth, labelHeight);
     
+    // social buttons
     auto buttonWidth = getWidth() * 0.185;
     auto buttonHeight = buttonWidth * 0.5;
     auto spaceBetween = buttonWidth * 0.1;
@@ -63,15 +66,16 @@ void SettingsPage::resized()
         {
             _buttons[i]->setBounds(_buttons[i - 1]->getRight() + spaceBetween, _themeLabel.getBottom() + labelHeight, buttonWidth, buttonHeight);
         }
-        
-        else
-        {
-            auto button1 = _buttons[0];
-            auto button4 = _buttons[3];
-            auto width = button4->getRight() - button1->getX();
-            _buttons[i]->setBounds(button1->getX(), button1->getBottom() + spaceBetween, width, buttonHeight);
-        }
     }
+    
+    // constrast btn
+    auto button1 = _buttons[0];
+    auto button4 = _buttons[3];
+    auto width = button4->getRight() - button1->getX();
+    _contrastButton.setBounds(button1->getX(), button1->getBottom() + spaceBetween, width, buttonHeight);
+    
+    // tooltip btn
+    _tooltipButton.setBounds(_buttons[0]->getX(), _contrastButton.getBottom() + spaceBetween, buttonWidth, buttonHeight);
 }
 
 void SettingsPage::initThemeLabelProps()
@@ -182,6 +186,19 @@ void SettingsPage::initButtonProps(viator_gui::TextButton& button)
         button.setButtonText("High Contrast");
         button.onClick = [this]()
         {
+            // to the editor
+            sendChangeMessage();
+        };
+    }
+    
+    if (&button == &_tooltipButton)
+    {
+        button.setButtonText("Tooltips");
+        button.setClickingTogglesState(true);
+        button.setToggleState(true, juce::dontSendNotification);
+        button.onClick = [this]()
+        {
+            // to the editor
             sendChangeMessage();
         };
     }
@@ -215,4 +232,9 @@ bool SettingsPage::getIsHighContrast()
 void SettingsPage::resetToNonContrast()
 {
     _themeMenu.onChange();
+}
+
+bool SettingsPage::getShouldUseTooltips()
+{
+    return _tooltipButton.getToggleState();
 }

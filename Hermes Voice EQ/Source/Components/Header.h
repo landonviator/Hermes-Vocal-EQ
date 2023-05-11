@@ -5,6 +5,7 @@
 
 class HermesVoiceEQAudioProcessorEditor;
 class Header  : public juce::Component
+, public juce::ChangeListener
 {
 public:
     Header(HermesVoiceEQAudioProcessor&);
@@ -42,7 +43,7 @@ private:
     std::unique_ptr<buttonAttachment> _femaleAttach;
     
     // tooltip
-    juce::TooltipWindow _tooltipWindow;
+    viator_gui::TooltipWindow _tooltipWindow;
     
 // methods
 private:
@@ -50,6 +51,8 @@ private:
     void initButtons(viator_gui::TextButton& button);
     void updateButtonColors(juce::Graphics& g);
     void initTooltips();
+    void changeListenerCallback (juce::ChangeBroadcaster *source) override;
+
     
 // vars
 private:

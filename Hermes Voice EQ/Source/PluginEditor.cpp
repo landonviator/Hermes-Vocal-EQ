@@ -311,5 +311,9 @@ void HermesVoiceEQAudioProcessorEditor::changeListenerCallback(juce::ChangeBroad
         _settingsPage.resetToNonContrast();
     }
     
+    auto b = _settingsPage.getShouldUseTooltips();
+    
+    _headerComp.enableToolTips(_settingsPage.getShouldUseTooltips());
+    
     repaint();
 }

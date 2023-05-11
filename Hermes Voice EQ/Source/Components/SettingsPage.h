@@ -15,6 +15,9 @@ public:
     // constrast stuff
     bool getIsHighContrast();
     void resetToNonContrast();
+    
+    // tooltip stuff
+    bool getShouldUseTooltips();
 
 // objects
 private:
@@ -25,6 +28,7 @@ private:
     viator_gui::TextButton _youtubeButton;
     viator_gui::TextButton _instaButton;
     viator_gui::TextButton _contrastButton;
+    viator_gui::TextButton _tooltipButton;
     viator_gui::CustomTextButton _customButton;
     
 // methods
@@ -39,7 +43,7 @@ private:
     std::vector<viator_gui::TextButton*> _buttons =
     {
         &_emailButton, &_patreonButton, &_youtubeButton,
-        &_instaButton, &_contrastButton
+        &_instaButton, &_contrastButton, &_tooltipButton
     };
     
     // colors

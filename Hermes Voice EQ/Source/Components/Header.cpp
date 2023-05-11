@@ -2,7 +2,7 @@
 #include "Header.h"
 #include "../PluginEditor.h"
 
-Header::Header(HermesVoiceEQAudioProcessor& p) : _audioProcessor(p), _tooltipWindow(this, 1000)
+Header::Header(HermesVoiceEQAudioProcessor& p) : _audioProcessor(p)
 {
     // Settings
     setSettingsButtonProps();
@@ -23,8 +23,6 @@ Header::Header(HermesVoiceEQAudioProcessor& p) : _audioProcessor(p), _tooltipWin
     
     // tooltip
     initTooltips();
-    
-    enableToolTips(false);
 }
 
 Header::~Header()
@@ -149,5 +147,9 @@ void Header::initTooltips()
 
 void Header::enableToolTips(const bool shouldEnable)
 {
-    _tooltipWindow.setVisible(shouldEnable);
+    _tooltipWindow.enableTooltips(shouldEnable);
+}
+
+void Header::changeListenerCallback(juce::ChangeBroadcaster *source)
+{
 }
