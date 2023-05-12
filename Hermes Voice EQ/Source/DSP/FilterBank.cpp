@@ -80,8 +80,10 @@ template <typename SampleType>
 void FilterBank<SampleType>::updateFilter(const int bandToUpdate, const float newQ, const float newGain, const float newCutoff)
 {
     _currentFilter = static_cast<FilterStuff>(bandToUpdate);
-    auto gain = juce::Decibels::decibelsToGain(newGain);
-    auto negativeGain = juce::Decibels::decibelsToGain(-newGain);
+    const auto filterGain = juce::Decibels::decibelsToGain(newGain);
+    const auto negativeFilterGain = juce::Decibels::decibelsToGain(-newGain);
+    const auto scaledGain = juce::jmap(std::abs(newGain), 0.0f, 15.0f, 0.0f, 1.0f);
+    const auto filterQ = std::pow(10, scaledGain * 0.5) - 0.9;
 
     switch (_currentFilter)
     {
@@ -90,20 +92,20 @@ void FilterBank<SampleType>::updateFilter(const int bandToUpdate, const float ne
             break;
 
         case kMud:
-            *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, getCurrentCutoffs()[bandToUpdate], newQ, gain);
-            *_coefficients[6] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, getCurrentCutoffs()[6], newQ, (newGain > 0.0) ? negativeGain : 1.0f);
+            *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, getCurrentCutoffs()[bandToUpdate], filterQ, filterGain);
+            *_coefficients[6] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, getCurrentCutoffs()[6], filterQ, (newGain > 0.0) ? negativeFilterGain : 1.0f);
             break;
 
         case kMuffle:
-            *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, getCurrentCutoffs()[bandToUpdate], newQ, gain);
+            *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, getCurrentCutoffs()[bandToUpdate], filterQ, filterGain);
             break;
             
         case kClarity:
-            *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, getCurrentCutoffs()[bandToUpdate], newQ, gain);
+            *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, getCurrentCutoffs()[bandToUpdate], filterQ, filterGain);
             break;
 
         case kAir:
-            *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makeHighShelf(_sampleRate, getCurrentCutoffs()[bandToUpdate], newQ, gain);
+            *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makeHighShelf(_sampleRate, getCurrentCutoffs()[bandToUpdate], filterQ, filterGain);
             break;
 
         case kNoise:
