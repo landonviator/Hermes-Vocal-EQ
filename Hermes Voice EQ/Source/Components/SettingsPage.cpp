@@ -4,18 +4,28 @@
 
 SettingsPage::SettingsPage()
 {
-    // Labels
+    // labels
+    int index = 0;
     initThemeLabelProps();
-    
-    // Menus
-    initThemeMenuProps();
-    
-    // Buttons
-    for (auto& button : _buttons)
+    for (auto& label : _buttonLabels)
     {
-        initButtonProps(*button);
+        initButtonLabels(*label, index);
+        index++;
     }
     
+    // menus
+    initThemeMenuProps();
+    
+    index = 0;
+    
+    // buttons
+    for (auto& button : _buttons)
+    {
+        initButtonProps(*button, index);
+        index++;
+    }
+    
+    // shadow
     _dropShadow = std::make_unique<juce::DropShadower>(juce::DropShadow(juce::Colours::black.withAlpha(0.5f), 5, {}));
     _dropShadow->setOwner(this);
 }
@@ -30,11 +40,18 @@ SettingsPage::~SettingsPage()
 
 void SettingsPage::paint (juce::Graphics& g)
 {
+    auto lineColor = juce::Colours::whitesmoke.withAlpha(0.1f);
+    auto lineMargin = 6;
+    
     g.setColour(_innerBgColor);
     g.fillRect(getLocalBounds());
     
     g.setColour(juce::Colours::black.withAlpha(0.4f));
     g.fillRect(getLocalBounds());
+    
+//    g.setColour(lineColor);
+//    g.drawLine(_buttons[0]->getX(), _buttons[0]->getY() - lineMargin, _buttons[3]->getRight(), _buttons[0]->getY() - lineMargin, 1.0f);
+//    g.drawLine(_buttons[0]->getX(), _contrastButton.getY() - lineMargin, _buttons[3]->getRight(), _contrastButton.getY() - lineMargin, 1.0f);
 }
 
 void SettingsPage::resized()
@@ -42,46 +59,45 @@ void SettingsPage::resized()
     // theme label
     auto leftMargin = getWidth() * 0.1;
     auto topMargin = getHeight() * 0.1;
-    auto labelWidth = getWidth() * 0.25;
-    auto labelHeight = labelWidth * 0.5;
+    auto labelWidth = getWidth() * 0.3;
+    auto labelHeight = labelWidth * 0.3;
     _themeLabel.setBounds(leftMargin, topMargin, labelWidth, labelHeight);
     
-    // theme menu
-    auto menuWidth = labelWidth * 2.0;
-    auto padding = labelHeight * 0.5;
-    _themeMenu.setBounds(_themeLabel.getRight() + padding, topMargin, menuWidth, labelHeight);
-    
-    // social buttons
-    auto buttonWidth = getWidth() * 0.185;
-    auto buttonHeight = buttonWidth * 0.5;
-    auto spaceBetween = buttonWidth * 0.1;
-    for (int i = 0; i <_buttons.size(); i++)
+    auto labelY = _themeLabel.getBottom() + labelHeight;
+    for (int i = 0; i < _buttonLabels.size(); ++i)
     {
-        if (i == 0)
-        {
-            _buttons[i]->setBounds(leftMargin, _themeLabel.getBottom() + labelHeight, buttonWidth, buttonHeight);
-        }
+        _buttonLabels[i]->setBounds(leftMargin, labelY, labelWidth, labelHeight);
+        labelY += labelHeight;
         
-        else if (i < _buttons.size() - 1)
+        if (i == 1)
         {
-            _buttons[i]->setBounds(_buttons[i - 1]->getRight() + spaceBetween, _themeLabel.getBottom() + labelHeight, buttonWidth, buttonHeight);
+            labelY += labelHeight;
         }
     }
     
-    // constrast btn
-    auto button1 = _buttons[0];
-    auto button4 = _buttons[3];
-    auto width = button4->getRight() - button1->getX();
-    _contrastButton.setBounds(button1->getX(), button1->getBottom() + spaceBetween, width, buttonHeight);
+    // theme menu
+    auto menuWidth = labelWidth * 1.5;
+    auto padding = labelHeight * 0.5;
+    _themeMenu.setBounds(_themeLabel.getRight() + padding, topMargin, menuWidth, labelHeight);
     
-    // tooltip btn
-    _tooltipButton.setBounds(_buttons[0]->getX(), _contrastButton.getBottom() + spaceBetween, buttonWidth, buttonHeight);
+    // buttons
+    auto buttonY = _buttonLabels[0]->getY();
+    for (int i = 0; i <_buttons.size(); i++)
+    {
+        _buttons[i]->setBounds(_themeMenu.getX(), buttonY, labelWidth * 0.5, labelHeight);
+        buttonY += labelHeight;
+        
+        if (i == 1)
+        {
+            buttonY += labelHeight;
+        }
+    }
 }
 
 void SettingsPage::initThemeLabelProps()
 {
     _themeLabel.setText("Color Theme", juce::dontSendNotification);
-    _themeLabel.setJustificationType(juce::Justification::centred);
+    _themeLabel.setJustificationType(juce::Justification::centredLeft);
     _themeLabel.setFont(juce::Font("Helvetica", 12.0f, juce::Font::FontStyleFlags::bold));
     _themeLabel.setColour(juce::Label::ColourIds::outlineColourId, juce::Colours::transparentBlack);
     _themeLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colour::fromRGB(155, 165, 175));
@@ -140,11 +156,10 @@ void SettingsPage::initThemeMenuProps()
     };
 }
 
-void SettingsPage::initButtonProps(viator_gui::TextButton& button)
+void SettingsPage::initButtonProps(viator_gui::TextButton& button, int index)
 {
     if (&button == &_emailButton)
     {
-        button.setButtonText("Email");
         _emailButton.onClick = [this]()
         {
             sendEmail("viatordsp@gmail.com", "bruh", "BRUH");
@@ -153,7 +168,6 @@ void SettingsPage::initButtonProps(viator_gui::TextButton& button)
     
     if (&button == &_patreonButton)
     {
-        button.setButtonText("P");
         _patreonButton.onClick = [this]()
         {
             auto patreon = juce::URL("https://www.patreon.com/ViatorDSP");
@@ -163,7 +177,6 @@ void SettingsPage::initButtonProps(viator_gui::TextButton& button)
     
     if (&button == &_youtubeButton)
     {
-        button.setButtonText("YT");
         _youtubeButton.onClick = [this]()
         {
             auto youtube = juce::URL("https://www.youtube.com/@drbruisin");
@@ -173,7 +186,6 @@ void SettingsPage::initButtonProps(viator_gui::TextButton& button)
     
     if (&button == &_instaButton)
     {
-        button.setButtonText("Insta");
         _instaButton.onClick = [this]()
         {
             auto insta = juce::URL("https://www.instagram.com/viatordsp/");
@@ -183,7 +195,6 @@ void SettingsPage::initButtonProps(viator_gui::TextButton& button)
     
     if (&button == &_contrastButton)
     {
-        button.setButtonText("High Contrast");
         button.onClick = [this]()
         {
             // to the editor
@@ -193,7 +204,6 @@ void SettingsPage::initButtonProps(viator_gui::TextButton& button)
     
     if (&button == &_tooltipButton)
     {
-        button.setButtonText("Tooltips");
         button.setClickingTogglesState(true);
         button.setToggleState(true, juce::dontSendNotification);
         button.onClick = [this]()
@@ -203,13 +213,24 @@ void SettingsPage::initButtonProps(viator_gui::TextButton& button)
         };
     }
     
-    button.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colour::fromRGB(74, 81, 98).darker(0.5).withAlpha(0.3f));
-    button.setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colour::fromRGB(74, 81, 98).darker(0.5).withAlpha(0.6f));
+    button.setButtonText(*_buttonTexts[index]);
+    button.setColour(juce::TextButton::ColourIds::buttonColourId, _innerBgColor);
+    button.setColour(juce::TextButton::ColourIds::buttonOnColourId, _innerBgColor.brighter(0.25));
     button.setColour(juce::ComboBox::outlineColourId, juce::Colours::transparentBlack);
     button.setColour(juce::TextButton::ColourIds::textColourOnId, _textColor);
     button.setColour(juce::TextButton::ColourIds::textColourOffId, _textColor);
     button.setLookAndFeel(&_customButton);
     addAndMakeVisible(button);
+}
+
+void SettingsPage::initButtonLabels(juce::Label &label, int index)
+{
+    label.setText(*_labelTexts[index], juce::dontSendNotification);
+    label.setJustificationType(juce::Justification::centredLeft);
+    label.setFont(juce::Font("Helvetica", 12.0f, juce::Font::FontStyleFlags::bold));
+    label.setColour(juce::Label::ColourIds::outlineColourId, juce::Colours::transparentBlack);
+    label.setColour(juce::Label::ColourIds::textColourId, juce::Colour::fromRGB(155, 165, 175));
+    addAndMakeVisible(label);
 }
 
 void SettingsPage::sendEmail(const juce::String& recipient, const juce::String& subject, const juce::String& body)

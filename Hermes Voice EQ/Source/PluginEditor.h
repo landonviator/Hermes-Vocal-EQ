@@ -144,7 +144,7 @@ private:
 private:
     juce::String _band1ToolTip =
     {
-        "Highpass filter slider. Controls 20-100 Hz. Raise to cut out low rumbling."
+        "Highpass filter slider. Controls 20-80 or 20-120 Hz depending on selected voice preset. Raise to cut out low rumbling."
     };
     
     juce::String _band2ToolTip =

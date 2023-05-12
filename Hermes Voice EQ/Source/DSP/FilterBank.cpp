@@ -3,19 +3,21 @@
 template <typename SampleType>
 FilterBank<SampleType>::FilterBank()
 {
-    _filterBank.push_back(std::move(_band1));
-    _filterBank.push_back(std::move(_band2));
-    _filterBank.push_back(std::move(_band3));
-    _filterBank.push_back(std::move(_band4));
-    _filterBank.push_back(std::move(_band5));
-    _filterBank.push_back(std::move(_band6));
+    _filterBank.push_back(std::move(_rumbleFilter));
+    _filterBank.push_back(std::move(_mudFilter));
+    _filterBank.push_back(std::move(_muffleFilter));
+    _filterBank.push_back(std::move(_clarityFilter));
+    _filterBank.push_back(std::move(_airFilter));
+    _filterBank.push_back(std::move(_noiseFilter));
+    _filterBank.push_back(std::move(_auxMudFilter));
     
-    _coefficients.push_back(std::move(_iirCoefficients1));
-    _coefficients.push_back(std::move(_iirCoefficients2));
-    _coefficients.push_back(std::move(_iirCoefficients3));
-    _coefficients.push_back(std::move(_iirCoefficients4));
-    _coefficients.push_back(std::move(_iirCoefficients5));
-    _coefficients.push_back(std::move(_iirCoefficients6));
+    _coefficients.push_back(std::move(_rumbleCoefficients));
+    _coefficients.push_back(std::move(_mudCoefficients));
+    _coefficients.push_back(std::move(_muffleCoefficients));
+    _coefficients.push_back(std::move(_clarityCoefficients));
+    _coefficients.push_back(std::move(_airCoefficients));
+    _coefficients.push_back(std::move(_noiseCoefficients));
+    _coefficients.push_back(std::move(_auxMudCoefficients));
 }
 
 template <typename SampleType>
@@ -39,6 +41,11 @@ void FilterBank<SampleType>::prepare(const juce::dsp::ProcessSpec& spec) noexcep
         else if (i == 5)
         {
             _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, _maleCutoffs[i], 0.1f);
+        }
+        
+        else if (i == 6)
+        {
+            _coefficients[i] = juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, _maleCutoffs[i], 0.6f, 1.0f);
         }
         
         else
@@ -70,33 +77,43 @@ void FilterBank<SampleType>::reset() noexcept
 }
 
 template <typename SampleType>
-void FilterBank<SampleType>::updateFilter(int bandToUpdate, float newQ, float newGain, float newCutoff)
+void FilterBank<SampleType>::updateFilter(const int bandToUpdate, const float newQ, const float newGain, const float newCutoff)
 {
+    _currentFilter = static_cast<FilterStuff>(bandToUpdate);
     auto gain = juce::Decibels::decibelsToGain(newGain);
-    
-    if (bandToUpdate == 0)
+    auto negativeGain = juce::Decibels::decibelsToGain(-newGain);
+
+    switch (_currentFilter)
     {
-        *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makeHighPass(_sampleRate, newCutoff, newQ);
-    }
-    
-    else if (bandToUpdate == 4)
-    {
-        *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makeHighShelf(_sampleRate, getCurrentCutoffs()[bandToUpdate], newQ, gain);
-    }
-    
-    else if (bandToUpdate == 5)
-    {
-        *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, newCutoff, newQ);
-    }
-    
-    else
-    {
-        *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, getCurrentCutoffs()[bandToUpdate], newQ, gain);
+        case kRumble:
+            *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makeHighPass(_sampleRate, newCutoff, newQ);
+            break;
+
+        case kMud:
+            *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, getCurrentCutoffs()[bandToUpdate], newQ, gain);
+            *_coefficients[6] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, getCurrentCutoffs()[6], newQ, (newGain > 0.0) ? negativeGain : 1.0f);
+            break;
+
+        case kMuffle:
+            *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, getCurrentCutoffs()[bandToUpdate], newQ, gain);
+            break;
+            
+        case kClarity:
+            *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makePeakFilter(_sampleRate, getCurrentCutoffs()[bandToUpdate], newQ, gain);
+            break;
+
+        case kAir:
+            *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makeHighShelf(_sampleRate, getCurrentCutoffs()[bandToUpdate], newQ, gain);
+            break;
+
+        case kNoise:
+            *_coefficients[bandToUpdate] = *juce::dsp::IIR::Coefficients<float>::makeLowPass(_sampleRate, newCutoff, newQ);
+            break;
     }
 }
 
 template <typename SampleType>
-void FilterBank<SampleType>::setVoice(Voice newVoice)
+void FilterBank<SampleType>::setVoice(const Voice newVoice)
 {
     jassert(newVoice == Voice::kMale || newVoice == Voice::kFemale);
     _currentVoice = newVoice;

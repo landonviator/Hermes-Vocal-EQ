@@ -107,7 +107,7 @@ void HermesVoiceEQAudioProcessorEditor::resized()
     
     auto spaceBetween = faderWidth * 0.4;
     auto dialWidth = (getWidth() - _band6Dial.getRight()) * 0.75;
-    _inputDial.setBounds(getWidth() - dialWidth * 1.125, _band6Dial.getY(), dialWidth, dialWidth);
+    _inputDial.setBounds(getWidth() - dialWidth * 1.125, _headerComp.getBottom() * 1.8, dialWidth, dialWidth);
     _outputDial.setBounds(_inputDial.getX(), _inputDial.getBottom() + spaceBetween, dialWidth, dialWidth);
     
     // tooltip label
@@ -171,7 +171,6 @@ void HermesVoiceEQAudioProcessorEditor::initFaderProps(viator_gui::Fader &fader,
     _band1Dial.setTextValueSuffix(" %");
     _band6Dial.setTextValueSuffix(" %");
     _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, audioProcessor._parameterMap.getSliderParams()[index]._id, fader));
-    _band1Dial.setTooltip("Rumble filter. This is a highpass filter with a range of 20Hz to 100Hz. The slider at the lowest position allows all low (rumble-y) to pass through and vice versa. Push the slider up if you have a lot of low frequency noise.");
     fader.setComponentID("fader" + juce::String(index));
     fader.addMouseListener(this, false);
     addAndMakeVisible(fader);
@@ -240,6 +239,11 @@ void HermesVoiceEQAudioProcessorEditor::updateLabelColors()
     {
         label->setColour(juce::Label::ColourIds::textColourId, _theme.getMainTextColor());
     }
+    
+    for (auto& label : _dialLabels)
+    {
+        label->setColour(juce::Label::ColourIds::textColourId, _theme.getMainTextColor());
+    }
 }
 
 void HermesVoiceEQAudioProcessorEditor::initTooltipLabel()
@@ -301,6 +305,7 @@ void HermesVoiceEQAudioProcessorEditor::mouseExit(const juce::MouseEvent &event)
 
 void HermesVoiceEQAudioProcessorEditor::changeListenerCallback(juce::ChangeBroadcaster *source)
 {
+    // high contrast
     if (_settingsPage.getIsHighContrast())
     {
         _theme.setCurrentTheme(ViatorThemes::ViatorThemeData::Theme::kHighContrast);
@@ -311,9 +316,9 @@ void HermesVoiceEQAudioProcessorEditor::changeListenerCallback(juce::ChangeBroad
         _settingsPage.resetToNonContrast();
     }
     
-    auto b = _settingsPage.getShouldUseTooltips();
-    
+    // tooltips
     _headerComp.enableToolTips(_settingsPage.getShouldUseTooltips());
+    _tooltipLabel.setVisible(_settingsPage.getShouldUseTooltips());
     
     repaint();
 }

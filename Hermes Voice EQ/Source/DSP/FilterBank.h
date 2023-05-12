@@ -36,7 +36,7 @@ public:
     
     void reset() noexcept;
     
-    void process (const juce::dsp::ProcessContextReplacing<float>& context)
+    void process (const juce::dsp::ProcessContextReplacing<float>& context) noexcept
     {
         jassert (context.getInputBlock().getNumSamples()  == context.getOutputBlock().getNumSamples());
         jassert (context.getInputBlock().getNumChannels() == context.getOutputBlock().getNumChannels());
@@ -67,7 +67,7 @@ public:
                                               numSamples); // [14]
     }
     
-    void updateFilter(int bandToUpdate, float newQ, float newGain, float newCutoff);
+    void updateFilter(const int bandToUpdate, const float newQ, const float newGain, const float newCutoff);
     
     enum class Voice
     {
@@ -75,20 +75,32 @@ public:
         kFemale
     };
     
-    void setVoice(Voice newVoice);
+    void setVoice(const Voice newVoice);
+    
+    enum FilterStuff
+    {
+        kRumble,
+        kMud,
+        kMuffle,
+        kClarity,
+        kAir,
+        kNoise
+    };
     
 private:
     float _sampleRate {44100.0f};
     float _blockSize;
     
     juce::dsp::IIR::Coefficients<float>::Ptr
-    _iirCoefficients1, _iirCoefficients2, _iirCoefficients3,
-    _iirCoefficients4, _iirCoefficients5, _iirCoefficients6;
+    _rumbleCoefficients, _mudCoefficients, _muffleCoefficients,
+    _clarityCoefficients, _airCoefficients, _noiseCoefficients,
+    _auxMudCoefficients;
     
     std::vector<juce::dsp::IIR::Coefficients<float>::Ptr> _coefficients;
     
     std::unique_ptr<juce::dsp::IIR::Filter<juce::dsp::SIMDRegister<float>>>
-    _band1, _band2, _band3, _band4, _band5, _band6;
+    _rumbleFilter, _mudFilter, _muffleFilter, _clarityFilter, _airFilter, _noiseFilter,
+    _auxMudFilter;
     
     std::vector<std::unique_ptr<juce::dsp::IIR::Filter<juce::dsp::SIMDRegister<float>>>> _filterBank;
  
@@ -97,17 +109,18 @@ private:
  
     juce::HeapBlock<char> _interleavedBlockData, _zeroData;
     
-    std::vector<float> _maleCutoffs
+    std::vector<const float> _maleCutoffs
     {
-        20.0f, 200.0f, 900.0f, 2000.0f, 8000.0f, 20000.0f
+        20.0f, 150.0f, 900.0f, 2000.0f, 8000.0f, 20000.0f, 250.0f
     };
     
-    std::vector<float> _femaleCutoffs
+    std::vector<const float> _femaleCutoffs
     {
-        20.0f, 300.0f, 1200.0f, 3000.0f, 12000.0f, 20000.0f
+        20.0f, 300.0f, 1200.0f, 3000.0f, 12000.0f, 20000.0f, 250.0f
     };
     
     Voice _currentVoice = Voice::kMale;
+    FilterStuff _currentFilter = FilterStuff::kRumble;
     std::vector<float> getCurrentCutoffs();
 };
 #endif /* FilterBank_h */
