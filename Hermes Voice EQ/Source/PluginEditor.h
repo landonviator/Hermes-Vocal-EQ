@@ -72,10 +72,10 @@ private:
     
     // label texts
     juce::String _band1DialLabelText = "Rumble";
-    juce::String _band2DialLabelText = "Mud";
-    juce::String _band3DialLabelText = "Muffle";
-    juce::String _band4DialLabelText = "Clarity";
-    juce::String _band5DialLabelText = "Air";
+    juce::String _band2DialLabelText = "Depth";
+    juce::String _band3DialLabelText = "Hollow";
+    juce::String _band4DialLabelText = "Nasal";
+    juce::String _band5DialLabelText = "Sparkle";
     juce::String _band6DialLabelText = "Noise";
     std::vector<juce::String*> _faderLabelNames =
     {
@@ -144,32 +144,32 @@ private:
 private:
     juce::String _band1ToolTip =
     {
-        "Highpass filter slider. Controls 20-80 or 20-120 Hz depending on selected voice preset. Raise to cut out low rumbling."
+        "Represents the amount of reduction for rumbling frequencies. Increase to eliminate sub noise."
     };
     
     juce::String _band2ToolTip =
     {
-        "EQ band centered for low to mid frequencies. Lower to reduce muddieness or raise to increase body."
+        "Represents the amount of added deep bass frequencies. Increase for deep radio vocals."
     };
     
     juce::String _band3ToolTip =
     {
-        "EQ band centered for low-mid to mid frequencies. Lower to reduce boxiness or raise to increase warmth."
+        "Represents the amount of reduction for hollow or boxy frequencies. Increase to fix poor microphone quality."
     };
     
     juce::String _band4ToolTip =
     {
-        "EQ band centered for mid to high-mid frequencies. Lower to reduce harshness or raise to increase clarity."
+        "Represents the amount of reduction for nasal-like frequencies. Increase to open up the voice."
     };
     
     juce::String _band5ToolTip =
     {
-        "EQ band centered for high frequencies. Lower to reduce sibilance or raise to increase crispness."
+        "Represents the amount of added or reduced treble frequenices. Increase for a nice shine or reduce to eliminate harshness."
     };
     
     juce::String _band6ToolTip =
     {
-        "Lowpass filter. Controls 1000-20000 Hz. Lower to reduce noise."
+        "Represents the amount of reduction for noisey, sibilance-causing frequencies. Increase to reduce sibilance or noise."
     };
     
     std::vector<juce::String> _faderTooltips =

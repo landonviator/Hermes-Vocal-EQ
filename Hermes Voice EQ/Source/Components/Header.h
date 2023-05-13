@@ -33,7 +33,6 @@ private:
     
     // buttons
     viator_gui::TextButton _maleButton;
-    viator_gui::TextButton _femaleButton;
     viator_gui::CustomTextButton _customButton;
     
     // dial attachments
@@ -61,7 +60,7 @@ private:
     const juce::Colour _textColor = juce::Colour::fromRGB(161, 168, 181).darker(0.3f);
     std::vector<viator_gui::TextButton*> _buttons =
     {
-        &_maleButton, &_femaleButton
+        &_maleButton
     };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Header)

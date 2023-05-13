@@ -80,10 +80,10 @@ public:
     enum FilterStuff
     {
         kRumble,
-        kMud,
-        kMuffle,
-        kClarity,
-        kAir,
+        kDepth,
+        kHollow,
+        kNasal,
+        kSparkle,
         kNoise
     };
     
@@ -93,14 +93,12 @@ private:
     
     juce::dsp::IIR::Coefficients<float>::Ptr
     _rumbleCoefficients, _mudCoefficients, _muffleCoefficients,
-    _clarityCoefficients, _airCoefficients, _noiseCoefficients,
-    _auxMudCoefficients;
+    _clarityCoefficients, _airCoefficients, _noiseCoefficients;
     
     std::vector<juce::dsp::IIR::Coefficients<float>::Ptr> _coefficients;
     
     std::unique_ptr<juce::dsp::IIR::Filter<juce::dsp::SIMDRegister<float>>>
-    _rumbleFilter, _mudFilter, _muffleFilter, _clarityFilter, _airFilter, _noiseFilter,
-    _auxMudFilter;
+    _rumbleFilter, _mudFilter, _muffleFilter, _clarityFilter, _airFilter, _noiseFilter;
     
     std::vector<std::unique_ptr<juce::dsp::IIR::Filter<juce::dsp::SIMDRegister<float>>>> _filterBank;
  
@@ -111,12 +109,12 @@ private:
     
     std::vector<const float> _maleCutoffs
     {
-        20.0f, 150.0f, 900.0f, 2000.0f, 8000.0f, 20000.0f, 250.0f
+        20.0f, 150.0f, 500.0f, 1000.0f, 3000.0f, 20000.0f
     };
     
     std::vector<const float> _femaleCutoffs
     {
-        20.0f, 300.0f, 1200.0f, 3000.0f, 12000.0f, 20000.0f, 250.0f
+        20.0f, 300.0f, 1200.0f, 3000.0f, 12000.0f, 20000.0f
     };
     
     Voice _currentVoice = Voice::kMale;

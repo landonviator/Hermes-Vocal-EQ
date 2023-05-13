@@ -18,11 +18,17 @@ Header::Header(HermesVoiceEQAudioProcessor& p) : _audioProcessor(p)
     }
     
     // button attachments
-    _buttonAttachments.add(std::make_unique<buttonAttachment>(_audioProcessor._treeState, ViatorParameters::voiceMaleID, _maleButton));
-    _buttonAttachments.add(std::make_unique<buttonAttachment>(_audioProcessor._treeState, ViatorParameters::voiceFemaleID, _femaleButton));
+    _buttonAttachments.add(std::make_unique<buttonAttachment>(_audioProcessor._treeState, ViatorParameters::voiceID, _maleButton));
     
     // tooltip
     initTooltips();
+    
+    _maleButton.setButtonText(_maleButton.getToggleState() ? "Voice: Male" : "Voice: Female");
+
+    _maleButton.onClick = [this]()
+    {
+        _maleButton.setButtonText(_maleButton.getToggleState() ? "Voice: Male" : "Voice: Female");
+    };
 }
 
 Header::~Header()
@@ -64,14 +70,12 @@ void Header::resized()
     // settings
     auto squareButtonWidth = getHeight() * 0.75;
     auto padding = getHeight() * 0.125;
+    auto spaceBetween = squareButtonWidth * 0.25;
     _settingsButton.setBounds(getWidth() - squareButtonWidth - padding, padding, squareButtonWidth, squareButtonWidth);
     
     // buttons
-    auto buttonHeight = getHeight() * 0.75;
-    auto buttonWidth = buttonHeight * 2.0;
-    auto buttonTopPadding = getHeight() * 0.125;
-    _maleButton.setBounds(getWidth() * 0.5 - buttonWidth, buttonTopPadding, buttonWidth, buttonHeight);
-    _femaleButton.setBounds(_maleButton.getRight(), _maleButton.getY(), buttonWidth, buttonHeight);
+    auto maleButtonWidth = squareButtonWidth * 2.0;
+    _maleButton.setBounds(_settingsButton.getX() - maleButtonWidth - spaceBetween, _settingsButton.getY(), maleButtonWidth, squareButtonWidth);
 }
 
 #pragma mark Buttons
@@ -92,15 +96,11 @@ bool Header::isSettingsActive()
 
 void Header::initButtons(viator_gui::TextButton &button)
 {
-    _maleButton.setButtonText("Male");
-    _maleButton.setRadioGroupId(1);
-    _femaleButton.setButtonText("Female");
-    _femaleButton.setRadioGroupId(1);
+    _maleButton.setButtonText("Voice: Male");
     _settingsButton.setTooltip("Settings");
-    _maleButton.setTooltip("Male voice preset");
-    _femaleButton.setTooltip("Female voice preset");
-    button.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colour::fromRGB(74, 81, 98).darker(0.5).withAlpha(0.3f));
-    button.setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colour::fromRGB(74, 81, 98));
+    _maleButton.setTooltip("Voice preset");
+    button.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colours::transparentBlack);
+    button.setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colours::transparentBlack);
     button.setColour(juce::ComboBox::outlineColourId, juce::Colours::transparentBlack);
     button.setColour(juce::TextButton::ColourIds::textColourOnId, _textColor);
     button.setColour(juce::TextButton::ColourIds::textColourOffId, _textColor);
@@ -122,8 +122,6 @@ void Header::updateButtonColors(juce::Graphics& g)
         _settingsButton.setColour(juce::TextButton::ColourIds::textColourOffId, nonContrastColor);
         _maleButton.setColour(juce::TextButton::ColourIds::textColourOnId, nonContrastColor);
         _maleButton.setColour(juce::TextButton::ColourIds::textColourOffId, nonContrastColor);
-        _femaleButton.setColour(juce::TextButton::ColourIds::textColourOnId, nonContrastColor);
-        _femaleButton.setColour(juce::TextButton::ColourIds::textColourOffId, nonContrastColor);
         
         auto black = juce::Colour::fromRGB(0, 0, 0);
         bool isHighContrast = currentBGColor == black;
@@ -133,8 +131,6 @@ void Header::updateButtonColors(juce::Graphics& g)
         _settingsButton.setColour(juce::TextButton::ColourIds::textColourOffId, isHighContrast ? contrastColor : nonContrastColor);
         _maleButton.setColour(juce::TextButton::ColourIds::textColourOnId, isHighContrast ? contrastColor : nonContrastColor);
         _maleButton.setColour(juce::TextButton::ColourIds::textColourOffId, isHighContrast ? contrastColor : nonContrastColor);
-        _femaleButton.setColour(juce::TextButton::ColourIds::textColourOnId, isHighContrast ? contrastColor : nonContrastColor);
-        _femaleButton.setColour(juce::TextButton::ColourIds::textColourOffId, isHighContrast ? contrastColor : nonContrastColor);
     }
 }
 

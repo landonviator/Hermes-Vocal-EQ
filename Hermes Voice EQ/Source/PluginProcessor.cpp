@@ -119,7 +119,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesVoiceEQAudioProcessor:
     for (int i = 0; i < _parameterMap.getButtonParams().size(); i++)
     {
         auto param = _parameterMap.getButtonParams()[i];
-        auto male = ViatorParameters::voiceMaleID;
+        auto male = ViatorParameters::voiceID;
         params.push_back (std::make_unique<juce::AudioParameterBool>(juce::ParameterID { param._id, 1 }, param._name, param._id == male ? true : false));
     }
         
@@ -213,7 +213,7 @@ void HermesVoiceEQAudioProcessor::prepareModules(juce::dsp::ProcessSpec &spec)
 void HermesVoiceEQAudioProcessor::updateFilters()
 {
     // update filter voice
-    const auto voiceID = _treeState.getRawParameterValue(ViatorParameters::voiceMaleID)->load();
+    const auto voiceID = _treeState.getRawParameterValue(ViatorParameters::voiceID)->load();
     _filterBankModule.setVoice(voiceID ? FilterBank<float>::Voice::kMale : FilterBank<float>::Voice::kFemale);
     
     // update filter gains and Q's
@@ -226,27 +226,8 @@ void HermesVoiceEQAudioProcessor::updateFilters()
         if (name == ViatorParameters::inputID || name == ViatorParameters::outputID)
             continue;
 
-        if (i == 0)
-        {
-            const auto cutoff = _treeState.getRawParameterValue(param._id)->load();
-
-            // highpass
-            _filterBankModule.updateFilter(i, param._q, cutoff, juce::jmap(cutoff, 0.0f, 100.0f, 100.0f, 20.0f));
-        }
-        else if (i == 5)
-        {
-            auto cutoffFreq = _treeState.getRawParameterValue(param._id)->load();
-            cutoffFreq = juce::jmap(cutoffFreq, param._min, param._max, 1000.0f, 20000.0f);
-
-            // lowpass
-            _filterBankModule.updateFilter(i, param._q, cutoffFreq, cutoffFreq);
-        }
-        else
-        {
-            _filterBankModule.updateFilter(i, param._q, _treeState.getRawParameterValue(param._id)->load(), -1.0);
-        }
+        _filterBankModule.updateFilter(i, param._q, _treeState.getRawParameterValue(param._id)->load(), -1.0);
     }
-
 }
 
 void HermesVoiceEQAudioProcessor::updateParameters()

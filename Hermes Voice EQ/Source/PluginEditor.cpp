@@ -168,8 +168,16 @@ void HermesVoiceEQAudioProcessorEditor::setWindowSizeLogic()
 #pragma mark Sliders
 void HermesVoiceEQAudioProcessorEditor::initFaderProps(viator_gui::Fader &fader, int index)
 {
-    _band1Dial.setTextValueSuffix(" %");
-    _band6Dial.setTextValueSuffix(" %");
+    if (&fader != &_band5Dial)
+    {
+        fader.setTextValueSuffix(" %");
+    }
+    
+    else
+    {
+        fader.setTextValueSuffix(" dB");
+    }
+    
     _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, audioProcessor._parameterMap.getSliderParams()[index]._id, fader));
     fader.setComponentID("fader" + juce::String(index));
     fader.addMouseListener(this, false);
