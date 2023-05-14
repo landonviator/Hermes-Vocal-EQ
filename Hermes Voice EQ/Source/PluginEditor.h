@@ -144,7 +144,7 @@ private:
 private:
     juce::String _band1ToolTip =
     {
-        "Represents the amount of reduction for rumbling frequencies. Increase to eliminate sub noise."
+        "Represent the amount of reduction for rumbling frequencies. Increase to eliminate sub noise."
     };
     
     juce::String _band2ToolTip =
