@@ -1,0 +1,23 @@
+name: Build Pipeline
+
+on:
+  push:
+    branches:
+      - pipeline-setup
+  pull_request:
+    branches:
+      - pipeline-setup
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Plugin
+        run: |
+          xcodebuild -project ../HermesVoiceEQ/Builds/MacOSX/HermesVoiceEQ.xcodeproj -scheme HermesVoiceEQ -configuration Release build
+
+      # Add additional steps for testing, packaging, etc. as needed
