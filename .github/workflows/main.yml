@@ -20,6 +20,6 @@ jobs:
         run: |
           cd ..
           cd ..
-          xcodebuild -project "Hermes Voice EQ/Builds/MacOSX/Hermes Voice EQ.xcodeproj" -scheme "Hermes Voice EQ - AU" -configuration Release build
+          xcodebuild -project "Hermes\ Voice\ EQ/Builds/MacOSX/Hermes Voice EQ.xcodeproj" -scheme "Hermes Voice EQ - AU" -configuration Release build
 
       # Add additional steps for testing, packaging, etc. as needed
