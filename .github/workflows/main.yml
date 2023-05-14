@@ -20,8 +20,6 @@ jobs:
 
       - name: Build Plugin
         run: |
-          cd ../
-          cd ../
           xcodebuild -project "HermesVoiceEQ/Builds/MacOSX/HermesVoiceEQ.xcodeproj" -scheme "HermesVoiceEQ-AU-Release" -configuration Release build
 
       # Add additional steps for testing, packaging, etc. as needed
