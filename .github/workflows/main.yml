@@ -3,10 +3,10 @@ name: Build Pipeline
 on:
   push:
     branches:
-      - pipeline-setup
+      - main
   pull_request:
     branches:
-      - pipeline-setup
+      - main
 
 jobs:
   build:
