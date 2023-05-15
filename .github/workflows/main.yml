@@ -25,12 +25,15 @@ jobs:
 
       - name: Install JUCE and Projucer
         run: |
-            # Install JUCE dependencies
-            sudo apt-get update
-            sudo apt-get install -y build-essential clang
-  
-            # Download and install Projucer
-            curl -L "https://github.com/juce-framework/JUCE/releases/download/6.0.8/projucer-linux-amd64.tar.gz" -o projucer.tar.gz
-            tar -xzvf projucer.tar.gz
-            rm projucer.tar.gz
+          # Download and install JUCE
+          curl -L "https://github.com/juce-framework/JUCE/archive/refs/tags/6.0.8.tar.gz" -o juce.tar.gz
+          tar -xzvf juce.tar.gz
+          rm juce.tar.gz
+          mv JUCE-6.0.8 path/to/your/juce
+
+          # Download and install Projucer
+          curl -L "https://github.com/juce-framework/JUCE/releases/download/6.0.8/projucer-macOS" -o projucer
+          chmod +x projucer
+          mv projucer path/to/your/juce
+
       # Add additional steps for testing, packaging, etc. as needed
