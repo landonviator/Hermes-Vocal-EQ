@@ -34,6 +34,6 @@ jobs:
           # Download and install Projucer
           curl -L "https://github.com/juce-framework/JUCE/releases/download/6.0.8/projucer-macOS" -o projucer
           chmod +x projucer
-          mv projucer path/to/your/juce
+          mv projucer juce
 
       # Add additional steps for testing, packaging, etc. as needed
