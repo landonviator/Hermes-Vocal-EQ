@@ -26,9 +26,7 @@ jobs:
       - name: Create JUCE folder
         run: |
             # Create the JUCE folder
-            mkdir -p modules
-            cd modules
-            mkdir -p juce
+            mkdir -p modules/juce
   
       - name: Install JUCE and Projucer
         run: |
@@ -36,13 +34,11 @@ jobs:
             curl -L "https://github.com/juce-framework/JUCE/archive/refs/tags/6.0.8.tar.gz" -o juce.tar.gz
             tar -xzvf juce.tar.gz
             rm juce.tar.gz
-            cd modules
-            mv JUCE-6.0.8 juce
+            mv JUCE-6.0.8 modules/juce
   
             # Download and install Projucer
             curl -L "https://github.com/juce-framework/JUCE/releases/download/6.0.8/projucer-macOS" -o projucer
             chmod +x projucer
-            cd modules
-            mv projucer juce
+            mv projucer modules/juce
 
       # Add additional steps for testing, packaging, etc. as needed
