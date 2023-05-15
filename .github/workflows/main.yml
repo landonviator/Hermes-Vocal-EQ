@@ -40,5 +40,11 @@ jobs:
             curl -L "https://github.com/juce-framework/JUCE/releases/download/6.0.8/projucer-macOS" -o projucer
             chmod +x projucer
             mv projucer modules/juce
+      
+      - name: Build Projucer
+        run: |
+          cd modules/juce/Projucer
+          xcodebuild -project Projucer.xcodeproj -scheme Projucer -configuration Release
+          cp -R build/Release/Projucer.app builds/
 
       # Add additional steps for testing, packaging, etc. as needed
