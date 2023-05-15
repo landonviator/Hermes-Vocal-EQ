@@ -43,7 +43,7 @@ jobs:
       
       - name: Build Projucer
         run: |
-          cd modules/juce
+          cd modules/juce/JUCE
 
       # Add additional steps for testing, packaging, etc. as needed
       # xcodebuild -project Projucer.xcodeproj -scheme Projucer -configuration Release
