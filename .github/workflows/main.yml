@@ -31,15 +31,7 @@ jobs:
       - name: Install JUCE and Projucer
         run: |
             # Download and install JUCE
-            curl -L "https://github.com/juce-framework/JUCE/archive/refs/tags/6.0.8.tar.gz" -o juce.tar.gz
-            tar -xzvf juce.tar.gz
-            rm juce.tar.gz
-            mv JUCE-6.0.8 modules/juce
-  
-            # Download and install Projucer
-            curl -L "https://github.com/juce-framework/JUCE/releases/download/6.0.8/projucer-macOS" -o projucer
-            chmod +x projucer
-            mv projucer modules/juce
+            git clone https://github.com/juce-framework/JUCE.git
       
       - name: Build Projucer
         run: |
