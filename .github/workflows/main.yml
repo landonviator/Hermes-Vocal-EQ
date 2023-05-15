@@ -17,5 +17,15 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: recursive
-
+          
+      - name: Install JUCE and Projucer
+        run: |
+            # Install JUCE dependencies
+            sudo apt-get update
+            sudo apt-get install -y build-essential clang
+  
+            # Download and install Projucer
+            curl -L "https://github.com/juce-framework/JUCE/releases/download/6.0.8/projucer-linux-amd64.tar.gz" -o projucer.tar.gz
+            tar -xzvf projucer.tar.gz
+            rm projucer.tar.gz
       # Add additional steps for testing, packaging, etc. as needed
