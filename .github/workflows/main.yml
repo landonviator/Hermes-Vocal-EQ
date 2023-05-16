@@ -27,12 +27,8 @@ jobs:
         run: |
             # Create the JUCE folder
             mkdir -p modules/juce
-
-      - name: Create ViatorDSP Folder
-        run: |
-            # Create ViatorDSP Folder
             mkdir -p modules/viatordsp
-  
+
       - name: Install JUCE and Projucer
         run: |
             # Download and install JUCE
@@ -42,7 +38,7 @@ jobs:
       - name: Install ViatorDSP
         run: |
           # Download and install ViatorDSP
-          cd ../viatordsp
+          cd modules/viatordsp
           git clone https://github.com/landonviator/viatordsp.git
       
       - name: Build Projucer
