@@ -44,7 +44,6 @@ jobs:
       - name: Generate Xcode project
         run: |
           cd modules/juce/JUCE/extras/Projucer
-
-      #./Projucer --resave "Hermes Voice EQ.jucer" -xcode
+          ./Projucer --resave "Hermes Voice EQ.jucer" -xcode
 
 
