@@ -34,12 +34,6 @@ jobs:
             # Download and install JUCE
             cd modules/juce
             git clone https://github.com/juce-framework/JUCE.git
-
-      - name: Install ViatorDSP
-        run: |
-          # Download and install ViatorDSP
-          cd modules/viatordsp
-          git clone https://github.com/landonviator/viatordsp.git
       
       - name: Build Projucer
         run: |
