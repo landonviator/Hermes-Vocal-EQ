@@ -43,7 +43,7 @@ jobs:
 
       - name: Build JUCE project for AU
         run: |
-          modules/juce/JUCE/extras/Projucer/Builds/MacOSX/Projucer --resave "Hermes Voice EQ.jucer"
+          modules/juce/JUCE/extras/Projucer/Builds/MacOSX/Projucer --open "Hermes Voice EQ.jucer"
 
       # Add additional steps for testing, packaging, etc. as needed
       # xcodebuild -project Projucer.xcodeproj -scheme Projucer -configuration Release
