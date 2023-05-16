@@ -44,7 +44,7 @@ jobs:
       - name: Build JUCE project for AU
         run: |
           cd HermesVoiceEQ
-        #  ./Projucer --resave "Hermes Voice EQ.jucer"
+          ./Projucer --resave "Hermes Voice EQ.jucer"
 
       # Add additional steps for testing, packaging, etc. as needed
       # xcodebuild -project Projucer.xcodeproj -scheme Projucer -configuration Release
