@@ -37,10 +37,9 @@ jobs:
       
       - name: Build Projucer
         run: |
-          cd modules/juce/JUCE/extras/Projucer
-          xcodebuild -project ../Projucer.xcodeproj -scheme Projucer -configuration Release
-          cp -R build/Release/Projucer.app builds/
-          
+          cd modules/juce/JUCE/extras/Projucer/Builds/MacOSX
+          # xcodebuild -project Projucer.xcodeproj -scheme Projucer -configuration Release
+          # cp -R build/Release/Projucer.app builds/
 
       # Add additional steps for testing, packaging, etc. as needed
       # xcodebuild -project Projucer.xcodeproj -scheme Projucer -configuration Release
