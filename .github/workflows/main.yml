@@ -41,9 +41,4 @@ jobs:
           # xcodebuild -project Projucer.xcodeproj -scheme Projucer -configuration Release
           # cp -R build/Release/Projucer.app builds/        
 
-      - name: Generate Xcode project
-        run: |
-          cd modules/juce/JUCE/extras/Projucer
-          ./Projucer --resave "Hermes Voice EQ.jucer" -xcode
-
 
