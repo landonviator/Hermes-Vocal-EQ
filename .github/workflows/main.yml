@@ -38,8 +38,8 @@ jobs:
       - name: Build Projucer
         run: |
           cd modules/juce/JUCE/extras/Projucer/Builds/MacOSX
-            xcodebuild -project Projucer.xcodeproj -scheme Projucer -configuration Release
-            cp -R build/Release/Projucer.app builds/ 
+          xcodebuild -project Projucer.xcodeproj -scheme Projucer -configuration Release
+         # cp -R build/Release/Projucer.app builds/ 
 
      # - name: Get Projucer Commands
      #   run: |
