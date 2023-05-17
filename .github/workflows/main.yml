@@ -29,26 +29,20 @@ jobs:
             mkdir -p modules/juce
             mkdir -p modules/viatordsp
 
-      - name: Test
+      - name: Install JUCE and Projucer
         run: |
-          # Create the JUCE folder
-          cd HermesVoiceEQ/Builds/MacOSX
-          xcodebuild -project HermesVoiceEQ.xcodeproj -scheme "Hermes Voice EQ - AU" -configuration Release
-
-#      - name: Install JUCE and Projucer
-#        run: |
-#            # Download and install JUCE
-#            cd modules/juce
-#            git clone https://github.com/juce-framework/JUCE.git
+            # Download and install JUCE
+            cd modules/juce
+            git clone https://github.com/juce-framework/JUCE.git
       
-#      - name: Build Projucer
-#        run: |
-#          cd modules/juce/JUCE/extras/Projucer/Builds/MacOSX
-#          xcodebuild -project Projucer.xcodeproj -scheme "Projucer - App" -configuration Release
-#          cp -R build/Release/Projucer.app builds/ 
+      - name: Build Projucer
+        run: |
+          cd modules/juce/JUCE/extras/Projucer/Builds/MacOSX
+          xcodebuild -project Projucer.xcodeproj -scheme "Projucer - App" -configuration Release
+          cp -R build/Release/Projucer.app builds/ 
 
-#      - name: Save Projucer
-#        run: |
-#          modules/juce/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.app/Contents/MacOS/Projucer --resave HermesVoiceEQ/"Hermes Voice EQ.jucer"
+      - name: Save Projucer
+        run: |
+          modules/juce/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.app/Contents/MacOS/Projucer --resave HermesVoiceEQ/"Hermes Voice EQ.jucer"
 
 
