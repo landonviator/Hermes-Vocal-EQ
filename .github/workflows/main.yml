@@ -33,7 +33,7 @@ jobs:
         run: |
           # Create the JUCE folder
           cd HermesVoiceEQ/Builds/MacOSX
-          xcodebuild -project HermesVoiceEQ.xcodeproj -scheme "Hermes Voice EQ - AU" -configuration Debug
+          xcodebuild -project HermesVoiceEQ.xcodeproj -scheme "Hermes Voice EQ - AU" -configuration Release
 
 #      - name: Install JUCE and Projucer
 #        run: |
