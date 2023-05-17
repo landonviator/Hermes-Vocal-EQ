@@ -43,6 +43,6 @@ jobs:
 
       - name: Save Projucer
         run: |
-          modules/juce/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.app/Contents/MacOS/Projucer --resave HermesVoiceEQ/"Hermes Voice EQ.jucer"
+          modules/juce/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.app/Contents/MacOS/Projucer --resave HermesVoiceEQ/"Hermes Voice EQ.jucer" --fix-missing-dependencies
 
 
