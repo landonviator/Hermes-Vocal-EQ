@@ -41,10 +41,8 @@ jobs:
           xcodebuild -project Projucer.xcodeproj -scheme "Projucer - App" -configuration Release
           cp -R build/Release/Projucer.app builds/ 
 
-     # - name: Get Projucer Commands
-     #   run: |
-     #     cd modules/juce/JUCE/extras/Projucer/Builds/MacOSX
-          # xcodebuild -project Projucer.xcodeproj -scheme Projucer -configuration Release
-          # cp -R build/Release/Projucer.app builds/      
+      - name: Get Projucer Commands
+        run: |
+          modules/juce/JUCE/extras/Projucer/Builds/MacOSX/Projucer.app/Contents/MacOS/Projucer --help
 
 
