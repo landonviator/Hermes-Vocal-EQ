@@ -38,11 +38,11 @@ jobs:
       - name: Build Projucer
         run: |
           cd modules/juce/JUCE/extras/Projucer/Builds/MacOSX
-          xcodebuild -project Projucer.xcodeproj -scheme "Projucer - App" -configuration Debug
-          cp -R build/Debug/Projucer.app builds/ 
+          xcodebuild -project Projucer.xcodeproj -scheme "Projucer - App" -configuration Release
+          cp -R build/Release/Projucer.app builds/ 
 
       - name: Get Projucer Commands
         run: |
-          modules/juce/JUCE/extras/Projucer/Builds/MacOSX/build/Debug/Projucer.app/Contents/MacOS/Projucer --help
+          modules/juce/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.app/Contents/MacOS/Projucer --resave HermesVocalEQ/"Hermes Voice EQ.jucer"
 
 
