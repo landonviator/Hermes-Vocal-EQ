@@ -43,6 +43,6 @@ jobs:
 
       - name: Get Projucer Commands
         run: |
-          modules/juce/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.app/Contents/MacOS/Projucer --resave Hermes-Vocal-EQ/HermesVoiceEQ/"Hermes Voice EQ.jucer"
+          modules/juce/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.app/Contents/MacOS/Projucer --resave HermesVoiceEQ/"Hermes Voice EQ.jucer"
 
 
