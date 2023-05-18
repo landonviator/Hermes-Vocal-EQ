@@ -40,11 +40,11 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Mac-Hermes-Voice-EQ-AU
-          path: HermesVoiceEQ/Builds/MacOSX/build/Release/"Hermes Voice EQ.component"
+          path: HermesVoiceEQ/Builds/MacOSX/build/Release/Hermes\ Voice\ EQ.component
 
       - name: Upload Mac VST3 Artifact
         uses: actions/upload-artifact@v3
         with:
           name: Mac-Hermes-Voice-EQ-VST3
-          path: HermesVoiceEQ/Builds/MacOSX/build/Release/"Hermes Voice EQ.vst3"
+          path: HermesVoiceEQ/Builds/MacOSX/build/Release/Hermes\ Voice\ EQ.vst3
         
