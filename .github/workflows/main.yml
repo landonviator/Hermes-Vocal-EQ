@@ -31,8 +31,8 @@ jobs:
 
       - name: Save Projucer Project
         run: |
-          cd Projucer/Projucer.app/Contents/MacOS 
-#          --resave HermesVoiceEQ/"Hermes Voice EQ.jucer"
+          cd Projucer
+          Projucer.app/Contents/MacOS --resave HermesVoiceEQ/"Hermes Voice EQ.jucer"
 
 #      - name: Build Plugin Mac AU
 #        run: |
