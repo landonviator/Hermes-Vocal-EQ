@@ -32,7 +32,7 @@ jobs:
       - name: Save Projucer Project
         run: |
           cd Projucer
-          Projucer.app/Contents/MacOS/Projucer --resave HermesVoiceEQ/"Hermes Voice EQ.jucer"
+#          Projucer.app/Contents/MacOS/Projucer --resave HermesVoiceEQ/"Hermes Voice EQ.jucer"
 
 #      - name: Build Plugin Mac AU
 #        run: |
