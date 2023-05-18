@@ -36,5 +36,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Hermes-Voice-EQ-Artifacts
-          path: build/Release/
+          path: HermesVoiceEQ/Builds/MacOSX/build/Release/
         
