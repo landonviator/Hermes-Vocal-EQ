@@ -34,7 +34,7 @@ jobs:
 
       - name: Validate Mac AU
         run: |
-              Pluginval/pluginval.app/Contents/MacOS/pluginval --strictness-level 5 HermesVoiceEQ/Builds/MacOSX/build/Release/"Hermes Voice EQ.component"
+              Pluginval/pluginval.app/Contents/MacOS/pluginval --strictness-level 5 HermesVoiceEQ/Builds/MacOSX/build/Release/Hermes\ Voice\ EQ.component/Contents/MacOS/Hermes\ Voice\ EQ
 
       - name: Upload Mac AU Artifact
         uses: actions/upload-artifact@v3
