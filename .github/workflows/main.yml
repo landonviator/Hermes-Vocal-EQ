@@ -25,13 +25,13 @@ jobs:
 
       - name: Build Projucer
         run: |
-          cd modules/juce/JUCE/extras/Projucer/Builds/MacOSX
+          cd modules/JUCE/extras/Projucer/Builds/MacOSX
           xcodebuild -project Projucer.xcodeproj -scheme "Projucer - App" -configuration Release
           cp -R build/Release/Projucer.app builds/ 
 
       - name: Test Projucer
         run: |
-          modules/juce/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.app/Contents/MacOS/Projucer --status HermesVoiceEQ/"Hermes Voice EQ.jucer"
+          modules/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.app/Contents/MacOS/Projucer --status HermesVoiceEQ/"Hermes Voice EQ.jucer"
 
 #          /Hermes Voice EQ.jucer
 #           Name: Hermes Voice EQ
