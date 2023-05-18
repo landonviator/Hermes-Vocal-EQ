@@ -43,6 +43,23 @@ jobs:
 
       - name: Save Projucer
         run: |
-          modules/juce/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.app/Contents/MacOS/Projucer --resave HermesVoiceEQ/"Hermes Voice EQ.jucer" --fix-missing-dependencies
+          modules/juce/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.app/Contents/MacOS/Projucer --status HermesVoiceEQ/"Hermes Voice EQ.jucer"
 
-
+#          /Hermes Voice EQ.jucer
+#           Name: Hermes Voice EQ
+  #         UID: aU7yt3
+    #       Modules:
+      #       juce_audio_basics
+        #     juce_audio_devices
+          #   juce_audio_formats
+            # juce_audio_plugin_client
+            # juce_audio_processors
+            # juce_audio_utils
+            # juce_core
+            # juce_data_structures
+            # juce_dsp
+            # juce_events
+            # juce_graphics
+            # juce_gui_basics
+            # juce_gui_extra
+            # viator_modules
