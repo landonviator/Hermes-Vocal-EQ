@@ -36,15 +36,13 @@ jobs:
 #        run: |
 #              Pluginval/pluginval.app/Contents/MacOS/pluginval --strictness-level 5 HermesVoiceEQ/Builds/MacOSX/build/Release/Hermes\ Voice\ EQ.component/Contents/MacOS/Hermes\ Voice\ EQ
 
-      - name: Upload Mac AU Artifact
+      # Exclude files with .a extension
+      - name: Exclude .a files
+        run: HermesVoiceEQ/Builds/MacOSX/build/Release -type f ! -name "*.a" -print0 | xargs -0 rm -f
+
+      - name: Upload Mac Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: Mac-Hermes-Voice-EQ-AU
-          path: HermesVoiceEQ/Builds/MacOSX/build/Release/Hermes\ Voice\ EQ.component/Contents/MacOS/Hermes\ Voice\ EQ
-
-      - name: Upload Mac VST3 Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: Mac-Hermes-Voice-EQ-VST3
-          path: HermesVoiceEQ/Builds/MacOSX/build/Release/Hermes\ Voice\ EQ.vst3/Contents/MacOS/Hermes\ Voice\ EQ
+          path: HermesVoiceEQ/Builds/MacOSX/build/Release
         
