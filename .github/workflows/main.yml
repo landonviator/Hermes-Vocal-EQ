@@ -23,25 +23,13 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Create JUCE folder
-        run: |
-            # Create the JUCE folder
-            mkdir -p modules/juce
-            mkdir -p modules/viatordsp
-
-      - name: Install JUCE and Projucer
-        run: |
-            # Download and install JUCE
-            cd modules/juce
-            git clone https://github.com/juce-framework/JUCE.git
-      
       - name: Build Projucer
         run: |
           cd modules/juce/JUCE/extras/Projucer/Builds/MacOSX
           xcodebuild -project Projucer.xcodeproj -scheme "Projucer - App" -configuration Release
           cp -R build/Release/Projucer.app builds/ 
 
-      - name: Save Projucer
+      - name: Test Projucer
         run: |
           modules/juce/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.app/Contents/MacOS/Projucer --status HermesVoiceEQ/"Hermes Voice EQ.jucer"
 
