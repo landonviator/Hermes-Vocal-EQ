@@ -36,5 +36,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Hermes-Voice-EQ-AU
-          path: build/Release
+          path: build/Release/"Hermes Voice EQ.component"
         
