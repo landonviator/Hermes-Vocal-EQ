@@ -31,4 +31,4 @@ jobs:
         run: |
           cd HermesVoiceEQ/Builds/MacOSX
           xcodebuild -project "Hermes Voice EQ.xcodeproj" -scheme "Hermes Voice EQ - AU" -configuration Release
-          cp -R build/Release/"Hermes Voice EQ.component"
+#          cp -R build/Release/"Hermes Voice EQ.component"
