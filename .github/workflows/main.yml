@@ -23,18 +23,18 @@ jobs:
         with:
           node-version: '14'
 
-      - name: Build Projucer
-        run: |
-          cd modules/JUCE/extras/Projucer/Builds/MacOSX
-          xcodebuild -project Projucer.xcodeproj -scheme "Projucer - App" -configuration Release
-          cp -R build/Release/Projucer.app builds/ 
+#      - name: Build Projucer
+#        run: |
+#          cd modules/JUCE/extras/Projucer/Builds/MacOSX
+#          xcodebuild -project Projucer.xcodeproj -scheme "Projucer - App" -configuration Release
+#          cp -R build/Release/Projucer.app builds/ 
 
       - name: Save Projucer Project
         run: |
-          modules/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.app/Contents/MacOS/Projucer --resave HermesVoiceEQ/"Hermes Voice EQ.jucer"
+          Projucer.app/Contents/MacOS/Projucer --resave HermesVoiceEQ/"Hermes Voice EQ.jucer"
 
-      - name: Build Projucer
-        run: |
-          cd HermesVoiceEQ/Builds/MacOSX
-          xcodebuild -project "Hermes Voice EQ.xcodeproj" -scheme "Hermes Voice EQ - AU" -configuration Release
-          cp -R build/Release/"Hermes Voice EQ.component" builds/ 
+#      - name: Build Plugin Mac AU
+#        run: |
+#          cd HermesVoiceEQ/Builds/MacOSX
+#          xcodebuild -project "Hermes Voice EQ.xcodeproj" -scheme "Hermes Voice EQ - AU" -configuration Release
+#          cp -R build/Release/"Hermes Voice EQ.component"
