@@ -29,25 +29,12 @@ jobs:
           xcodebuild -project Projucer.xcodeproj -scheme "Projucer - App" -configuration Release
           cp -R build/Release/Projucer.app builds/ 
 
-      - name: Test Projucer
+      - name: Save Projucer Project
         run: |
-          modules/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.app/Contents/MacOS/Projucer --status HermesVoiceEQ/"Hermes Voice EQ.jucer"
+          modules/JUCE/extras/Projucer/Builds/MacOSX/build/Release/Projucer.app/Contents/MacOS/Projucer --resave HermesVoiceEQ/"Hermes Voice EQ.jucer"
 
-#          /Hermes Voice EQ.jucer
-#           Name: Hermes Voice EQ
-  #         UID: aU7yt3
-    #       Modules:
-      #       juce_audio_basics
-        #     juce_audio_devices
-          #   juce_audio_formats
-            # juce_audio_plugin_client
-            # juce_audio_processors
-            # juce_audio_utils
-            # juce_core
-            # juce_data_structures
-            # juce_dsp
-            # juce_events
-            # juce_graphics
-            # juce_gui_basics
-            # juce_gui_extra
-            # viator_modules
+      - name: Build Projucer
+        run: |
+          cd HermesVoiceEQ/Builds/MacOSX
+          xcodebuild -project "Hermes Voice EQ.xcodeproj" -scheme "Hermes Voice EQ - AU" -configuration Release
+          cp -R build/Release/"Hermes Voice EQ.component" builds/ 
