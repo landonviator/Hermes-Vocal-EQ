@@ -32,9 +32,9 @@ jobs:
           cd HermesVoiceEQ/Builds/MacOSX
           xcodebuild -project "Hermes Voice EQ.xcodeproj" -scheme "Hermes Voice EQ - All" -configuration Release
 
-#      - name: Validate Mac AU
-#        run: |
-#              Pluginval/pluginval.app/Contents/MacOS/pluginval --strictness-level 5 HermesVoiceEQ/Builds/MacOSX/build/Release/Hermes\ Voice\ EQ.component/Contents/MacOS/Hermes\ Voice\ EQ
+      - name: Validate Mac AU
+        run: |
+              Pluginval/pluginval.app/Contents/MacOS/pluginval --validate-in-process --strictness-level 5 HermesVoiceEQ/Builds/MacOSX/build/Release/Hermes\ Voice\ EQ.component/Contents/MacOS/Hermes\ Voice\ EQ
 
       # Exclude files with .a extension
       - name: Delete .a files
@@ -43,6 +43,5 @@ jobs:
       - name: Upload Mac Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: Mac-Hermes-Voice-EQ-AU
-          path: HermesVoiceEQ/Builds/MacOSX/build/Release
-        
+          name: Mac-Hermes-Voice-EQ-Artifacts
+          path: HermesVoiceEQ/Builds/MacOSX/build/Release --timeout-ms
