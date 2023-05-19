@@ -18,4 +18,6 @@ Additionally, the plugin features input and output dials that facilitate the man
 
 ## Contributing
 Contributions to the Hermes Voice EQ is welcome and encouraged. There are many ways to contribute to this project, for both programmers and non-programmers. Ways to contribute:
-- The easiest way to contribute is to use the plugin in any way you want! All software has bugs and glitches. The more the plugin gets used, the quicker bugs will be found and fixed. There are different DAWs and hosts that can all have different behavior, causing different bugs. Plus, this will hopefully be used in non-DAW software such as Elgato WaveLink, so there are bound to be extra things to consider. 
+
+- ### Testing 
+The easiest way to contribute is to use the plugin in any way you want! All software has bugs and glitches. The more the plugin gets used, the quicker bugs will be found and fixed. There are different DAWs and hosts that can all have different behavior, causing different bugs. Plus, this will hopefully be used in non-DAW software such as Elgato WaveLink, so there are bound to be extra things to consider. 
