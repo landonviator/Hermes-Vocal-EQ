@@ -8,7 +8,7 @@ Introducing Hermes Voice EQ—a fresh and innovative approach to graphic equaliz
     - AU [Build](https://github.com/landonviator/Hermes-Vocal-EQ/blob/main/HermesVoiceEQ/Builds/MacOSX/build/Release/Hermes%20Voice%20EQ.component)
     - VST3 [Build](https://github.com/landonviator/Hermes-Vocal-EQ/blob/main/HermesVoiceEQ/Builds/MacOSX/build/Release/Hermes%20Voice%20EQ.vst3)
 
-**Windows builds are not yet available, plugin is still development.**
+Windows builds are not yet available, plugin is still development.
 
 ## Description
 
