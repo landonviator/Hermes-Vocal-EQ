@@ -39,7 +39,6 @@ jobs:
         run: |
           Pluginval/pluginval.app/Contents/MacOS/pluginval --validate-in-process --strictness-level 5 HermesVoiceEQ/Builds/MacOSX/build/Release/Hermes\ Voice\ EQ.component/Contents/MacOS/Hermes\ Voice\ EQ
 
-      # Exclude files with .a extension
       - name: Delete .a files
         run: rm -R HermesVoiceEQ/Builds/MacOSX/build/Release/libHermes\ Voice\ EQ.a
 
