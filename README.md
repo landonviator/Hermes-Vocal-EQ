@@ -20,4 +20,13 @@ Additionally, the plugin features input and output dials that facilitate the man
 Contributions to the Hermes Voice EQ is welcome and encouraged. There are many ways to contribute to this project, for both programmers and non-programmers. Ways to contribute:
 
 #### Testing 
-The easiest way to contribute is to use the plugin in any way you want! All software has bugs and glitches. The more the plugin gets used, the quicker bugs will be found and fixed. There are different DAWs and hosts that can all have different behavior, causing different bugs. Plus, this will hopefully be used in non-DAW software such as Elgato WaveLink, so there are bound to be extra things to consider. 
+The easiest way to contribute is to use the plugin in any way you want! All software has bugs and glitches. The more the plugin gets used, the quicker bugs will be found and fixed. There are different DAWs and hosts that can all have different behavior, causing different bugs. Plus, this will hopefully be used in non-DAW software such as Elgato WaveLink, so there are bound to be extra things to consider.
+
+#### Presets
+If you find some amazing presets for different voice types or situations, we'd love to include them. A way to upload presets will be made in the future.
+
+#### Plugin Development
+If you'd like to contribute to the development of the plugin, great! Start with the issues page. If there are no bugs and you'd like to introduce a new feature, fine-tune some of the DSP, or anything else, submit a PR and it will be reviewed.
+
+## License
+Hermes Voice EQ is licensed under the GNU General Public License (GPLv3) agreement.
