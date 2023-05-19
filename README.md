@@ -30,6 +30,16 @@ If you find some amazing presets for different voice types or situations, we'd l
 #### Plugin Development
 If you'd like to contribute to the development of the plugin, great! Start with the issues page. If there are no bugs and you'd like to introduce a new feature, fine-tune some of the DSP, or anything else, submit a PR and it will be reviewed.
 
+## Support
+If you like my work and would like to support me creating more audio applications, check out my [Patreon](https://www.patreon.com/ViatorDSP) where you can donate and download all of my current plugins!
+
+## Online Presence:
+- I stream JUCE development on [YouTube](https://www.youtube.com/channel/UCwEc_CsAk3ky7sX_yg6bSSg)
+- [Patreon](https://www.patreon.com/ViatorDSP) <br>
+- [Instagram](https://www.instagram.com/viatordsp/) <br>
+- [Facebook](https://www.facebook.com/Dr-Bruisin-109544051551604)<br>
+- Join my [Discord](https://discord.gg/PgU3Dd8vxJ) server!
+
 ## License
 MIT License
 
