@@ -40,8 +40,6 @@ jobs:
         
       - name: Validate Mac AU
         run: |
-          cd HermesVoiceEQ/Builds/MacOSX/build/Release/
-          ls
           Pluginval/pluginval.app/Contents/MacOS/pluginval --strictness-level 5 --validate-in-process --verbose --validate HermesVoiceEQ/Builds/MacOSX/build/Release/Hermes\ Voice\ EQ.component
 
       - name: Delete .a files
