@@ -36,8 +36,6 @@ If you like my work and would like to support me creating more audio application
 ## Online Presence:
 - I stream JUCE development on [YouTube](https://www.youtube.com/channel/UCwEc_CsAk3ky7sX_yg6bSSg)
 - [Patreon](https://www.patreon.com/ViatorDSP) <br>
-- [Instagram](https://www.instagram.com/viatordsp/) <br>
-- [Facebook](https://www.facebook.com/Dr-Bruisin-109544051551604)<br>
 - Join my [Discord](https://discord.gg/PgU3Dd8vxJ) server!
 
 ## License
