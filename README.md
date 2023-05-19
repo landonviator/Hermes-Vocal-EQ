@@ -8,6 +8,8 @@ Introducing Hermes Voice EQ—a fresh and innovative approach to graphic equaliz
     - AU [Build](https://github.com/landonviator/Hermes-Vocal-EQ/blob/main/HermesVoiceEQ/Builds/MacOSX/build/Release/Hermes%20Voice%20EQ.component)
     - VST3 [Build](https://github.com/landonviator/Hermes-Vocal-EQ/blob/main/HermesVoiceEQ/Builds/MacOSX/build/Release/Hermes%20Voice%20EQ.vst3)
 
+**Windows builds are not yet available, plugin is still development.**
+
 ## Description
 
 Hermes Voice EQ is a 6-band eq geared towards non-audio enthusiests who want to make their voice sound better. We understand that technical jargon can be daunting, so we've made it easy for you. When you hover over each band, a simple and concise description appears, explaining the purpose of the control in plain language. For example, the "Nasal" slider reduces nasal-like frequencies to open up your voice. With Hermes Voice EQ, you don't need to worry about the technical details—everything is clearly described for you.
