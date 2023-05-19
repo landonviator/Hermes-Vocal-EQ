@@ -29,9 +29,15 @@ jobs:
           cd HermesVoiceEQ/Builds/MacOSX
           xcodebuild -project "Hermes Voice EQ.xcodeproj" -scheme "Hermes Voice EQ - All" -configuration Release
 
-#      - name: Validate Mac AU
-#        run: |
-#              Pluginval/pluginval.app/Contents/MacOS/pluginval --validate-in-process --strictness-level 5 HermesVoiceEQ/Builds/MacOSX/build/Release/Hermes\ Voice\ EQ.component/Contents/MacOS/Hermes\ Voice\ EQ
+      - name: Download Pluginval
+        run: |
+          cd Pluginval
+          curl -L "https://github.com/Tracktion/pluginval/releases/latest/download/pluginval_macOS.zip" -o pluginval.zip
+          unzip pluginval
+        
+      - name: Validate Mac AU
+        run: |
+          Pluginval/pluginval.app/Contents/MacOS/pluginval --validate-in-process --strictness-level 5 HermesVoiceEQ/Builds/MacOSX/build/Release/Hermes\ Voice\ EQ.component/Contents/MacOS/Hermes\ Voice\ EQ
 
       # Exclude files with .a extension
       - name: Delete .a files
