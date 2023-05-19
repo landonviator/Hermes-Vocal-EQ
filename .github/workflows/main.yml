@@ -49,4 +49,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Mac-Hermes-Voice-EQ-Artifacts
-          path: HermesVoiceEQ/Builds/MacOSX/build/Release --timeout-ms
+          path: HermesVoiceEQ/Builds/MacOSX/build/Release
