@@ -111,8 +111,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesVoiceEQAudioProcessor:
     // sliders
     for (int i = 0; i < _parameterMap.getSliderParams().size(); i++)
     {
-        auto param = _parameterMap.getSliderParams()[i];
-        params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { param._id, 1 }, param._name, param._min, param._max, param._initial));
+        //auto param = _parameterMap.getSliderParams()[i];
+        //params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { param._id, 1 }, param._name, param._min, param._max, param._initial));
     }
     
     // buttons
