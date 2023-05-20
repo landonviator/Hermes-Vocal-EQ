@@ -111,16 +111,16 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesVoiceEQAudioProcessor:
     // sliders
     for (int i = 0; i < _parameterMap.getSliderParams().size(); i++)
     {
-        //auto param = _parameterMap.getSliderParams()[i];
-        //params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { param._id, 1 }, param._name, param._min, param._max, param._initial));
+        auto param = _parameterMap.getSliderParams()[i];
+        params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { param._id, 1 }, param._name, param._min, param._max, param._initial));
     }
     
     // buttons
     for (int i = 0; i < _parameterMap.getButtonParams().size(); i++)
     {
-        //auto param = _parameterMap.getButtonParams()[i];
-        //auto male = ViatorParameters::voiceID;
-        //params.push_back (std::make_unique<juce::AudioParameterBool>(juce::ParameterID { param._id, 1 }, param._name, param._id == male ? true : false));
+        auto param = _parameterMap.getButtonParams()[i];
+        auto male = ViatorParameters::voiceID;
+        params.push_back (std::make_unique<juce::AudioParameterBool>(juce::ParameterID { param._id, 1 }, param._name, param._id == male ? true : false));
     }
         
     return { params.begin(), params.end() };
@@ -137,7 +137,7 @@ void HermesVoiceEQAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     _spec.maximumBlockSize = samplesPerBlock;
     _spec.numChannels = getTotalNumInputChannels();
     
-    //prepareModules(_spec);
+    prepareModules(_spec);
     updateFilters();
     _inputGainModule.setRampDurationSeconds(0.02);
     _outputGainModule.setRampDurationSeconds(0.02);
