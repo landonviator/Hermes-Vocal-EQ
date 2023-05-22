@@ -86,10 +86,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Mac-Hermes-Voice-EQ-AU-Artifact
-          path: ~/Library/Audio/Plug-Ins/Components/Hermes\ Voice\ EQ.component
+          path: ~/Library/Audio/Plug-Ins/Components/
 
       - name: Upload Mac VST3
         uses: actions/upload-artifact@v3
         with:
           name: Mac-Hermes-Voice-EQ-VST3-Artifact
-          path: ~/Library/Audio/Plug-Ins/VST3/Hermes\ Voice\ EQ.vst3
+          path: ~/Library/Audio/Plug-Ins/VST3/
