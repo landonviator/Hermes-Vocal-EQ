@@ -64,9 +64,9 @@ void FilterBank<SampleType>::prepare(const juce::dsp::ProcessSpec& spec) noexcep
 }
 
 template <typename SampleType>
-void FilterBank<SampleType>::reset() noexcept
+void FilterBank<SampleType>::reset(const float newSamplerate) noexcept
 {
-    
+    _sampleRate = newSamplerate;
 }
 
 template <typename SampleType>

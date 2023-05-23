@@ -178,6 +178,7 @@ bool HermesVoiceEQAudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
 
 void HermesVoiceEQAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
+    _filterBankModule.reset(getSampleRate());
     updateFilters();
     updateParameters();
     
