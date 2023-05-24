@@ -34,7 +34,7 @@ public:
     
     void prepare(const juce::dsp::ProcessSpec& spec) noexcept;
     
-    void reset(const float newSamplerate) noexcept;
+    void reset() noexcept;
     
     void process (const juce::dsp::ProcessContextReplacing<float>& context) noexcept
     {

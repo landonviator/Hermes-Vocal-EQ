@@ -142,6 +142,7 @@ void HermesVoiceEQAudioProcessor::prepareToPlay (double sampleRate, int samplesP
     _inputGainModule.setRampDurationSeconds(0.02);
     _outputGainModule.setRampDurationSeconds(0.02);
     updateParameters();
+    
 }
 
 void HermesVoiceEQAudioProcessor::releaseResources()
@@ -178,9 +179,22 @@ bool HermesVoiceEQAudioProcessor::isBusesLayoutSupported (const BusesLayout& lay
 
 void HermesVoiceEQAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
-    _filterBankModule.reset(getSampleRate());
     updateFilters();
     updateParameters();
+    
+    // Update block size
+    if (_spec.maximumBlockSize != buffer.getNumSamples())
+    {
+        _spec.maximumBlockSize = buffer.getNumSamples();
+        prepareModules(_spec);
+    }
+    
+    // Update samplerate
+    if (_spec.sampleRate != getSampleRate())
+    {
+        _spec.sampleRate = getSampleRate();
+        prepareModules(_spec);
+    }
     
     // Process the filters
     juce::dsp::AudioBlock<float> mainBlock {buffer};
