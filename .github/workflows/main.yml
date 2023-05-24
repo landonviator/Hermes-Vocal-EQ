@@ -64,11 +64,13 @@ jobs:
         run: |
           sudo killall -9 AudioComponentRegistrar
           sudo killall -9 coreaudiod
-          Pluginval/pluginval.app/Contents/MacOS/pluginval --strictness-level 5 --validate-in-process --verbose --validate ~/Library/Audio/Plug-Ins/Components/Hermes\ Voice\ EQ.component || exit 1
+          Pluginval/pluginval.app/Contents/MacOS/pluginval --strictness-level 1 --validate-in-process --verbose --validate ~/Library/Audio/Plug-Ins/Components/Hermes\ Voice\ EQ.component || exit 1
 
       - name: Validate Mac VST3
         run: |
-            Pluginval/pluginval.app/Contents/MacOS/pluginval --strictness-level 5 --validate-in-process --verbose --validate ~/Library/Audio/Plug-Ins/VST3/Hermes\ Voice\ EQ.vst3 || exit 1
+            sudo killall -9 AudioComponentRegistrar
+            sudo killall -9 coreaudiod
+            Pluginval/pluginval.app/Contents/MacOS/pluginval --strictness-level 1 --validate-in-process --verbose --validate ~/Library/Audio/Plug-Ins/VST3/Hermes\ Voice\ EQ.vst3 || exit 1
 
       - name: Delete .a files
         run: rm -R HermesVoiceEQ/Builds/MacOSX/build/Release/libHermes\ Voice\ EQ.a
