@@ -68,8 +68,6 @@ jobs:
 
       - name: Validate Mac VST3
         run: |
-            sudo killall -9 AudioComponentRegistrar
-            sudo killall -9 coreaudiod
             Pluginval/pluginval.app/Contents/MacOS/pluginval --strictness-level 5 --validate-in-process --verbose --validate ~/Library/Audio/Plug-Ins/VST3/Hermes\ Voice\ EQ.vst3 || exit 1
 
       - name: Delete .a files
