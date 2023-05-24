@@ -147,8 +147,6 @@ void HermesVoiceEQAudioProcessor::prepareToPlay (double sampleRate, int samplesP
 
 void HermesVoiceEQAudioProcessor::releaseResources()
 {
-    // When playback stops, you can use this as an opportunity to free up any
-    // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -182,6 +180,7 @@ void HermesVoiceEQAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer
     updateFilters();
     updateParameters();
     
+    // apparently this is only happening twice. what is going on...
     if (_spec.maximumBlockSize != buffer.getNumSamples())
     {
         _spec.maximumBlockSize = buffer.getNumSamples();
