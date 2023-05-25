@@ -1,0 +1,26 @@
+Target dependency graph (7 targets)
+ZERO_CHECK in Hermes-Voice-EQ, no dependencies
+AudioPluginData in Hermes-Voice-EQ, depends on:
+ZERO_CHECK in Hermes-Voice-EQ (explicit)
+HermesVoiceEQ in Hermes-Voice-EQ, depends on:
+AudioPluginData in Hermes-Voice-EQ (explicit)
+ZERO_CHECK in Hermes-Voice-EQ (explicit)
+HermesVoiceEQ_Standalone in Hermes-Voice-EQ, depends on:
+HermesVoiceEQ in Hermes-Voice-EQ (explicit)
+AudioPluginData in Hermes-Voice-EQ (explicit)
+ZERO_CHECK in Hermes-Voice-EQ (explicit)
+HermesVoiceEQ_AU in Hermes-Voice-EQ, depends on:
+HermesVoiceEQ in Hermes-Voice-EQ (explicit)
+AudioPluginData in Hermes-Voice-EQ (explicit)
+ZERO_CHECK in Hermes-Voice-EQ (explicit)
+HermesVoiceEQ_VST3 in Hermes-Voice-EQ, depends on:
+HermesVoiceEQ in Hermes-Voice-EQ (explicit)
+AudioPluginData in Hermes-Voice-EQ (explicit)
+ZERO_CHECK in Hermes-Voice-EQ (explicit)
+ALL_BUILD in Hermes-Voice-EQ, depends on:
+HermesVoiceEQ in Hermes-Voice-EQ (explicit)
+HermesVoiceEQ_Standalone in Hermes-Voice-EQ (explicit)
+HermesVoiceEQ_AU in Hermes-Voice-EQ (explicit)
+HermesVoiceEQ_VST3 in Hermes-Voice-EQ (explicit)
+AudioPluginData in Hermes-Voice-EQ (explicit)
+ZERO_CHECK in Hermes-Voice-EQ (explicit)

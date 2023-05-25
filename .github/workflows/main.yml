@@ -43,11 +43,7 @@ jobs:
       - name: Set up Xcode
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
-
-      - name: Save Projucer Project
-        run: |
-          Projucer/Projucer.app/Contents/MacOS/Projucer --resave HermesVoiceEQ/"Hermes Voice EQ.jucer"
+          node-version: "14"
 
       - name: Download Pluginval
         run: |
@@ -55,10 +51,12 @@ jobs:
           curl -L "https://github.com/Tracktion/pluginval/releases/latest/download/pluginval_macOS.zip" -o pluginval.zip
           unzip pluginval
 
-      - name: Build Plugin Mac AU & VST3
+      - name: Build Plugins
         run: |
-          cd HermesVoiceEQ/Builds/MacOSX
-          xcodebuild -project "Hermes Voice EQ.xcodeproj" -scheme "Hermes Voice EQ - All" -configuration Release
+          mkdir cmake-build-release
+          cd cmake-build-release
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"
+          cmake --build . --config Release --target HermesVoiceEQ_AU HermesVoiceEQ_VST3
 
       - name: Validate Mac AU
         run: |
@@ -68,12 +66,9 @@ jobs:
 
       - name: Validate Mac VST3
         run: |
-            sudo killall -9 AudioComponentRegistrar
-            sudo killall -9 coreaudiod
-            Pluginval/pluginval.app/Contents/MacOS/pluginval --strictness-level 5 --validate-in-process --verbose --validate ~/Library/Audio/Plug-Ins/VST3/Hermes\ Voice\ EQ.vst3 || exit 1
-
-      - name: Delete .a files
-        run: rm -R HermesVoiceEQ/Builds/MacOSX/build/Release/libHermes\ Voice\ EQ.a
+          sudo killall -9 AudioComponentRegistrar
+          sudo killall -9 coreaudiod
+          Pluginval/pluginval.app/Contents/MacOS/pluginval --strictness-level 5 --validate-in-process --verbose --validate ~/Library/Audio/Plug-Ins/VST3/Hermes\ Voice\ EQ.vst3 || exit 1
 
       - name: Sign Mac Builds
         env:
