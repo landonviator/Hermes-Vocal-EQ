@@ -4,9 +4,10 @@ on:
   push:
     branches:
       - main
+      - lviator/migrate-to-cmake
   pull_request:
     branches:
-      - lviator/migrate-to-cmake
+      - main
 
 jobs:
   build:
