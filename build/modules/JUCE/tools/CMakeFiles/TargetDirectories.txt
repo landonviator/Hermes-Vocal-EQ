@@ -1,0 +1,8 @@
+/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE/tools/CMakeFiles/juce_lv2_helper.dir
+/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE/tools/CMakeFiles/install.dir
+/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE/tools/CMakeFiles/ALL_BUILD.dir
+/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE/tools/CMakeFiles/ZERO_CHECK.dir
+/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE/tools/modules/CMakeFiles/install.dir
+/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE/tools/extras/Build/CMakeFiles/install.dir
+/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE/tools/extras/Build/juceaide/CMakeFiles/juceaide.dir
+/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE/tools/extras/Build/juceaide/CMakeFiles/install.dir
