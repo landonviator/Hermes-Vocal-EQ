@@ -97,7 +97,9 @@ bool Header::isSettingsActive()
 void Header::initButtons(viator_gui::TextButton &button)
 {
     _maleButton.setButtonText("Voice: Male");
+    _maleButton.setButtonStyle(viator_gui::TextButton::ButtonStyle::kNormal);
     _settingsButton.setTooltip("Settings");
+    _settingsButton.setButtonStyle(viator_gui::TextButton::ButtonStyle::kSettings);
     _maleButton.setTooltip("Voice preset");
     button.setColour(juce::TextButton::ColourIds::buttonColourId, juce::Colours::transparentBlack);
     button.setColour(juce::TextButton::ColourIds::buttonOnColourId, juce::Colours::transparentBlack);

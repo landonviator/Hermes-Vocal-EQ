@@ -3,6 +3,8 @@
 
 HermesVoiceEQAudioProcessorEditor::HermesVoiceEQAudioProcessorEditor (HermesVoiceEQAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p), _headerComp(audioProcessor)
+, _inputDial("Input")
+, _outputDial("Output")
 {
     setName("Editor");
     
@@ -12,22 +14,8 @@ HermesVoiceEQAudioProcessorEditor::HermesVoiceEQAudioProcessorEditor (HermesVoic
     auto faderIndex = 0;
 
     // Init sliders
-    for (auto& fader : _faders)
-    {
-        initFaderProps(*fader, faderIndex);
-        faderIndex++;
-    }
-    
-    auto dialIndex = 0;
-    
-    for (auto& dial : _dials)
-    {
-        initDialProps(*dial, dialIndex);
-        dialIndex++;
-    }
-    
-    _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, ViatorParameters::inputID, _inputDial));
-    _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, ViatorParameters::outputID, _outputDial));
+    initFaderProps();
+    initDialProps();
     
     // Init Labels
     for (auto i = 0; i < _faderLabels.size(); i++)
@@ -166,29 +154,43 @@ void HermesVoiceEQAudioProcessorEditor::setWindowSizeLogic()
 }
 
 #pragma mark Sliders
-void HermesVoiceEQAudioProcessorEditor::initFaderProps(viator_gui::Fader &fader, int index)
+void HermesVoiceEQAudioProcessorEditor::initFaderProps()
 {
-    if (&fader != &_band5Dial)
+    auto index = 0;
+    for (auto& fader : _faders)
     {
-        fader.setTextValueSuffix(" %");
+        if (fader != &_band5Dial)
+        {
+            fader->setTextValueSuffix(" %");
+        }
+        
+        else
+        {
+            fader->setTextValueSuffix(" dB");
+        }
+        
+        _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, audioProcessor._parameterMap.getSliderParams()[index]._id, *_faders[index]));
+        fader->setComponentID("fader" + juce::String(index));
+        fader->addMouseListener(this, false);
+        addAndMakeVisible(fader);
+        index++;
     }
-    
-    else
-    {
-        fader.setTextValueSuffix(" dB");
-    }
-    
-    _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, audioProcessor._parameterMap.getSliderParams()[index]._id, fader));
-    fader.setComponentID("fader" + juce::String(index));
-    fader.addMouseListener(this, false);
-    addAndMakeVisible(fader);
 }
 
-void HermesVoiceEQAudioProcessorEditor::initDialProps(viator_gui::Dial &dial, int index)
+void HermesVoiceEQAudioProcessorEditor::initDialProps()
 {
-    dial.setComponentID("fader" + juce::String(index));
-    dial.addMouseListener(this, false);
-    addAndMakeVisible(dial);
+    auto index = 0;
+    
+    for (auto& dial : _dials)
+    {
+        dial->setComponentID("fader" + juce::String(index));
+        dial->addMouseListener(this, false);
+        addAndMakeVisible(dial);
+        index++;
+    }
+    
+    _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, ViatorParameters::inputID, _dials[0]->getSlider()));
+    _sliderAttachments.add(std::make_unique<sliderAttachment>(audioProcessor._treeState, ViatorParameters::outputID, _dials[1]->getSlider()));
 }
 
 void HermesVoiceEQAudioProcessorEditor::updateSliderColors()

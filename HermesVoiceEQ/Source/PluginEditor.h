@@ -119,8 +119,8 @@ private:
     void setWindowSizeLogic();
     
     // sliders
-    void initFaderProps(viator_gui::Fader& fader, int index);
-    void initDialProps(viator_gui::Dial& dial, int index);
+    void initFaderProps();
+    void initDialProps();
     void updateSliderColors();
     
     // labels

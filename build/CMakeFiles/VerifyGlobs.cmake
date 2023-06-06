@@ -2397,6 +2397,8 @@ set(OLD_GLOB
   "viator_modules/viator_dsp/BrickWallLPF.h"
   "viator_modules/viator_dsp/Distortion.cpp"
   "viator_modules/viator_dsp/Distortion.h"
+  "viator_modules/viator_dsp/Expander.cpp"
+  "viator_modules/viator_dsp/Expander.h"
   "viator_modules/viator_dsp/LFOGenerator.cpp"
   "viator_modules/viator_dsp/LFOGenerator.h"
   "viator_modules/viator_dsp/MultiBandProcessor.cpp"

@@ -9,19 +9,19 @@
 /* Begin PBXAggregateTarget section */
 		26AACE895D724795BBD1BF13 /* ALL_BUILD */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = E22C73DA007A499685EB9A25 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildConfigurationList = F3934906D92F4647A205B6D9 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
 			buildPhases = (
 				018BCB6D89F71321B8EF55C7 /* Generate CMakeFiles/ALL_BUILD */,
 			);
 			dependencies = (
-				F3E4AF46F992491BBA31A93B /* PBXTargetDependency */,
+				90CA91D6373B4775B2D00258 /* PBXTargetDependency */,
 			);
 			name = ALL_BUILD;
 			productName = ALL_BUILD;
 		};
 		5E593E4CC24F41A2BD3FDA99 /* ZERO_CHECK */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 9CC75F6254394A748AF61845 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildConfigurationList = 492BE2D0EC884D3EB1A054B0 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
 			buildPhases = (
 				A30857CCA2F1BB567923138F /* Generate CMakeFiles/ZERO_CHECK */,
 			);
@@ -32,12 +32,12 @@
 		};
 		726C1E330DF7499A9DFF5578 /* install */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = A50D30A0335846DD8D1348B2 /* Build configuration list for PBXAggregateTarget "install" */;
+			buildConfigurationList = 8896BE819B4F443FA43EB984 /* Build configuration list for PBXAggregateTarget "install" */;
 			buildPhases = (
 				93426DA6A4AC2C2AC9CE883C /* CMake PostBuild Rules */,
 			);
 			dependencies = (
-				25042627A6504C96931723D6 /* PBXTargetDependency */,
+				BD81DDD6998048589D552C76 /* PBXTargetDependency */,
 			);
 			name = install;
 			productName = install;
@@ -45,95 +45,95 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildStyle section */
-		94F46F253B3F4519AAD13027 /* RelWithDebInfo */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = RelWithDebInfo;
-		};
-		B98678C5A3E643CFB0E082A4 /* Release */ = {
+		11829034718C4F5CB2DE79CA /* Release */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 			};
 			name = Release;
 		};
-		BAA05CC800B04279A7C53187 /* Debug */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = Debug;
-		};
-		CAE2521596044A2DAC2393B4 /* MinSizeRel */ = {
+		46D0795276F7416AAE43D80D /* MinSizeRel */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 			};
 			name = MinSizeRel;
 		};
+		4C4E0DC4388C407F95C2544C /* Debug */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		63C1F303C8BC4BD58839A892 /* RelWithDebInfo */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = RelWithDebInfo;
+		};
 /* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
-		18945AD8264B4D89A328F3C8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A3D419EB3EE44B2CA78278DC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5E593E4CC24F41A2BD3FDA99;
-			remoteInfo = ZERO_CHECK;
-		};
-		76C6FCEAB04649AC9E208668 /* PBXContainerItemProxy */ = {
+		30AEA50F6A8B426E973E9EC9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A3D419EB3EE44B2CA78278DC /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 26AACE895D724795BBD1BF13;
 			remoteInfo = ALL_BUILD;
 		};
+		49C9625A25CF4E69B6ED0E23 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A3D419EB3EE44B2CA78278DC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5E593E4CC24F41A2BD3FDA99;
+			remoteInfo = ZERO_CHECK;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		27C58278CEED4A67A8BFAFBB /* /Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/modules/JUCE/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		83952BEB4BBB4DD1942BA52A /* /Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/modules/JUCE/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		004D11D4FEC244E190CD4061 = {
+		2DF6216847154BAC90EB8B06 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				80BCE2134A47450DBB077611 /* ALL_BUILD */,
-				CAAF872C5DB5409A86C7A18E /* Products */,
-				FEA2ABF60FCF462FB0E24D29 /* Frameworks */,
 			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		80BCE2134A47450DBB077611 /* ALL_BUILD */ = {
-			isa = PBXGroup;
-			children = (
-				EB9FD4F5242040228BC6134A /* CMake Rules */,
-				27C58278CEED4A67A8BFAFBB /* /Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/modules/JUCE/CMakeLists.txt */,
-			);
-			name = ALL_BUILD;
-			sourceTree = "<group>";
-		};
-		CAAF872C5DB5409A86C7A18E /* Products */ = {
+		54EFB446778141DA835332DA /* Products */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		EB9FD4F5242040228BC6134A /* CMake Rules */ = {
+		7B79E6EB093E4DACB08DA756 /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				DF49035204CB49BD9DEE3D35 /* CMake Rules */,
+				83952BEB4BBB4DD1942BA52A /* /Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/modules/JUCE/CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+		DF49035204CB49BD9DEE3D35 /* CMake Rules */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = "CMake Rules";
 			sourceTree = "<group>";
 		};
-		FEA2ABF60FCF462FB0E24D29 /* Frameworks */ = {
+		F077C5CE97274FD9ABC5E35D = {
 			isa = PBXGroup;
 			children = (
+				7B79E6EB093E4DACB08DA756 /* ALL_BUILD */,
+				54EFB446778141DA835332DA /* Products */,
+				2DF6216847154BAC90EB8B06 /* Frameworks */,
 			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -145,18 +145,18 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1320;
 			};
-			buildConfigurationList = 841AD35E094E475F9398D7CE /* Build configuration list for PBXProject "JUCE" */;
+			buildConfigurationList = 88EA9FBEFDDB4E4288526606 /* Build configuration list for PBXProject "JUCE" */;
 			buildSettings = {
 			};
 			buildStyles = (
-				BAA05CC800B04279A7C53187 /* Debug */,
-				B98678C5A3E643CFB0E082A4 /* Release */,
-				CAE2521596044A2DAC2393B4 /* MinSizeRel */,
-				94F46F253B3F4519AAD13027 /* RelWithDebInfo */,
+				4C4E0DC4388C407F95C2544C /* Debug */,
+				11829034718C4F5CB2DE79CA /* Release */,
+				46D0795276F7416AAE43D80D /* MinSizeRel */,
+				63C1F303C8BC4BD58839A892 /* RelWithDebInfo */,
 			);
 			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 0;
-			mainGroup = 004D11D4FEC244E190CD4061;
+			mainGroup = F077C5CE97274FD9ABC5E35D;
 			projectDirPath = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/modules/JUCE";
 			projectRoot = "";
 			targets = (
@@ -313,20 +313,42 @@ fi
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		25042627A6504C96931723D6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 26AACE895D724795BBD1BF13 /* ALL_BUILD */;
-			targetProxy = 76C6FCEAB04649AC9E208668 /* PBXContainerItemProxy */;
-		};
-		F3E4AF46F992491BBA31A93B /* PBXTargetDependency */ = {
+		90CA91D6373B4775B2D00258 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5E593E4CC24F41A2BD3FDA99 /* ZERO_CHECK */;
-			targetProxy = 18945AD8264B4D89A328F3C8 /* PBXContainerItemProxy */;
+			targetProxy = 49C9625A25CF4E69B6ED0E23 /* PBXContainerItemProxy */;
+		};
+		BD81DDD6998048589D552C76 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 26AACE895D724795BBD1BF13 /* ALL_BUILD */;
+			targetProxy = 30AEA50F6A8B426E973E9EC9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		06B5657DC7C94025B79D3A92 /* RelWithDebInfo */ = {
+		15629C74143C41728965ACB5 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		225CEE674330449E8FF5ACDB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = arm64;
@@ -346,9 +368,9 @@ fi
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
-			name = RelWithDebInfo;
+			name = Debug;
 		};
-		0A0048A72506457AB5DEB1C5 /* MinSizeRel */ = {
+		24CB6C43B64148318692852D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = arm64;
@@ -362,68 +384,24 @@ fi
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = ("","$(inherited)");
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
+				PRODUCT_NAME = ALL_BUILD;
 				SECTORDER_FLAGS = "";
 				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("$(inherited)");
 			};
-			name = MinSizeRel;
+			name = Release;
 		};
-		0BF7997E19BC4155803022B7 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = arm64;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = ("","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = RelWithDebInfo;
-		};
-		15FB9CAD27E84E8DA5A27F95 /* Release */ = {
+		2EF91BC164DE4D688C1420CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = arm64;
 				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk;
 				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE/build";
 			};
-			name = Release;
-		};
-		3B8A6AF9F4384B71BBCCBC93 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = arm64;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = ("","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
 			name = Debug;
 		};
-		67E6C44AB05E4AE5B2636C0B /* MinSizeRel */ = {
+		35AC4C4B2629469BAEAD683F /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = arm64;
@@ -432,69 +410,7 @@ fi
 			};
 			name = MinSizeRel;
 		};
-		6BC42D0572E3475B8B5C49CE /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = arm64;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = ("","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = install;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = RelWithDebInfo;
-		};
-		8187747F6BB74C77BFBC40CC /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = arm64;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk;
-				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE/build";
-			};
-			name = RelWithDebInfo;
-		};
-		8FCE9F038D0D4649868B18EF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = arm64;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk;
-				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE/build";
-			};
-			name = Debug;
-		};
-		AD12BC522CBE40598658D390 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = arm64;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = ("","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = Release;
-		};
-		B1B420E7EC8E4C8FB6A07E76 /* Debug */ = {
+		45F85FC1F95648F892E26A90 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = arm64;
@@ -516,29 +432,7 @@ fi
 			};
 			name = Debug;
 		};
-		BF2A1B9DDCF94876A4BED186 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = arm64;
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = ("","$(inherited)");
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE";
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("$(inherited)");
-			};
-			name = Debug;
-		};
-		CFD03F847F1A4983B0723989 /* Release */ = {
+		54029E09FDA04F6E9B03CAED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = arm64;
@@ -560,7 +454,7 @@ fi
 			};
 			name = Release;
 		};
-		D85F8410DF9E411D89752D33 /* MinSizeRel */ = {
+		5971F454C4144A9CADBEFE6B /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = arm64;
@@ -582,7 +476,7 @@ fi
 			};
 			name = MinSizeRel;
 		};
-		EB58927442644AF783FA7FB8 /* Release */ = {
+		6C45281F99EE432EAC7CB05A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = arm64;
@@ -604,7 +498,38 @@ fi
 			};
 			name = Release;
 		};
-		F0392749328445AD84207C8B /* MinSizeRel */ = {
+		86D245936C71423A9F1B7896 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk;
+				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE/build";
+			};
+			name = RelWithDebInfo;
+		};
+		8B9F06F6B6064EBA8E1014CA /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		954AE55348864E6FAE868C7E /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = arm64;
@@ -619,6 +544,81 @@ fi
 				OTHER_LDFLAGS = ("","$(inherited)");
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		A458838895EE48B2925EB743 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		A920234B7D154D62BEDA42E9 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		ED75B35B68D44A2EA6033E5A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk;
+				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE/build";
+			};
+			name = Release;
+		};
+		FD6438FCEC514F488996B537 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
 				SECTORDER_FLAGS = "";
 				SYMROOT = "/Volumes/Land00m 1/GitHub/Hermes-Vocal-EQ/build/modules/JUCE";
 				USE_HEADERMAP = NO;
@@ -629,46 +629,46 @@ fi
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		841AD35E094E475F9398D7CE /* Build configuration list for PBXProject "JUCE" */ = {
+		492BE2D0EC884D3EB1A054B0 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8FCE9F038D0D4649868B18EF /* Debug */,
-				15FB9CAD27E84E8DA5A27F95 /* Release */,
-				67E6C44AB05E4AE5B2636C0B /* MinSizeRel */,
-				8187747F6BB74C77BFBC40CC /* RelWithDebInfo */,
+				A458838895EE48B2925EB743 /* Debug */,
+				6C45281F99EE432EAC7CB05A /* Release */,
+				FD6438FCEC514F488996B537 /* MinSizeRel */,
+				8B9F06F6B6064EBA8E1014CA /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		9CC75F6254394A748AF61845 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+		8896BE819B4F443FA43EB984 /* Build configuration list for PBXAggregateTarget "install" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3B8A6AF9F4384B71BBCCBC93 /* Debug */,
-				EB58927442644AF783FA7FB8 /* Release */,
-				0A0048A72506457AB5DEB1C5 /* MinSizeRel */,
-				0BF7997E19BC4155803022B7 /* RelWithDebInfo */,
+				45F85FC1F95648F892E26A90 /* Debug */,
+				54029E09FDA04F6E9B03CAED /* Release */,
+				15629C74143C41728965ACB5 /* MinSizeRel */,
+				954AE55348864E6FAE868C7E /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		A50D30A0335846DD8D1348B2 /* Build configuration list for PBXAggregateTarget "install" */ = {
+		88EA9FBEFDDB4E4288526606 /* Build configuration list for PBXProject "JUCE" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B1B420E7EC8E4C8FB6A07E76 /* Debug */,
-				CFD03F847F1A4983B0723989 /* Release */,
-				F0392749328445AD84207C8B /* MinSizeRel */,
-				6BC42D0572E3475B8B5C49CE /* RelWithDebInfo */,
+				2EF91BC164DE4D688C1420CD /* Debug */,
+				ED75B35B68D44A2EA6033E5A /* Release */,
+				35AC4C4B2629469BAEAD683F /* MinSizeRel */,
+				86D245936C71423A9F1B7896 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		E22C73DA007A499685EB9A25 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+		F3934906D92F4647A205B6D9 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BF2A1B9DDCF94876A4BED186 /* Debug */,
-				AD12BC522CBE40598658D390 /* Release */,
-				D85F8410DF9E411D89752D33 /* MinSizeRel */,
-				06B5657DC7C94025B79D3A92 /* RelWithDebInfo */,
+				225CEE674330449E8FF5ACDB /* Debug */,
+				24CB6C43B64148318692852D /* Release */,
+				5971F454C4144A9CADBEFE6B /* MinSizeRel */,
+				A920234B7D154D62BEDA42E9 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
